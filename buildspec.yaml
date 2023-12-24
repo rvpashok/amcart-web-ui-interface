@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Angular application poc...
-      - npm install
+      - npm install --force
   build:
     commands:
       - echo Build started on `date`
