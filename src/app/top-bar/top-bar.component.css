@@ -1,0 +1,42 @@
+  .top-bar-search-box  {
+    min-width: 40%;
+    max-width: 50%;
+    margin-top: 15px;
+    padding-right: 10px;
+  }
+
+  .top-bar-category-select-box  {
+    min-width: 10%;
+    max-width: 10%;
+    margin-top: 15px;
+    margin-left: 15px;
+  }
+
+  .top-bar-login-button mat-icon{
+    margin-left: 20px;
+  }
+
+  .top-bar-login-button button{
+    margin-bottom: 15px;
+  }
+
+  .top-bar-cart-button mat-icon{
+    margin-left: 20px;
+  }
+
+  .top-bar-cart-button button{
+    margin-bottom: 15px;
+    margin-left: 10px;
+  }
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: green !important;
+   }
+  
+::ng-deep.mat-form-field-underline {
+    background-color: green !important;
+  } 
+  
+::ng-deep.mat-form-field-ripple {
+   background-color: green !important;
+  }

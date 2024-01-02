@@ -1,0 +1,19 @@
+.top-bar-content{
+    background-color: rgb(77, 80, 81);
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.body-content{
+    text-align: center;
+    height: 100%;
+}
+
+.bottom-bar-content{
+    background-color: rgb(77, 80, 81);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    
+}

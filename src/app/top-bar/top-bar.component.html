@@ -1,0 +1,28 @@
+<mat-grid-list cols="1" rowHeight="15:1">
+    <mat-grid-tile>
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+        <mat-form-field class="top-bar-category-select-box" appearance="outline" color="accent">
+            <mat-label>Select Category</mat-label>
+            <mat-select>
+                <mat-option value="option">Option</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field  class="top-bar-search-box" appearance="outline" color="accent">
+            <input type="search" matInput placeholder="Search in AmCart.com" (keyup)="onKey($event)">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        
+        <div class="top-bar-login-button" >
+            <mat-icon aria-hidden="false" aria-label="Login icon" fontIcon="supervised_user_circle"></mat-icon>
+            <button color="primary" mat-button [matMenuTriggerFor]="menu">Login</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>Login</button>
+                <button mat-menu-item>Register</button>
+            </mat-menu>
+        </div>
+        <div class="top-bar-cart-button" >
+            <mat-icon aria-hidden="false" aria-label="Cart icon" fontIcon="shopping_cart"></mat-icon>
+            <button mat-stroked-button color="primary">Cart</button>
+        </div>
+    </mat-grid-tile>
+  </mat-grid-list>
