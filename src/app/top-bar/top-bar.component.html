@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="15:1">
+<!--<mat-grid-list cols="1" rowHeight="15:1">
     <mat-grid-tile>
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
         <mat-form-field class="top-bar-category-select-box" appearance="outline" color="accent">
@@ -25,4 +25,16 @@
             <button mat-stroked-button color="primary">Cart</button>
         </div>
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list>-->
+  <p-toolbar styleClass="bg-gray-300 shadow-2" [style]="{ '!important padding': '10px' , 
+  'border-radius': '0.3rem', 'background-image': 'linear-gradient(to right, var(--bluegray-600), var(--bluegray-600))' }">
+      
+    <div class="p-toolbar-group-start">
+        <div class="card flex justify-content-center">
+            <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)"></p-autoComplete>
+        </div>
+    </div>
+    <div class="p-toolbar-group-start">
+          <p>Press Release</p>
+      </div>
+  </p-toolbar>

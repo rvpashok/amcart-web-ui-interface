@@ -7,6 +7,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { SearchService } from '../Service/search-service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductSearchResponse } from '../model/search-results';
 
 
 @Component({
@@ -19,16 +22,34 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 })
 export class ProductsListingComponent {
 
-  public productList : any ;
+  public productList = new Array<ProductSearchResponse>();
   public filterCategory : any
   searchKey:string ="";
-  constructor() {
-    this.productList=[new Product("1","121","Name 1","Short Description 1","Long Description 1", 100),
-    new Product("2","122","Name 2","Short Description 2","Long Description 2", 200),
-    new Product("3","123","Name 3","Short Description 3","Long Description 3", 10.3),
-    new Product("4","124","Name 4","Short Description 4","Long Description 4", 12.35)]
+  constructor(private searchService: SearchService, private router : ActivatedRoute) {
+    // this.productList=[new Product("1","121","Name 1","Short Description 1","Long Description 1", 100),
+    // new Product("2","122","Name 2","Short Description 2","Long Description 2", 200),
+    // new Product("3","123","Name 3","Short Description 3","Long Description 3", 10.3),
+    // new Product("4","124","Name 4","Short Description 4","Long Description 4", 12.35),
+    // new Product("5","121","Name 5","Short Description 1","Long Description 1", 100),
+    // new Product("6","122","Name 6","Short Description 2","Long Description 2", 200),
+    // new Product("7","123","Name 7","Short Description 3","Long Description 3", 10.3),
+    // new Product("8","124","Name 8","Short Description 4","Long Description 4", 12.35)]
+
+    // this.searchService.fetchSearchData("Laptop").subscribe( (response)=>{
+    //   console.log("API Response: " + response);
+    var searchTerm = this.router.snapshot.paramMap.get("selectedSearchTerm")!= null ? this.router.snapshot.paramMap.get("selectedSearchTerm") : "";
+    
+    if(searchTerm){
+      var searchResults = new Array<ProductSearchResponse>();
+    this.searchService.fetchSearchData(searchTerm).subscribe( (response)=>{
+     console.log("API Response: " + response);
+     this.productList = response;
+      
+
     console.log(this.productList)
-   }
+   });
+  
+  }}
 
   addtocart(){
     console.log("Add To Cart Button clicked");
