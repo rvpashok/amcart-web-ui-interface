@@ -26,14 +26,24 @@
         </div>
     </mat-grid-tile>
   </mat-grid-list>-->
-  <p-toolbar styleClass="bg-gray-300 shadow-2" [style]="{ 'padding-left': '35%' , 
+  <p-toolbar styleClass="bg-gray-300 shadow-2" [style]="{ 'padding-left': '3%' , 
   'border-radius': '0.3rem', 'background-image': 'linear-gradient(to right, var(--bluegray-600), var(--bluegray-600))' }">
-    
+    <div class="card flex justify-content-start">
+        <img src="./assets/amcart-high-resolution-logo.ico"/>
+    </div>
     <div class="card flex justify-content-center" style="display: inline-block;">
         <div class="card flex justify-content-center">
             <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName"
-         [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
-            <p-autoComplete placeholder="Search Products in AmCart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)"></p-autoComplete>
+                [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
+            <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" 
+                (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)"></p-autoComplete>
         </div>
     </div>
+    <div class="card flex justify-content-center flex-wrap gap-3">
+        <p-splitButton label="Account" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2"></p-splitButton>
+    </div>
+    <div class="card flex justify-content-center">
+        <button pButton pRipple label="Cart" p-button-icon="pi pi-shopping-cart"></button>
+    </div>
+
   </p-toolbar>

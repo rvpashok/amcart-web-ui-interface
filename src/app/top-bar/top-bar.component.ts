@@ -17,6 +17,11 @@ import { ProductSearchResponse, SuggestionResponse } from '../model/search-resul
 import { ProductsListingComponent } from '../products-listing/products-listing.component';
 import { Router } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
+
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -33,28 +38,24 @@ interface Category {
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule,
     MatSelectModule,MatGridListModule, MatMenuModule, MatButtonModule,
-    AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule],
+    AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule,
+    SplitButtonModule, ButtonModule],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
 export class TopBarComponent {
   values = '';
-
-
   constructor(private searchService: SearchService, 
     private productService: ProductService,
     private router : Router){
 
 
   }
-
   selectedItem: any;
-
   suggestions = new Array<string>();
-
   categories = new Array<Category>();
-
-    selectedCategory: Category | undefined;
+  selectedCategory: Category | undefined;
+  items = new Array<MenuItem>();
 
     ngOnInit() {
         this.productService.fetchSearchCategoryData().subscribe((reponse)=>{
@@ -62,10 +63,39 @@ export class TopBarComponent {
           this.categories = reponse;
           this.selectedCategory = this.categories[0];
         })
-
+        
+        this.items = [
+          {
+              label: 'Login',
+              icon: 'pi pi-refresh',
+              command: () => {
+                  this.login();
+              }
+          },{ separator: true },
+          {
+              label: 'Register',
+              icon: 'pi pi-times',
+              command: () => {
+                  this.register();
+              }
+          },{ separator: true },
+          {
+            label: 'Notifications',
+            icon: 'pi pi-times'
+        },{ separator: true }
+      ];
     }
 
+  save(severity: string) {
+      console.log("Login button Save" + { severity: severity, summary: 'Success', detail: 'Data Saved' });
+  } 
+  login(){
+    console.log("Login button Clicker");
+  }
   
+  register(){
+    console.log("Register button Clicker")
+  }
 
   search(event: AutoCompleteCompleteEvent) {
     var resultsSuggestions = new Array<string>();
@@ -77,9 +107,14 @@ export class TopBarComponent {
         console.log(x);
         resultsSuggestions.push(x);
     });
-      this.suggestions = resultsSuggestions;
+      this.suggestions = this.removeDuplicates(resultsSuggestions);
   });
     
+  }
+
+  removeDuplicates(arr: Array<string>) { 
+    return arr.filter((item, 
+        index) => arr.indexOf(item) === index); 
   }
 
   suggestionSelected(event : AutoCompleteSelectEvent){

@@ -40,3 +40,7 @@
 ::ng-deep.mat-form-field-ripple {
    background-color: green !important;
   }
+
+  .p-autocomplete input{
+    width: 100%;
+  }

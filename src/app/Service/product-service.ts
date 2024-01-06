@@ -11,7 +11,7 @@ export class ProductService{
     constructor(private http: HttpClient) { }
 
     fetchSearchCategoryData(){
-        return this.http.get<Array<CategorySearchResponse>>("http://localhost:8081/productservices/categories/search",{"responseType":"json"})
+        return this.http.get<Array<CategorySearchResponse>>("http://localhost:9010/orchestrationservices/api/search/categories",{"responseType":"json"})
         .pipe(
             map(res => {
                 console.log('Pipe reponse' + res);

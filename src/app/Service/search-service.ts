@@ -12,7 +12,7 @@ export class SearchService{
 
     fetchSuggestions(searchTerm:string){
             console.log("SearchTerm:" + searchTerm);
-            return this.http.get<SearchSuggestionsResults>("http://localhost:8085/searchservices/search/products/suggestions",{params:{"searchTerm":searchTerm.trim()},"responseType":"json"})
+            return this.http.get<SearchSuggestionsResults>("http://localhost:9010/orchestrationservices/api/search/products/suggestions",{params:{"searchTerm":searchTerm.trim()},"responseType":"json"})
            /* response.subscribe( (res)=>{
                 console.log(res.content);
             })*/
@@ -27,7 +27,7 @@ export class SearchService{
 
     fetchSearchData(searchTerm:string){
         console.log("SearchTerm:" + searchTerm);
-        return this.http.get<SearchResults>("http://localhost:8085/searchservices/search/products",{params:{"searchTerm":searchTerm.trim()},"responseType":"json"})
+        return this.http.get<SearchResults>("http://localhost:9010/orchestrationservices/api/search/products",{params:{"searchTerm":searchTerm.trim()},"responseType":"json"})
         .pipe(
             map(res => {
                 console.log('Pipe reponse' + res);
