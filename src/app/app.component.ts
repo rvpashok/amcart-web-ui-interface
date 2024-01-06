@@ -14,5 +14,4 @@ import {ProductsListingComponent} from './products-listing/products-listing.comp
 })
 export class AppComponent {
   title = 'AmCart.com';
-  public productList : any ;
 }

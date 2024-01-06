@@ -2,6 +2,13 @@ export interface SuggestionResponse{
     'name': string;
 }
 
+export interface CategorySearchResponse{
+    'id' : string
+    'categoryId' : string
+    'name' : string
+    'displayName' : string
+ }
+
 export interface ProductSearchResponse{
     'id' : string
     'productId' : string

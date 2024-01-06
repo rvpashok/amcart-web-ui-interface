@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -9,16 +9,23 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
 import { SearchService } from '../Service/search-service';
+import {ProductService} from '../Service/product-service'
 import { AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CommonModule } from '@angular/common';
 import { ProductSearchResponse, SuggestionResponse } from '../model/search-results';
 import { ProductsListingComponent } from '../products-listing/products-listing.component';
 import { Router } from '@angular/router';
+import { DropdownModule } from 'primeng/dropdown';
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
   query: string;
+}
+
+interface Category {
+  displayName: string;
+  categoryId: string;
 }
 
 @Component({
@@ -26,20 +33,37 @@ interface AutoCompleteCompleteEvent {
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule,
     MatSelectModule,MatGridListModule, MatMenuModule, MatButtonModule,
-    AutoCompleteModule, ToolbarModule, CommonModule],
+    AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
 export class TopBarComponent {
   values = '';
 
-  constructor(private searchService: SearchService, private router : Router){
+
+  constructor(private searchService: SearchService, 
+    private productService: ProductService,
+    private router : Router){
+
 
   }
 
   selectedItem: any;
 
   suggestions = new Array<string>();
+
+  categories = new Array<Category>();
+
+    selectedCategory: Category | undefined;
+
+    ngOnInit() {
+        this.productService.fetchSearchCategoryData().subscribe((reponse)=>{
+          console.log("Category API Response:" + reponse);
+          this.categories = reponse;
+          this.selectedCategory = this.categories[0];
+        })
+
+    }
 
   
 
