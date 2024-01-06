@@ -39,7 +39,7 @@ export class TopBarComponent {
 
   selectedItem: any;
 
-  suggestions: any[] | undefined;
+  suggestions = new Array<string>();
 
   
 
