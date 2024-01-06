@@ -37,7 +37,7 @@ export class TopBarComponent {
 
   }
 
-  //selectedItem: any;
+  selectedItem: any;
 
   suggestions: any[] | undefined;
 
