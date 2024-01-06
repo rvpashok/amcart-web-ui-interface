@@ -17,6 +17,6 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the files into s3 bucket
-      - aws s3 sync dist/ s3://amcart-web-ui --delete
+      - aws s3 sync dist/app s3://amcart-web-ui --delete
       - aws cloudfront create-invalidation --distribution-id E2RBYVEDUG799D --paths "/*"
       - while [ $(aws cloudfront get-distribution --id E2RBYVEDUG799D | grep -c Deployed) -eq 0 ]; do echo "sleep 60s"; sleep 60;
