@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -20,6 +20,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { AuthModule, AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
+
+
 
 
 
@@ -39,16 +43,21 @@ interface Category {
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule,
     MatSelectModule,MatGridListModule, MatMenuModule, MatButtonModule,
     AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule,
-    SplitButtonModule, ButtonModule],
+    SplitButtonModule, ButtonModule, AuthModule],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
 export class TopBarComponent {
   values = '';
+  //public auth: AuthService
   constructor(private searchService: SearchService, 
     private productService: ProductService,
-    private router : Router){
-
+    private router : Router,
+    public auth: AuthService,
+    @Inject(DOCUMENT) private doc: Document){
+      console.log("AuthModule configggggggggggggg Clicker");
+      //this.auth = AuthService
+      //console.log("Login button Clicker" + JSON.parse(JSON.stringify(this.auth.isAuthenticated$)));
 
   }
   selectedItem: any;
@@ -66,19 +75,19 @@ export class TopBarComponent {
         
         this.items = [
           {
-              label: 'Login',
+              label: 'Manage Profile',
               icon: 'pi pi-refresh',
               command: () => {
-                  this.login();
+                  this.profile();
               }
-          },{ separator: true },
+          },
           {
-              label: 'Register',
+              label: 'Orders',
               icon: 'pi pi-times',
               command: () => {
-                  this.register();
+                  this.orders();
               }
-          },{ separator: true },
+          },
           {
             label: 'Notifications',
             icon: 'pi pi-times'
@@ -89,11 +98,25 @@ export class TopBarComponent {
   save(severity: string) {
       console.log("Login button Save" + { severity: severity, summary: 'Success', detail: 'Data Saved' });
   } 
+
+  profile(){
+    console.log("Profile button Clicker" + this.auth.isAuthenticated$);
+   // this.auth.loginWithRedirect();
+    
+  }
+
   login(){
-    console.log("Login button Clicker");
+    console.log("Login button Clicker" + this.auth.isAuthenticated$);
+    this.auth.loginWithRedirect();
+    
+  }
+
+  logout(event:Event) {  
+    console.log("Logout button Clicker" + this.doc.location.origin);
+    this.auth.logout({ logoutParams: { returnTo: this.doc.location.origin } });
   }
   
-  register(){
+  orders(){
     console.log("Register button Clicker")
   }
 

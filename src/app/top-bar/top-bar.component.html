@@ -39,9 +39,19 @@
                 (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)"></p-autoComplete>
         </div>
     </div>
-    <div class="card flex justify-content-center flex-wrap gap-3">
+
+    <div class="card flex justify-content-center" *ngIf="(auth.isAuthenticated$ | async) === false">
+        <p-button label="Login" (onClick)="login()"></p-button>
+    </div>
+
+    <div class="card flex justify-content-center flex-wrap gap-3" *ngIf="auth.isAuthenticated$ | async">
         <p-splitButton label="Account" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2"></p-splitButton>
     </div>
+
+    <div class="card flex justify-content-center" *ngIf="auth.isAuthenticated$ | async">
+        <p-button label="Logout" (onClick)="logout($event)"></p-button>
+    </div>
+    
     <div class="card flex justify-content-center">
         <button pButton pRipple label="Cart" p-button-icon="pi pi-shopping-cart"></button>
     </div>
