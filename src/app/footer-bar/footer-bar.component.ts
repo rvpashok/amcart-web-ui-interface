@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer-bar',
@@ -11,7 +12,15 @@ import { CommonModule } from '@angular/common';
 })
 export class FooterBarComponent {
 
-  onClick(){
+  constructor(private router : Router){
+
+  }
+
+  onClickAboutUs(){
+    console.log("AboutUs clicked");
+    this.router.navigate(['/about-us'])
+  }
+  onClickCareers(){
     console.log("Careers clicked");
   }
 }

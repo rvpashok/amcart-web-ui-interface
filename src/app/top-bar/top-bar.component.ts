@@ -22,7 +22,7 @@ import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
-
+import { CommonService } from '../Service/common.service';
 
 
 
@@ -54,11 +54,9 @@ export class TopBarComponent {
     private productService: ProductService,
     private router : Router,
     public auth: AuthService,
-    @Inject(DOCUMENT) private doc: Document){
+    @Inject(DOCUMENT) private doc: Document,
+    private commonService:CommonService){
       console.log("AuthModule configggggggggggggg Clicker");
-      //this.auth = AuthService
-      //console.log("Login button Clicker" + JSON.parse(JSON.stringify(this.auth.isAuthenticated$)));
-
   }
   selectedItem: any;
   suggestions = new Array<string>();
@@ -90,9 +88,25 @@ export class TopBarComponent {
           },
           {
             label: 'Notifications',
-            icon: 'pi pi-times'
+            icon: 'pi pi-times',
+            command: () => {
+              this.notifications();
+          }
         },{ separator: true }
       ];
+      this.auth.idTokenClaims$.subscribe((idToken) => {
+        console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
+        var accessToken = idToken?.__raw;
+        if(accessToken != null && accessToken != undefined){
+          this.commonService.setItem("accessToken",accessToken);
+          console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
+        }
+        
+      });
+  
+      // this.auth.accessToken$.subscribe((accessToken) => {
+      //   console.log('Access Token:', accessToken);
+      // });
     }
 
   save(severity: string) {
@@ -102,7 +116,7 @@ export class TopBarComponent {
   profile(){
     console.log("Profile button Clicker" + this.auth.isAuthenticated$);
    // this.auth.loginWithRedirect();
-    
+   this.router.navigate(['/profile'])
   }
 
   login(){
@@ -113,11 +127,18 @@ export class TopBarComponent {
 
   logout(event:Event) {  
     console.log("Logout button Clicker" + this.doc.location.origin);
+    this.commonService.setItem("accessToken","");
     this.auth.logout({ logoutParams: { returnTo: this.doc.location.origin } });
   }
   
   orders(){
-    console.log("Register button Clicker")
+    console.log("Orders button Clicker")
+    this.router.navigate(['/orders'])
+  }
+
+  notifications(){
+    console.log("Notification button Clicker")
+    this.router.navigate(['/notifications'])
   }
 
   search(event: AutoCompleteCompleteEvent) {
