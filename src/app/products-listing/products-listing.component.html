@@ -98,7 +98,7 @@
     </div>
 </ng-container> -->
 
-<div class="content">
+<!--<div class="content">
     <div fxLayout="row wrap" fxLayoutGap="10px grid">
       <div fxFlex="24%" fxFlex.xs="100%"
       fxFlex.sm="33%" 
@@ -113,7 +113,7 @@
           />
           <mat-card-content>
             <p>{{item.shortDescription}}</p>
-            <!-- <p style="color: red;"><strong>Price:</strong> {{item.price}}</p> -->
+            <!-- <p style="color: red;"><strong>Price:</strong> {{item.price}}</p> 
           </mat-card-content>
           <mat-card-actions>
             <button mat-button (click)=addtocart() style="margin-left: 35%;">Add To Cart</button>
@@ -121,4 +121,108 @@
         </mat-card>
       </div>
     </div>
-  </div>
+  </div> -->
+
+  <!-- <p-dataView [value]="productList">
+    <ng-template let-product pTemplate="listItem">
+      <div class="product">
+        <img src="{{product.image}}" alt="{{product.name}}">
+        <h3>{{product.name}}</h3>
+        <p>{{product.description}}</p>
+        <span class="price">{{product.price | currency:'USD':true}}</span>
+      </div>
+    </ng-template>
+  </p-dataView> -->
+
+  
+<!-- <div class="card">
+  <p-dataView #dv [value]="productList">
+      <ng-template pTemplate="list" let-products>
+          <div class="grid grid-nogutter">
+              <div class="col-12" *ngFor="let item of productList; let first = first">
+                  <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                       <img class="w-9 sm:w-16rem xl:w-3rem shadow-2 block xl:block mx-auto border-round" [src]="'https://rukminim1.flixcart.com/image/580/696/kkh6zrk0/jewellery-set/o/w/z/gt-ns-862-matushri-art-original-imafzt9teacakjyn.jpeg?q=50'" />
+                      <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                          <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                              <div class="text-2xl font-bold text-900">{{item.name}}</div>
+                              <div class="flex align-items-center gap-3">
+                                  <span class="flex align-items-center gap-2">
+                                      <i class="pi pi-tag"></i>
+                                      <span class="font-semibold">{{item.shortDescription}}</span>
+                                  </span>
+                              </div>
+                          </div>
+                          <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                              <span class="text-2xl font-semibold">{{item.brand}}</span>
+                              <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded"></button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </ng-template>
+  </p-dataView>
+</div> -->
+
+
+
+<div class="card">
+  <p-dataView #dv [value]="productList">
+      <ng-template pTemplate="header">
+          <div class="flex justify-content-end">
+              <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+          </div>
+      </ng-template>
+      <ng-template let-product pTemplate="list" let-products>
+          <div class="grid grid-nogutter">
+              <div class="col-12" *ngFor="let product of products; let first = first">
+                  <div id="productItem" [attr.data-id]="product.productId" class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }" (click)="productClick($event)">
+                      <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="product.skuMediaUrl" [alt]="product.name" />
+                      <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                          <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                              <div class="text-2xl font-bold text-900">{{ product.name }}</div>
+                              <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
+                              <div class="flex align-items-center gap-3">
+                                  <span class="flex align-items-center gap-2">
+                                      <i class="pi pi-tag"></i>
+                                      <span class="font-semibold">{{ product.category }}</span>
+                                  </span>
+                                  <!-- <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag> -->
+                              </div>
+                          </div>
+                          <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                              <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                              <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </ng-template>
+      <ng-template let-product pTemplate="grid" let-products>
+          <div class="grid grid-nogutter">
+              <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" *ngFor="let product of products">
+                  <div id="productItem" attr-id="product.productId" class="p-4 border-1 surface-border surface-card border-round">
+                      <div class="flex flex-wrap align-items-center justify-content-between gap-2">
+                          <span class="flex align-items-center gap-2">
+                              <i class="pi pi-tag"></i>
+                              <span class="font-semibold">{{ product.category }}</span>
+                          </span>
+                          <!-- <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag> -->
+                      </div>
+                      <div class="flex flex-column align-items-center gap-3 py-5">
+                          <img class="w-9 shadow-2 border-round" [src]="product.skuMediaUrl" [alt]="product.name" />
+                          <div class="text-2xl font-bold">{{ product.name }}</div>
+                         <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
+                      </div>
+                      <div class="flex align-items-center justify-content-between">
+                          <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                          <button pButton icon="pi pi-shopping-cart" class="p-button-rounded"></button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </ng-template>
+  </p-dataView>
+</div>
+  

@@ -5,11 +5,15 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { FooterBarComponent } from './footer-bar/footer-bar.component';
 import {ProductsListingComponent} from './products-listing/products-listing.component';
 
+import { DataViewLayoutOptions } from 'primeng/dataview';
+import { DataViewModule } from 'primeng/dataview';
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, TopBarComponent, FooterBarComponent,
-    ProductsListingComponent
+    ProductsListingComponent, DataViewModule
   ],
   providers:[],
   templateUrl: './app.component.html',
@@ -19,4 +23,6 @@ import {ProductsListingComponent} from './products-listing/products-listing.comp
 
 export class AppComponent {
   title = 'AmCart.com';
+  layoutOptions: DataViewLayoutOptions[] = [
+  ];
 }

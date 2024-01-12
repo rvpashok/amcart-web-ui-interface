@@ -12,12 +12,14 @@ import { CommonService } from './Service/common.service';
 import { AuthInterceptor } from './Service/auth-interceptor.service';
 
 
+
+
 export const appConfig: ApplicationConfig = {
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true,
-  },CommonService, provideRouter(routes), provideAnimations(),importProvidersFrom(HttpClientModule,  AuthModule.forRoot({
+  },CommonService, provideRouter(routes), provideAnimations(),importProvidersFrom( HttpClientModule,  AuthModule.forRoot({
     domain: 'dev-8vycaujdypum3hac.us.auth0.com',
     clientId: 'mjPJo53yJJEsti1WuTg32WLmyi2CKT6M',
     authorizationParams: {

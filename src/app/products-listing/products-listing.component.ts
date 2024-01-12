@@ -10,13 +10,15 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { SearchService } from '../Service/search-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductSearchResponse } from '../model/search-results';
+import { DataViewModule } from 'primeng/dataview';
+
 
 
 @Component({
   selector: 'app-products-listing',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
-    MatToolbarModule],
+    MatToolbarModule, DataViewModule],
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.css'
 })
@@ -25,7 +27,10 @@ export class ProductsListingComponent {
   public productList = new Array<ProductSearchResponse>();
   public filterCategory : any
   searchKey:string ="";
-  constructor(private searchService: SearchService, private router : ActivatedRoute) {
+  layout: string = 'list';
+  constructor(private searchService: SearchService, private router : Router,
+    private activatedRoute: ActivatedRoute) {
+   
     // this.productList=[new Product("1","121","Name 1","Short Description 1","Long Description 1", 100),
     // new Product("2","122","Name 2","Short Description 2","Long Description 2", 200),
     // new Product("3","123","Name 3","Short Description 3","Long Description 3", 10.3),
@@ -37,7 +42,7 @@ export class ProductsListingComponent {
 
     // this.searchService.fetchSearchData("Laptop").subscribe( (response)=>{
     //   console.log("API Response: " + response);
-    var searchTerm = this.router.snapshot.paramMap.get("selectedSearchTerm")!= null ? this.router.snapshot.paramMap.get("selectedSearchTerm") : "";
+    var searchTerm = this.activatedRoute.snapshot.paramMap.get("selectedSearchTerm")!= null ? this.activatedRoute.snapshot.paramMap.get("selectedSearchTerm") : "";
     
     if(searchTerm){
       var searchResults = new Array<ProductSearchResponse>();
@@ -51,11 +56,36 @@ export class ProductsListingComponent {
   
   }}
 
+  getSeverity(product: Product) {
+    switch (product.name) {
+        case 'INSTOCK':
+            return 'success';
+
+        case 'LOWSTOCK':
+            return 'warning';
+
+        case 'OUTOFSTOCK':
+            return 'danger';
+
+        default:
+            return null;
+    }
+};
+
   addtocart(){
     console.log("Add To Cart Button clicked");
   }
 
   filter(filter: string){
     console.log("Filter Button clicked");
+  }
+
+  productClick(event: Event){
+    var selectedProduct = "156836";
+    if(event.currentTarget != null && event.currentTarget instanceof EventTarget){
+      //selectedProduct = event.currentTarget.getAttribute("data-id");
+    }
+    console.log("Product Cicked from listing");
+    this.router.navigate(['/product-detail', { 'productId': selectedProduct}])
   }
 }

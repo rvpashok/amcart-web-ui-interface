@@ -23,6 +23,7 @@ import { ButtonModule } from 'primeng/button';
 import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
 import { CommonService } from '../Service/common.service';
+import { PrimeIcons } from 'primeng/api';
 
 
 
@@ -142,6 +143,7 @@ export class TopBarComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
+    console.log("AutoCompleteCompleteEvent selected: " + event);
     var resultsSuggestions = new Array<string>();
      this.searchService.fetchSuggestions(event.query).subscribe( (response)=>{
       console.log("API Response: " + response);
@@ -153,7 +155,12 @@ export class TopBarComponent {
     });
       this.suggestions = this.removeDuplicates(resultsSuggestions);
   });
-    
+  }
+
+  onEnter(event: Event){
+    console.log("Enter pressed selected: " + this.selectedItem);
+    this.router.navigate(['/product', { 'selectedSearchTerm': encodeURIComponent(this.selectedItem) }])
+
   }
 
   removeDuplicates(arr: Array<string>) { 
@@ -180,7 +187,7 @@ export class TopBarComponent {
    // window.location.reload();
    
    //this.router.navigateByUrl("/product", {state:{'productListResponse':searchResults}});
-   this.router.navigate(['/product', { 'selectedSearchTerm': event.value }])
+   this.router.navigate(['/product', { 'selectedSearchTerm': encodeURIComponent(event.value) }])
   }
 
 }

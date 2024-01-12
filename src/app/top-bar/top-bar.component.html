@@ -36,7 +36,7 @@
             <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName"
                 [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
             <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" 
-                (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)"></p-autoComplete>
+                (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)"></p-autoComplete>
         </div>
     </div>
 

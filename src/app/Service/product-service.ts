@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CategorySearchResponse } from '../model/search-results';
+import { CategorySearchResponse, ProductSearchResponse } from '../model/search-results';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -20,5 +20,14 @@ export class ProductService{
         );
         
 }
+    fetchProductDetails(){
+        return this.http.get<Array<ProductSearchResponse>>("http://localhost:9010/orchestrationservices/api/product/156834",{"responseType":"json"})
+        .pipe(
+            map(res => {
+                console.log('Pipe reponse' + res);
+                return res;
+            })
+        );
+    }
 
 }
