@@ -20,8 +20,8 @@ export class ProductService{
         );
         
 }
-    fetchProductDetails(){
-        return this.http.get<Array<ProductSearchResponse>>("http://localhost:9010/orchestrationservices/api/product/156834",{"responseType":"json"})
+    fetchProductDetails(productId : string){
+        return this.http.get<ProductSearchResponse>("http://localhost:9010/orchestrationservices/api/products/" + productId,{"responseType":"json"})
         .pipe(
             map(res => {
                 console.log('Pipe reponse' + res);

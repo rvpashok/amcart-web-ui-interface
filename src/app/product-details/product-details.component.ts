@@ -20,7 +20,7 @@ export class ProductDetailsComponent {
 
     if(productId){
 
-    this.productService.fetchProductDetails().subscribe( (response)=>{
+    this.productService.fetchProductDetails(productId).subscribe( (response)=>{
      console.log("API Response: " + response);
      this.productDetails = response;
       
