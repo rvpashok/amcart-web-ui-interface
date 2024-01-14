@@ -44,3 +44,12 @@
   .p-autocomplete input{
     width: 100%;
   }
+
+.amcartMenuItem{
+    color: #0f54e9;
+    background-color: red;
+  }
+
+  html body .p-menubar .p-menubar-end{
+    margin-right: 10% !important;
+  }

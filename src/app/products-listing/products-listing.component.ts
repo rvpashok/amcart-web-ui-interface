@@ -30,8 +30,12 @@ export class ProductsListingComponent {
   layout: string = 'list';
   constructor(private searchService: SearchService, private router : Router,
     private activatedRoute: ActivatedRoute) {
-    var searchTerm = this.activatedRoute.snapshot.paramMap.get("searchTerm")!= null ? this.activatedRoute.snapshot.paramMap.get("searchTerm") : "";
-    var categoryId = this.activatedRoute.snapshot.paramMap.get("categoryId")!= null ? this.activatedRoute.snapshot.paramMap.get("categoryId") : "";
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+    };  
+    const navigation = this.router.getCurrentNavigation();  
+    var searchTerm = navigation?.extras.queryParams?.["searchTerm"];
+    var categoryId = navigation?.extras.queryParams?.["categoryId"];
     if(searchTerm || categoryId){
       var searchResults = new Array<ProductSearchResponse>();
       this.searchService.fetchSearchData(searchTerm, categoryId).subscribe( (response)=>{

@@ -26,7 +26,9 @@
         </div>
     </mat-grid-tile>
   </mat-grid-list>-->
-  <p-toolbar styleClass="bg-gray-300 shadow-2" [style]="{ 'padding-left': '3%' , 
+
+<!-- Tool Bar Html Started-->
+  <!--<p-toolbar styleClass="bg-gray-300 shadow-2" [style]="{ 'padding-left': '3%' , 
   'border-radius': '0.3rem', 'background-image': 'linear-gradient(to right, var(--purple-50), var(--purple-50))' }">
     <div class="card flex justify-content-start" (click)=onClickHomeIcon()>
         <img src="./assets/amcart-high-resolution-logo.ico"/>
@@ -41,7 +43,7 @@
     </div>
 
     <div class="card flex justify-content-center" *ngIf="(auth.isAuthenticated$ | async) === false">
-        <p-button label="Login" (onClick)="login()"></p-button>
+        <p-button label="Login" (onClick)="login($event)"></p-button>
     </div>
 
     <div class="card flex justify-content-center flex-wrap gap-3" *ngIf="auth.isAuthenticated$ | async">
@@ -56,4 +58,35 @@
         <button pButton pRipple label="Cart" p-button-icon="pi pi-shopping-cart"></button>
     </div>
 
-  </p-toolbar>
+  </p-toolbar> ->> -->
+<!-- Tool Bar Html Ended -->
+
+<!-- Menu Bar Html Started-->
+  <div class="card" >
+    <p-menubar [model]="this.categoryMenuBarItem" [style]="{'border-radius': '0.3rem', 'background-image': 'linear-gradient(to right, var(--purple-50), var(--purple-50))'}">
+        <ng-template pTemplate="start">
+            <!-- <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" /> -->
+            <div class="justify-content-start" (click)=onClickHomeIcon() style="margin-right: 1%;margin-left: 1px;">
+                <img src="./assets/amcart-high-resolution-logo.ico" height="50" class="mr-4" />
+            </div>
+        </ng-template>
+        
+        <ng-template pTemplate="end">
+                   
+            <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName" optionValue="categoryId"
+                [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
+            <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" 
+                (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" 
+                dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)" [style]="{'margin-right': '3%'}" ></p-autoComplete>
+            <p-button label="Login" (onClick)="login($event)"  [style]="{'margin-right': '3%'}" *ngIf="(auth.isAuthenticated$ | async) === false"> </p-button>
+            <p-splitButton label="Account" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
+                    *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-splitButton>
+            <p-button label="Logout" (onClick)="logout($event)" *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-button>
+            <p-button label="Cart" (onClick)="login($event)"  [style]="{'margin-right': '3%'}"> </p-button>
+                <!-- <button pButton pRipple label="Cart" p-button-icon="pi pi-shopping-cart" style="margin-right: 0.1%;"></button> -->
+        </ng-template> 
+
+    </p-menubar>
+</div>
+<!-- Menu Bar Html Ended-->
+

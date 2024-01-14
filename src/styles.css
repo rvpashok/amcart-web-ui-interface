@@ -3,8 +3,31 @@
 @import "primeng/resources/primeng.css";
 @import "primeng/resources/primeng.min.css";
 @import "primeicons/primeicons.css";
+@import 'font-awesome/css/font-awesome.min.css';
 
 
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+  @media screen and (min-width: 600px) {
+    html body .p-menubar .p-menubar-end{
+        /* margin-left: 3% !important; */
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 75%;
+      }
+  }
+
+  @media screen and (min-width: 1200px) {
+    html body .p-menubar .p-menubar-end{
+        /* margin-left: 3% !important; */
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 50%;
+      }
+  }

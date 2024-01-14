@@ -7,6 +7,7 @@ export interface CategorySearchResponse{
     'categoryId' : string
     'name' : string
     'displayName' : string
+    'parentCategoryId': string
  }
 
 export interface ProductSearchResponse{

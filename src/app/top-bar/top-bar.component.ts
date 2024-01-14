@@ -1,5 +1,4 @@
 import { Component, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
@@ -7,14 +6,11 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { HttpClient } from '@angular/common/http';
 import { SearchService } from '../Service/search-service';
 import {ProductService} from '../Service/product-service'
 import { AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CommonModule } from '@angular/common';
-import { ProductSearchResponse, SuggestionResponse } from '../model/search-results';
-import { ProductsListingComponent } from '../products-listing/products-listing.component';
 import { Router } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -24,6 +20,9 @@ import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
 import { CommonService } from '../Service/common.service';
 import { PrimeIcons } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 
 
@@ -36,15 +35,16 @@ interface AutoCompleteCompleteEvent {
 interface Category {
   displayName: string;
   categoryId: string;
+  parentCategoryId: string;
 }
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule,
+  imports: [FormsModule, MatFormFieldModule, MatInputModule,
     MatSelectModule,MatGridListModule, MatMenuModule, MatButtonModule,
     AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule,
-    SplitButtonModule, ButtonModule, AuthModule],
+    SplitButtonModule, ButtonModule, AuthModule, MenubarModule, InputGroupModule,InputGroupAddonModule],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
@@ -65,14 +65,16 @@ export class TopBarComponent /*implements AfterViewInit*/{
   categories = new Array<Category>();
   selectedCategory: Category | undefined;
   items = new Array<MenuItem>();
+  categoryMenuBarItem = new Array<MenuItem>();
 
   ngOnInit() {
         this.productService.fetchSearchCategoryData().subscribe((reponse)=>{
           console.log("Category API Response:" + reponse);
           this.categories = reponse;
           this.selectedCategory = this.categories[0];
+          this.categoryMenuBarItem = this.constructDynamicMenuBarItems(this.categories);
         })
-        
+
         this.items = [
           {
               label: 'Manage Profile',
@@ -124,6 +126,37 @@ export class TopBarComponent /*implements AfterViewInit*/{
   //   console.log("Inner HTML is:" + this.selectCategoryId.nativeElement.innerHTML);
   // }  
 
+  constructDynamicMenuBarItems(categoryList : Array<Category>){
+  var categoryMenuBarItemTemp = new Array<MenuItem>();
+  for(var idx = 0;idx<categoryList.length;idx++) {
+      var categoryItem = categoryList[idx];
+      if(categoryItem.parentCategoryId == null){
+        console.log(categoryItem);
+        var menuItem : MenuItem = {};
+        menuItem.label = categoryItem.displayName;
+        menuItem.id = categoryItem.categoryId;
+        //menuItem.styleClass = "amcartMenuItem";
+        menuItem.style  = {
+           'margin-right': '5px'
+         };
+        menuItem.command = (event)=>{
+          var navigationExtras = {
+            queryParams: { 'searchTerm': "",
+                            'categoryId':event.item?.id
+                          }
+          };
+          this.router.navigate(['/product'], navigationExtras);
+        };
+        //menuItem.separator = true;
+        //menuItem.queryParams = {'categoryId': categoryItem.categoryId };
+        //menuItem.icon = "pi pi-times";
+        categoryMenuBarItemTemp.push(menuItem);
+      }
+      
+    }
+    return categoryMenuBarItemTemp;
+  }
+
   save(severity: string) {
       console.log("Login button Save" + { severity: severity, summary: 'Success', detail: 'Data Saved' });
   } 
@@ -133,7 +166,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
    this.router.navigate(['/profile'])
   }
 
-  login(){
+  login(event:MouseEvent){
     console.log("Login button Clicker" + this.auth.isAuthenticated$);
     this.auth.loginWithRedirect();
     this.auth.getAccessTokenSilently();
@@ -177,7 +210,14 @@ export class TopBarComponent /*implements AfterViewInit*/{
   onEnter(event: Event){
     console.log("Enter pressed selected: " + this.selectedItem);
     this.selectedItem = this.selectedItem ? this.selectedItem : "";
-    this.router.navigate(['/product', { 'searchTerm': encodeURIComponent(this.selectedItem), 'categoryId': this.selectedCategory }])
+
+    var navigationExtras = {
+      queryParams: { 'searchTerm': encodeURIComponent(this.selectedItem),
+                      'categoryId':this.selectedCategory
+                    }
+    };
+    
+    this.router.navigate(['/product'], navigationExtras);
 
   }
 
