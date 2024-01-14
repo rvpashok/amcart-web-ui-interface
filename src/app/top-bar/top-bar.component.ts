@@ -65,7 +65,7 @@ export class TopBarComponent {
   selectedCategory: Category | undefined;
   items = new Array<MenuItem>();
 
-    ngOnInit() {
+  async ngOnInit() {
         this.productService.fetchSearchCategoryData().subscribe((reponse)=>{
           console.log("Category API Response:" + reponse);
           this.categories = reponse;
@@ -95,8 +95,13 @@ export class TopBarComponent {
           }
         },{ separator: true }
       ];
+      this.auth.getAccessTokenSilently().subscribe((accessToken)=>{
+        const accessTokenTemp = accessToken;
+        console.log("ACCCESSTOKEN::" + accessTokenTemp);
+      });
       this.auth.idTokenClaims$.subscribe((idToken) => {
         console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
+       
         var accessToken = idToken?.__raw;
         if(accessToken != null && accessToken != undefined){
           this.commonService.setItem("accessToken",accessToken);
@@ -123,6 +128,7 @@ export class TopBarComponent {
   login(){
     console.log("Login button Clicker" + this.auth.isAuthenticated$);
     this.auth.loginWithRedirect();
+    this.auth.getAccessTokenSilently();
     
   }
 
