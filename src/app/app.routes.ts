@@ -6,6 +6,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 export const routes: Routes = [
     {path:'product',component:ProductsListingComponent},
@@ -13,5 +14,6 @@ export const routes: Routes = [
     {path:'profile',component:ProfileComponent},
     {path:'about-us',component:AboutusComponent},
     {path:'notifications',component:NotificationComponent},
-    {path:'product-detail',component:ProductDetailsComponent}
+    {path:'product-detail',component:ProductDetailsComponent},
+    {path:'',component:HomePageComponent},
 ];

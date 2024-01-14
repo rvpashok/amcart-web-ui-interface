@@ -78,21 +78,21 @@ export class TopBarComponent /*implements AfterViewInit*/{
         this.items = [
           {
               label: 'Manage Profile',
-              icon: 'pi pi-refresh',
+              icon: 'fa fa-solid fa-user',
               command: () => {
                   this.profile();
               }
           },
           {
               label: 'Orders',
-              icon: 'pi pi-times',
+              icon: 'pi pi-history',
               command: () => {
                   this.orders();
               }
           },
           {
             label: 'Notifications',
-            icon: 'pi pi-times',
+            icon: 'fa fa-solid fa-bell',
             command: () => {
               this.notifications();
           }
@@ -237,23 +237,14 @@ export class TopBarComponent /*implements AfterViewInit*/{
     // console.log("selectCategoryId"+selectCategoryId?.nodeValue);
     console.log("Suggestion selected: " + event.value + " :: Selected Category: " + this.selectedCategory);
 
-    // var searchResults = new Array<ProductSearchResponse>();
-    //  this.searchService.fetchSearchData(event.value).subscribe( (response)=>{
-    //   console.log("API Response: " + response);
-    //   searchResults = response;
-    // //   response.forEach(function (arrayItem) {
-    // //     var x = arrayItem.name;
-    // //     console.log(x);
-    // //     searchResults.push(x);
-    // // });
-    // console.log("First PRoduct:" + searchResults[0].brand);
-   // var productComponent = new ProductsListingComponent();
-   // productComponent.productList = searchResults;
-   // console.log("updatedProductList" + productComponent.productList);
-   // window.location.reload();
-   
-   //this.router.navigateByUrl("/product", {state:{'productListResponse':searchResults}});
-   this.router.navigate(['/product', { 'searchTerm': encodeURIComponent(event.value) , 'categoryId': this.selectedCategory}])
+    var navigationExtras = {
+      queryParams: { 'searchTerm': encodeURIComponent(event.value),
+                      'categoryId':this.selectedCategory
+                    }
+    };
+    
+    this.router.navigate(['/product'], navigationExtras);
+   //this.router.navigate(['/product', { 'searchTerm': encodeURIComponent(event.value) , 'categoryId': this.selectedCategory}])
   }
 
 }
