@@ -28,12 +28,12 @@
   </mat-grid-list>-->
   <p-toolbar styleClass="bg-gray-300 shadow-2" [style]="{ 'padding-left': '3%' , 
   'border-radius': '0.3rem', 'background-image': 'linear-gradient(to right, var(--purple-50), var(--purple-50))' }">
-    <div class="card flex justify-content-start">
+    <div class="card flex justify-content-start" (click)=onClickHomeIcon()>
         <img src="./assets/amcart-high-resolution-logo.ico"/>
     </div>
     <div class="card flex justify-content-center" style="display: inline-block;">
         <div class="card flex justify-content-center">
-            <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName"
+            <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName" optionValue="categoryId"
                 [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
             <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" 
                 (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)"></p-autoComplete>

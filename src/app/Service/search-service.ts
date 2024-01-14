@@ -10,9 +10,10 @@ export class SearchService{
 
     constructor(private http: HttpClient) { }
 
-    fetchSuggestions(searchTerm:string){
-            console.log("SearchTerm:" + searchTerm);
-            return this.http.get<SearchSuggestionsResults>("http://localhost:9010/orchestrationservices/api/search/products/suggestions",{params:{"searchTerm":searchTerm.trim()},"responseType":"json"})
+    fetchSuggestions(searchTerm:string, categoryId:string){
+            console.log("SearchTerm:" + searchTerm + " :: CategoryId:" + categoryId);
+            return this.http.get<SearchSuggestionsResults>("http://localhost:9010/orchestrationservices/api/search/products/suggestions",
+            {params:{"searchTerm":searchTerm.trim(), "categoryId": categoryId.trim()},"responseType":"json"})
            /* response.subscribe( (res)=>{
                 console.log(res.content);
             })*/
@@ -25,9 +26,10 @@ export class SearchService{
             
     }
 
-    fetchSearchData(searchTerm:string){
-        console.log("SearchTerm:" + searchTerm);
-        return this.http.get<SearchResults>("http://localhost:9010/orchestrationservices/api/search/products",{params:{"searchTerm":searchTerm.trim()},"responseType":"json"})
+    fetchSearchData(searchTerm: any, categoryId:any){
+        console.log("SearchTerm:" + searchTerm + " :: CategoryId" + categoryId);
+        return this.http.get<SearchResults>("http://localhost:9010/orchestrationservices/api/search/products",
+        {params:{"searchTerm":searchTerm.trim(), "categoryId":categoryId.trim()},"responseType":"json"})
         .pipe(
             map(res => {
                 console.log('Pipe reponse' + res);

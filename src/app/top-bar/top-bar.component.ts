@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -48,7 +48,7 @@ interface Category {
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
-export class TopBarComponent {
+export class TopBarComponent /*implements AfterViewInit*/{
   values = '';
   //public auth: AuthService
   constructor(private searchService: SearchService, 
@@ -59,13 +59,14 @@ export class TopBarComponent {
     private commonService:CommonService){
       console.log("AuthModule configggggggggggggg Clicker");
   }
+  
   selectedItem: any;
   suggestions = new Array<string>();
   categories = new Array<Category>();
   selectedCategory: Category | undefined;
   items = new Array<MenuItem>();
 
-  async ngOnInit() {
+  ngOnInit() {
         this.productService.fetchSearchCategoryData().subscribe((reponse)=>{
           console.log("Category API Response:" + reponse);
           this.categories = reponse;
@@ -96,24 +97,32 @@ export class TopBarComponent {
         },{ separator: true }
       ];
       this.auth.getAccessTokenSilently().subscribe((accessToken)=>{
-        const accessTokenTemp = accessToken;
-        console.log("ACCCESSTOKEN::" + accessTokenTemp);
-      });
-      this.auth.idTokenClaims$.subscribe((idToken) => {
         console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
-       
-        var accessToken = idToken?.__raw;
         if(accessToken != null && accessToken != undefined){
           this.commonService.setItem("accessToken",accessToken);
-          console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
+          console.log("New acessToken: " + this.commonService.getItem("accessToken"));
         }
-        
       });
+      // this.auth.idTokenClaims$.subscribe((idToken) => {
+      //   console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
+       
+      //   var accessToken = idToken?.__raw;
+      //   if(accessToken != null && accessToken != undefined){
+      //     this.commonService.setItem("accessToken",accessToken);
+      //     console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
+      //   }
+        
+      // });
   
       // this.auth.accessToken$.subscribe((accessToken) => {
       //   console.log('Access Token:', accessToken);
       // });
     }
+  
+  // ngAfterViewInit() {
+  //   @ViewChild('selectCategoryId') selectCategoryId: ElementRef;
+  //   console.log("Inner HTML is:" + this.selectCategoryId.nativeElement.innerHTML);
+  // }  
 
   save(severity: string) {
       console.log("Login button Save" + { severity: severity, summary: 'Success', detail: 'Data Saved' });
@@ -121,7 +130,6 @@ export class TopBarComponent {
 
   profile(){
     console.log("Profile button Clicker" + this.auth.isAuthenticated$);
-   // this.auth.loginWithRedirect();
    this.router.navigate(['/profile'])
   }
 
@@ -151,22 +159,30 @@ export class TopBarComponent {
   search(event: AutoCompleteCompleteEvent) {
     console.log("AutoCompleteCompleteEvent selected: " + event);
     var resultsSuggestions = new Array<string>();
-     this.searchService.fetchSuggestions(event.query).subscribe( (response)=>{
+    let categoryId = this.selectedCategory?JSON.stringify(this.selectedCategory):'all';
+    categoryId = JSON.parse(categoryId);
+    this.searchService.fetchSuggestions(encodeURIComponent(event.query), encodeURIComponent(categoryId)).subscribe( (response)=>{
       console.log("API Response: " + response);
-      
-      response.forEach(function (arrayItem) {
-        var x = arrayItem.name;
-        console.log(x);
-        resultsSuggestions.push(x);
-    });
-      this.suggestions = this.removeDuplicates(resultsSuggestions);
+      if(response != null){
+        response.forEach(function (arrayItem) {
+          var x = arrayItem.name;
+          console.log(x);
+          resultsSuggestions.push(x);
+      });
+    }
+    this.suggestions = this.removeDuplicates(resultsSuggestions);
   });
   }
 
   onEnter(event: Event){
     console.log("Enter pressed selected: " + this.selectedItem);
-    this.router.navigate(['/product', { 'selectedSearchTerm': encodeURIComponent(this.selectedItem) }])
+    this.selectedItem = this.selectedItem ? this.selectedItem : "";
+    this.router.navigate(['/product', { 'searchTerm': encodeURIComponent(this.selectedItem), 'categoryId': this.selectedCategory }])
 
+  }
+
+  onClickHomeIcon(){
+    this.router.navigate(['/']);
   }
 
   removeDuplicates(arr: Array<string>) { 
@@ -175,7 +191,11 @@ export class TopBarComponent {
   }
 
   suggestionSelected(event : AutoCompleteSelectEvent){
-    console.log("Suggestion selected: " + event.value);
+    // const selectCategoryId = document.getElementById(
+    //   'selectCategoryId',
+    // ) as HTMLDivElement | null;
+    // console.log("selectCategoryId"+selectCategoryId?.nodeValue);
+    console.log("Suggestion selected: " + event.value + " :: Selected Category: " + this.selectedCategory);
 
     // var searchResults = new Array<ProductSearchResponse>();
     //  this.searchService.fetchSearchData(event.value).subscribe( (response)=>{
@@ -193,7 +213,7 @@ export class TopBarComponent {
    // window.location.reload();
    
    //this.router.navigateByUrl("/product", {state:{'productListResponse':searchResults}});
-   this.router.navigate(['/product', { 'selectedSearchTerm': encodeURIComponent(event.value) }])
+   this.router.navigate(['/product', { 'searchTerm': encodeURIComponent(event.value) , 'categoryId': this.selectedCategory}])
   }
 
 }

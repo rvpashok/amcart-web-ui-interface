@@ -30,16 +30,15 @@ export class ProductsListingComponent {
   layout: string = 'list';
   constructor(private searchService: SearchService, private router : Router,
     private activatedRoute: ActivatedRoute) {
-    var searchTerm = this.activatedRoute.snapshot.paramMap.get("selectedSearchTerm")!= null ? this.activatedRoute.snapshot.paramMap.get("selectedSearchTerm") : "";
-    
-    if(searchTerm){
+    var searchTerm = this.activatedRoute.snapshot.paramMap.get("searchTerm")!= null ? this.activatedRoute.snapshot.paramMap.get("searchTerm") : "";
+    var categoryId = this.activatedRoute.snapshot.paramMap.get("categoryId")!= null ? this.activatedRoute.snapshot.paramMap.get("categoryId") : "";
+    if(searchTerm || categoryId){
       var searchResults = new Array<ProductSearchResponse>();
-    this.searchService.fetchSearchData(searchTerm).subscribe( (response)=>{
-     console.log("API Response: " + response);
-     this.productList = response;
+      this.searchService.fetchSearchData(searchTerm, categoryId).subscribe( (response)=>{
+       console.log("API Response: " + response);
+      this.productList = response;
       
-
-    console.log(this.productList)
+      console.log(this.productList)
    });
   
   }}
