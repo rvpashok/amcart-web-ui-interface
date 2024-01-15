@@ -7,12 +7,14 @@ import { CarouselModule } from 'primeng/carousel';
 import { SearchService } from '../Service/search-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductSearchResponse } from '../model/search-results';
+import { DividerModule } from 'primeng/divider';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, DropdownModule, SplitButtonModule, CarouselModule],
+  imports: [CommonModule, DropdownModule, SplitButtonModule, CarouselModule, DividerModule, ToastModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -69,5 +71,14 @@ export class HomePageComponent {
     console.log("Product Cicked from Carosel for ProductId:" + selectedProduct);
     this.router.navigate(['/product-detail', { 'productId': selectedProduct}])
   }
+
+  addToCart(event:Event){
+    console.log("AddToCart button Clicked");
+  }
+
+  subscribeEvent(event:Event){
+    console.log("Subscribe button Clicked");
+  }
+
 }
 

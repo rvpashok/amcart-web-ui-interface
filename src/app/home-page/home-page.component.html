@@ -9,11 +9,12 @@
                     <img src="{{product.skuMediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
                 </div>
                 <div>
-                    <h4 class="mb-1">{{ product.name }}</h4>
-                    <h6 class="mt-0 mb-3">{{ '₹' + product.price }}</h6>
+                    <h5 class="mb-1">{{ product.name }}</h5>
+                    <strong><h4 class="mt-0 mb-3">{{ '₹' + product.price }}</h4></strong>
                     <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                        <p-button icon="pi pi-shopping-cart" [rounded]="true" />
-                        <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
+                        <!-- <p-button icon="pi pi-shopping-cart" [rounded]="true" /> -->
+                        <p-button label="Add To Cart" (onClick)="addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
+                        icon="pi pi-shopping-cart" [outlined]="true" [raised]="true" severity="secondary"> </p-button>
                     </div>
                 </div>
             </div>
@@ -22,6 +23,7 @@
 </div>
 
 <div class="card">
+    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
     <h3>Top Picks of the Week</h3>
     <p-carousel [value]="this.productList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
         <ng-template let-product pTemplate="item" [style]="{'margin-right': '50px'}">
@@ -40,4 +42,22 @@
             </div>
         </ng-template>
     </p-carousel>
+</div>
+
+<div class=" px-4 py-8 md:px-6 lg:px-8">
+    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+    <h3>Get 25% Discount Today!</h3>
+    <div class="text-600 text-2xl block mt-4 lg:text-left">Sign up our email list and know all about new
+        collections of Peak</div>
+        <div><br/></div>
+    <div class="mt-4 mx-auto lg:mx-0" style="max-width: 38rem; margin-right: auto;margin-left: auto;display: block;">
+        <div class="p-inputgroup">
+            <input type="text" pInputText placeholder="Enter your email address"
+                class="p-inputtext p-component p-element" required>
+            <!-- <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast> -->
+            <p-button label="Subscribe" (onClick)="subscribeEvent($event)"  [style]="{'border-radius':0, 'border-top-right-radius': '6px', 'border-bottom-right-radius': '6px'}" 
+                     severity="secondary"> </p-button>
+        </div>
+    </div>
+    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
 </div>

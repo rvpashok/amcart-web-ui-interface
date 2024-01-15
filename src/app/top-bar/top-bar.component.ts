@@ -173,6 +173,10 @@ export class TopBarComponent /*implements AfterViewInit*/{
     
   }
 
+  onClickCart(event:Event){
+    console.log("AddToCart button Clicked");
+  }
+
   logout(event:Event) {  
     console.log("Logout button Clicker" + this.doc.location.origin);
     this.commonService.setItem("accessToken","");

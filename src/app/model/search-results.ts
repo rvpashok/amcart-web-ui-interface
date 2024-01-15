@@ -23,6 +23,7 @@ export interface ProductSearchResponse{
     'skuColor' : string
     'skuMediaUrl' : string
     'skuSize' : string
+    'inventoryStatus': string
  }
 
 export class SearchSuggestionsResults {

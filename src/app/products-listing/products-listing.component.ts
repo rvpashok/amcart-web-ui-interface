@@ -11,6 +11,11 @@ import { SearchService } from '../Service/search-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductSearchResponse } from '../model/search-results';
 import { DataViewModule } from 'primeng/dataview';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
+import { DividerModule } from 'primeng/divider';
+
+
 
 
 
@@ -18,7 +23,7 @@ import { DataViewModule } from 'primeng/dataview';
   selector: 'app-products-listing',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
-    MatToolbarModule, DataViewModule],
+    MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule],
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.css'
 })
@@ -40,6 +45,9 @@ export class ProductsListingComponent {
       var searchResults = new Array<ProductSearchResponse>();
       this.searchService.fetchSearchData(searchTerm, categoryId).subscribe( (response)=>{
        console.log("API Response: " + response);
+      response.forEach((itemIItr)=>{
+        itemIItr.inventoryStatus = "INSTOCK";
+      }) 
       this.productList = response;
       
       console.log(this.productList)
@@ -48,7 +56,7 @@ export class ProductsListingComponent {
   }}
 
   getSeverity(product: Product) {
-    switch (product.name) {
+    switch (product.inventoryStatus) {
         case 'INSTOCK':
             return 'success';
 
@@ -71,7 +79,7 @@ export class ProductsListingComponent {
     console.log("Filter Button clicked");
   }
 
-  productClick(event: Event){
+  productClick(event: Event){ 
     const el = event.currentTarget as HTMLInputElement;
     const selectedProduct = el.getAttribute('data-id');
     console.log("Product Cicked from listing for ProductId:" + selectedProduct);
