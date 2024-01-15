@@ -24,6 +24,7 @@ export interface ProductSearchResponse{
     'skuMediaUrl' : string
     'skuSize' : string
     'inventoryStatus': string
+    'price': number
  }
 
 export class SearchSuggestionsResults {

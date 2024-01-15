@@ -14,6 +14,9 @@ import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { DividerModule } from 'primeng/divider';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+
 
 
 
@@ -23,7 +26,7 @@ import { DividerModule } from 'primeng/divider';
   selector: 'app-products-listing',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
-    MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule],
+    MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule],
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.css'
 })
@@ -46,6 +49,12 @@ export class ProductsListingComponent {
       this.searchService.fetchSearchData(searchTerm, categoryId).subscribe( (response)=>{
        console.log("API Response: " + response);
       response.forEach((itemIItr)=>{
+        if(itemIItr.shortDescription?.length > 60) {
+          itemIItr.shortDescription = itemIItr.shortDescription.substring(0,60) + "...";
+        }
+        if(itemIItr.name?.length > 30) {
+          itemIItr.name = itemIItr.name.substring(0,30) + "...";
+        }
         itemIItr.inventoryStatus = "INSTOCK";
       }) 
       this.productList = response;
