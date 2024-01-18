@@ -1,1 +1,67 @@
-<h1>Product-Details Page Coming Soon!!!</h1>
+<!-- <h1>Product-Details Page Coming Soon!!!</h1> -->
+<div fxLayout="row" fxLayoutGap="16px" style="margin-top: 50px;">
+    <div fxFlex="40%">
+        <div class="column-content">
+            <div class="card">
+                <div  id="productItem" [attr.data-id]="productDetails.productId" [ngClass]="{ 'border-top-1 surface-border': '10px' }">
+                    <p-carousel [value]="productDetails.skus" [circular]="true" [numVisible]="1" [numScroll]="1" [autoplayInterval]="5000" [showNavigators]="false">
+                        <ng-template let-product pTemplate="item" [style]="{'margin-right': '50px'}">
+                            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId">
+                                <div class="mb-3">
+                                    <img src="{{product.mediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+                </div>
+                <div>
+                    <h4>Products specifications will come here!</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="60%">
+        <div class="column-content" style="text-align: left !important;">
+            <div class="card">
+                <div  id="productItem" [attr.data-id]="productDetails.productId" [ngClass]="{ 'border-top-1 surface-border': '10px'}">
+                    <h3 class="text-2xl font-bold" >{{productDetails.name}}</h3>
+                    
+                    <div>
+                        <span >{{productDetails.shortDescription}}</span>
+                    </div>
+                    <div class="amcart-pdp-price-container">
+                        <div style="margin-top: 20px;">
+                            <strong><span >{{ '₹' + productDetails.skus['0'].priceDetail['0'].price }}</span></strong>
+                            <span style="margin-left: 10px;margin-right: 2px;">MRP</span>
+                            <s><span>{{'₹' + productDetails.skus['0'].priceDetail['0'].price }}</span></s>
+                        </div>
+                        <strong><span style="color: green;">{{'30% Discount'}}</span></strong>
+                    </div>
+                    <div class="amcart-pdp-sku-container">
+                        <h4>More Size</h4>
+                        <div id="skuItem"  *ngFor="let skuItem of productDetails.skus; let first = first" style="display: inline-flex;">
+                            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="skuItem.name">
+                                <div class="mb-3" style="margin-right: 10px;">
+                                    <div>{{skuItem.size}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+                    <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                        <p-button label="Add To Cart"   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
+                        icon="pi pi-shopping-cart" [outlined]="true" severity="info"> </p-button>
+                        <p-button label="Add To Wishlist"   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
+                        icon="pi pi-heart" [outlined]="true" severity="info"> </p-button>
+                    </div>
+                    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+                    <div>
+                        <h4>Products addtional info will come here!</h4>
+                    </div>
+                    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
