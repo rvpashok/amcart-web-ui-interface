@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SearchSuggestionsResults, SearchResults } from '../model/search-results';
+import { SearchSuggestionsResults, SearchResults } from '../model/common-models';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({

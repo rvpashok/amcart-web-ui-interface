@@ -6,7 +6,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { CarouselModule } from 'primeng/carousel';
 import { SearchService } from '../Service/search-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductSearchResponse } from '../model/search-results';
+import { ProductSearchResponse } from '../model/common-models';
 import { DividerModule } from 'primeng/divider';
 import { ToastModule } from 'primeng/toast';
 
@@ -68,8 +68,13 @@ export class HomePageComponent {
   caroselProductClick(event: Event){
     const el = event.currentTarget as HTMLInputElement;
     const selectedProduct = el.getAttribute('data-id');
-    console.log("Product Cicked from Carosel for ProductId:" + selectedProduct);
-    this.router.navigate(['/product-detail', { 'productId': selectedProduct}])
+    console.log("Product Cicked from listing for ProductId:" + selectedProduct);
+
+    var navigationExtras = {
+      queryParams: { 'productId': selectedProduct}
+    };
+    
+    this.router.navigate(['/product-detail'], navigationExtras);
   }
 
   addToCart(event:Event){

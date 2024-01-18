@@ -1,0 +1,94 @@
+export interface SuggestionResponse{
+    'name': string;
+}
+
+export interface CategorySearchResponse{
+    'id' : string
+    'categoryId' : string
+    'name' : string
+    'displayName' : string
+    'parentCategoryId': string
+ }
+
+export interface ProductSearchResponse{
+    'id' : string
+    'productId' : string
+    'name' : string
+    'shortDescription' : string
+    'longDescription' : string
+    'additionalInfo' : string
+    'brand' : string
+    'skuId' : string
+    'skuName' : string
+    'skuColor' : string
+    'skuMediaUrl' : string
+    'skuSize' : string
+    'inventoryStatus': string
+    'price': number
+ }
+
+export class SearchSuggestionsResults {
+    'content': Array<SuggestionResponse>;
+}
+
+export class SearchResults {
+    'content': Array<ProductSearchResponse>;
+}
+
+export class Product {
+    'id': string;
+    'productId': string;
+    'name': string;
+    'shortDescription': string;
+    'longDescription': string;
+    'price': number;
+    'inventoryStatus': string;
+
+    constructor(id: string, productId: string, name: string, 
+        shortDescription: string, longDescription: string,
+        price: number, inventoryStatus: string){
+        this.id=id;
+        this.name =name;
+        this.shortDescription=shortDescription;
+        this.longDescription=longDescription;
+        this.productId=productId;
+        this.price=price;
+        this.inventoryStatus  = inventoryStatus;
+    }
+  } 
+
+  export interface ProductDetailResponse {
+    'id' : string
+    'productId' : string
+    'name' : string
+    'shortDescription' : string
+    'longDescription' : string
+    'additionalInfo' : string
+    'brand' : string
+    'tags': Array<string>
+    'categoryIds': Array<string>
+    'skus': Array<Sku>
+    'discountPercentage': number
+    'inventoryStatus': string
+ }
+
+ export interface Sku{
+    'id' : string
+    'name' : string
+    'color' : string
+    'mediaUrl' : string
+    'size' : string
+    'priceDetail': Array<PriceDetail>
+ }
+
+ export interface PriceDetail{
+    'priceType' : string
+    'currencyType' : string
+    'price' : string
+ }
+
+ export interface ProductDetail extends ProductDetailResponse {
+    'salePrice': number
+    'inventoryStatus': string
+    'originalPrice': number
+ }

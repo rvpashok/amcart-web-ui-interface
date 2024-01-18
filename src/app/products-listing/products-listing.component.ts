@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Product } from '../model/product';
+import { Product } from '../model/common-models';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
@@ -9,7 +9,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { SearchService } from '../Service/search-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductSearchResponse } from '../model/search-results';
+import { ProductSearchResponse } from '../model/common-models';
 import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
@@ -92,6 +92,12 @@ export class ProductsListingComponent {
     const el = event.currentTarget as HTMLInputElement;
     const selectedProduct = el.getAttribute('data-id');
     console.log("Product Cicked from listing for ProductId:" + selectedProduct);
-    this.router.navigate(['/product-detail', { 'productId': selectedProduct}])
+
+    var navigationExtras = {
+      queryParams: { 'productId': selectedProduct
+                    }
+    };
+    
+    this.router.navigate(['/product-detail'], navigationExtras);
   }
 }

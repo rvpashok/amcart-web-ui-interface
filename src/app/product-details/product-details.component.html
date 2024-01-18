@@ -3,9 +3,9 @@
     <div fxFlex="40%">
         <div class="column-content">
             <div class="card">
-                <div  id="productItem" [attr.data-id]="productDetails.productId" [ngClass]="{ 'border-top-1 surface-border': '10px' }">
+                <div  id="productItem" [attr.data-id]="productDetails.id" [ngClass]="{ 'border-top-1 surface-border': '10px' }">
                     <p-carousel [value]="productDetails.skus" [circular]="true" [numVisible]="1" [numScroll]="1" [autoplayInterval]="5000" [showNavigators]="false">
-                        <ng-template let-product pTemplate="item" [style]="{'margin-right': '50px'}">
+                        <ng-template let-product pTemplate="item">
                             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId">
                                 <div class="mb-3">
                                     <img src="{{product.mediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
@@ -23,7 +23,7 @@
     <div fxFlex="60%">
         <div class="column-content" style="text-align: left !important;">
             <div class="card">
-                <div  id="productItem" [attr.data-id]="productDetails.productId" [ngClass]="{ 'border-top-1 surface-border': '10px'}">
+                <div  id="productItem" [attr.data-id]="productDetails.id" [ngClass]="{ 'border-top-1 surface-border': '10px'}">
                     <h3 class="text-2xl font-bold" >{{productDetails.name}}</h3>
                     
                     <div>
@@ -31,18 +31,19 @@
                     </div>
                     <div class="amcart-pdp-price-container">
                         <div style="margin-top: 20px;">
-                            <strong><span >{{ '₹' + productDetails.skus['0'].priceDetail['0'].price }}</span></strong>
+                            <strong><span >{{ '₹' + productDetails.salePrice }}</span></strong>
                             <span style="margin-left: 10px;margin-right: 2px;">MRP</span>
-                            <s><span>{{'₹' + productDetails.skus['0'].priceDetail['0'].price }}</span></s>
+                            <s><span>{{'₹' + productDetails.originalPrice }}</span></s>
                         </div>
-                        <strong><span style="color: green;">{{'30% Discount'}}</span></strong>
+                        <strong><span style="color: green;margin-top: 20px;">{{productDetails.discountPercentage + '% Discount'}}</span></strong>
                     </div>
                     <div class="amcart-pdp-sku-container">
-                        <h4>More Size</h4>
+                        <h4>Select Size</h4>
                         <div id="skuItem"  *ngFor="let skuItem of productDetails.skus; let first = first" style="display: inline-flex;">
                             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="skuItem.name">
                                 <div class="mb-3" style="margin-right: 10px;">
-                                    <div>{{skuItem.size}}</div>
+                                    <p-button [attr.data-id]="productDetails.id" [attr.data-skuId]="skuItem.name" label={{skuItem.size}}   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
+                                     [outlined]="true" severity="info" (onClick)="selectSkuEvent($event)"> </p-button>
                                 </div>
                             </div>
                         </div>
