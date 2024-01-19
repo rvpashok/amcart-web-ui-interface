@@ -44,7 +44,7 @@ export class FooterBarComponent {
           }
       },
       {
-          label: 'Contact Us',
+          label: 'Contact Ussss',
           icon: 'fa fa-regular fa-address-card',
           // style: {'margin-left': 'auto',
           //   'margin-right': 'auto',
