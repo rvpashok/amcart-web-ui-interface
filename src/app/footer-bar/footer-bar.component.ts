@@ -34,7 +34,7 @@ export class FooterBarComponent {
   ngOnInit() {
     this.footerMenuItems = [
       {
-          label: 'About Us',
+          label: 'About Usssss',
           icon: 'pi pi-user',
           // style: {'margin-left': 'auto',
           //   'margin-right': 'auto',
