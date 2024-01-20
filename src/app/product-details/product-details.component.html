@@ -50,7 +50,7 @@
                     </div>
                     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                     <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                        <p-button label="Add To Cart"   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
+                        <p-button label="Add To Cart"  (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
                         icon="pi pi-shopping-cart" [outlined]="true" severity="info"> </p-button>
                         <p-button label="Add To Wishlist"   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
                         icon="pi pi-heart" [outlined]="true" severity="info"> </p-button>

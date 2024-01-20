@@ -13,6 +13,7 @@ import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
+import { CommonService } from '../Service/common.service';
 
 @Component({
   selector: 'app-product-details',
@@ -28,7 +29,7 @@ export class ProductDetailsComponent {
   public productDetails : ProductDetailResponse | any;
 
   constructor(private productService: ProductService, private router : Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,public commonService:CommonService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
     }; 

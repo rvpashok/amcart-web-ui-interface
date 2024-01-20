@@ -16,6 +16,7 @@ import { RatingModule } from 'primeng/rating';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { CommonService } from '../Service/common.service';
 
 
 
@@ -36,7 +37,7 @@ export class ProductsListingComponent {
   public filterCategory : any
   searchKey:string ="";
   layout: string = 'list';
-  constructor(private searchService: SearchService, private router : Router,
+  constructor(private searchService: SearchService, public commonService:CommonService, private router : Router,
     private activatedRoute: ActivatedRoute) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;

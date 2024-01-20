@@ -25,6 +25,7 @@ export interface ProductSearchResponse{
     'skuSize' : string
     'inventoryStatus': string
     'price': number
+    'originalPrice': number
  }
 
 export class SearchSuggestionsResults {

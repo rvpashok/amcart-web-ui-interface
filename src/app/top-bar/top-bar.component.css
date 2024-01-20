@@ -29,18 +29,6 @@
     margin-left: 10px;
   }
 
-::ng-deep .mat-focused .mat-form-field-label {
-    color: green !important;
-   }
-  
-::ng-deep.mat-form-field-underline {
-    background-color: green !important;
-  } 
-  
-::ng-deep.mat-form-field-ripple {
-   background-color: green !important;
-  }
-
   .p-autocomplete input{
     width: 100%;
   }

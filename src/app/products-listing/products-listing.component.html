@@ -285,16 +285,23 @@
                 <ng-template pTemplate="listItem" let-products>
                     <div class="grid grid-nogutter" style="display: block;">
                         <div class="card" *ngFor="let item of productList; let first = first" style="display: inline-flex;" >
-                            <div  id="productItem" [attr.data-id]="item.productId" [ngClass]="{ 'border-top-1 surface-border': !first }" (click)="productClick($event)">
-                                <div class="text-2xl font-bold" style="margin-bottom: 5px" >{{item.name}}</div>
-                                <img [src]="item.skuMediaUrl" width="300px" height= "300px" [alt]="item.name" class="w-6 shadow-2" style="margin-left: auto;margin-left: auto;"/>
-                                <div style="height: 30px;">
-                                    <span >{{item.shortDescription}}</span>
+                            <div   [ngClass]="{ 'border-top-1 surface-border': !first }" >
+                                <div id="productItem" [attr.data-id]="item.productId" (click)="productClick($event)">
+                                    <div class="text-2xl font-bold" style="margin-bottom: 5px" >{{item.name}}</div>
+                                    <img [src]="item.skuMediaUrl" width="300px" height= "300px" [alt]="item.name" class="w-6 shadow-2" style="margin-left: auto;margin-left: auto;"/>
+                                    <div style="height: 30px;">
+                                        <span >{{item.shortDescription}}</span>
+                                    </div>
+                                    <div>
+                                        <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                                            <strong><span >{{ '₹' + item.price }}</span></strong>
+                                            <s><span style="margin-left: 10px;">{{'₹' + item.originalPrice }}</span></s>
+                                        </div>
+                                    </div>
                                 </div>
-                                <strong><h4 class="mt-0 mb-3">{{ '₹' + item.price }}</h4></strong>
                                 <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                                 <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                                    <p-button label="Add To Cart"   [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
+                                    <p-button label="Add To Cart"   (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
                                     icon="pi pi-shopping-cart" [outlined]="true" severity="info"> </p-button>
                                 </div>
                             </div>

@@ -1,9 +1,8 @@
-.top-bar-content{
-    background-color: rgb(77, 80, 81);
+.header-bar-content{
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .body-content{
@@ -15,9 +14,8 @@
 }
 
 .bottom-bar-content{
-    background-color: rgb(77, 80, 81);
     position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 100;
 }

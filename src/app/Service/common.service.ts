@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CommonService {
   accessToken : string = "";
+  totalCartItemCount : number = 0;
   constructor() { 
     //this.accessToken = "";
     console.log("Common Service Constructor called");
@@ -21,6 +22,11 @@ export class CommonService {
 
   removeItem(key: string): void {
     localStorage.removeItem(key);
+  }
+
+  addToCart(event:Event){
+    console.log("AddToCart button Clicked");
+    this.totalCartItemCount = this.totalCartItemCount + 1;
   }
   
 }

@@ -34,7 +34,7 @@ export class FooterBarComponent {
   ngOnInit() {
     this.footerMenuItems = [
       {
-          label: 'About Usssss',
+          label: 'About Us',
           icon: 'pi pi-user',
           // style: {'margin-left': 'auto',
           //   'margin-right': 'auto',
@@ -44,7 +44,7 @@ export class FooterBarComponent {
           }
       },
       {
-          label: 'Contact Ussss',
+          label: 'Contact Us',
           icon: 'fa fa-regular fa-address-card',
           // style: {'margin-left': 'auto',
           //   'margin-right': 'auto',
@@ -87,16 +87,15 @@ export class FooterBarComponent {
   }
 
   onClickAboutUs(){
-    console.log("AboutUs clicked");
     this.router.navigate(['/about-us'])
   }
   onClickCareers(){
-    console.log("Careers clicked");
+    this.router.navigate(['/careers'])
   }
   onClickContactUs(){
-    console.log("Careers clicked");
+    this.router.navigate(['/contact-us'])
   }
   onClickPressRelease(){
-    console.log("Careers clicked");
+    this.router.navigate(['/press-release'])
   }
 }

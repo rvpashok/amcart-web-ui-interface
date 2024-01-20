@@ -63,9 +63,8 @@
 
 <!-- Menu Bar Html Started-->
   <div class="card" >
-    <p-menubar [model]="this.categoryMenuBarItem" [style]="{'border-radius': '0.5rem', 'background-image': 'linear-gradient(to right, var(--gray-300), var(--gray-300))'}">
+    <p-menubar [model]="this.categoryMenuBarItem" [style]="{'border-radius': '0.1rem', 'background-image': 'linear-gradient(to right, var(--bluegray-200), var(--bluegray-200))'}">
         <ng-template pTemplate="start">
-            <!-- <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" /> -->
             <div class="justify-content-start" (click)=onClickHomeIcon() style="margin-right: 5%;margin-left: 5px;">
                 <img src="./assets/amcart-high-resolution-logo.ico" height="50" class="mr-4" />
             </div>
@@ -83,7 +82,7 @@
             <p-splitButton label="Account" [model]="this.items" icon="pi pi-user" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
                     *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-splitButton>
             <p-button label="Sign Out" (onClick)="logout($event)" icon="pi pi-sign-out" *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}" ></p-button>
-            <p-button label="Cart" (onClick)="onClickCart($event)"  icon="pi pi-shopping-cart" [style]="{'margin-right': '3%'}"> </p-button>
+            <p-button label="Cart"  badge="{{this.commonService.totalCartItemCount}}" badgeClass="p-badge-success" (onClick)="onClickCart($event)"  icon="pi pi-shopping-cart" [style]="{'margin-right': '3%'}"> </p-button>
                 <!-- <button pButton pRipple label="Cart" p-button-icon="pi pi-shopping-cart" style="margin-right: 0.1%;"></button> -->
         </ng-template> 
 

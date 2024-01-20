@@ -23,6 +23,8 @@ import { PrimeIcons } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { BadgeModule } from 'primeng/badge';
+
 
 
 
@@ -44,7 +46,8 @@ interface Category {
   imports: [FormsModule, MatFormFieldModule, MatInputModule,
     MatSelectModule,MatGridListModule, MatMenuModule, MatButtonModule,
     AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule,
-    SplitButtonModule, ButtonModule, AuthModule, MenubarModule, InputGroupModule,InputGroupAddonModule],
+    SplitButtonModule, ButtonModule, AuthModule, MenubarModule, 
+    InputGroupModule,InputGroupAddonModule, BadgeModule],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
@@ -56,8 +59,8 @@ export class TopBarComponent /*implements AfterViewInit*/{
     private router : Router,
     public auth: AuthService,
     @Inject(DOCUMENT) private doc: Document,
-    private commonService:CommonService){
-      console.log("AuthModule configggggggggggggg Clicker");
+    public commonService:CommonService){
+      console.log("AuthModule config Clicked");
   }
   
   selectedItem: any;

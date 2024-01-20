@@ -9,6 +9,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductSearchResponse } from '../model/common-models';
 import { DividerModule } from 'primeng/divider';
 import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { NgZone } from '@angular/core';
+import { CommonService } from '../Service/common.service';
+
+
+
+
 
 
 @Component({
@@ -28,7 +35,9 @@ export class HomePageComponent {
   responsiveOptions: any[] | undefined;
 
   constructor(private searchService: SearchService, private router : Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute, public commonService:CommonService,
+    private messageService: MessageService,
+    private zone: NgZone) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
     };  
@@ -77,13 +86,30 @@ export class HomePageComponent {
     this.router.navigate(['/product-detail'], navigationExtras);
   }
 
-  addToCart(event:Event){
-    console.log("AddToCart button Clicked");
-  }
-
   subscribeEvent(event:Event){
     console.log("Subscribe button Clicked");
   }
+
+  showToast1() {
+
+    this.messageService.clear();
+    this.messageService.add({ key: 'toast1', severity: 'success', summary: 'Success', detail: 'key: toast1' });
+}
+
+showToast2() {
+  setTimeout(() => {
+    this.messageService.add({
+      severity: "success",
+      summary: "Success Message",
+      detail: "Order submitted"
+    });
+  }, 3000);
+  this.zone.run(() => {
+    this.messageService.clear();
+    this.messageService.add({ key: 'toast2', severity: 'warn', summary: 'Warning', detail: 'key: toast2' });
+  });
+   
+}
 
 }
 

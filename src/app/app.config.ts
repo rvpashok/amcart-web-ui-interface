@@ -10,6 +10,7 @@ import { importProvidersFrom } from '@angular/core';
 import { AuthModule } from '@auth0/auth0-angular';
 import { CommonService } from './Service/common.service';
 import { AuthInterceptor } from './Service/auth-interceptor.service';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -19,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true,
-  },CommonService, provideRouter(routes), provideAnimations(),importProvidersFrom( HttpClientModule,  AuthModule.forRoot({
+  },CommonService, MessageService,provideRouter(routes), provideAnimations(),importProvidersFrom( HttpClientModule,  AuthModule.forRoot({
     domain: 'dev-8vycaujdypum3hac.us.auth0.com',
     clientId: 'mjPJo53yJJEsti1WuTg32WLmyi2CKT6M',
     authorizationParams: {
