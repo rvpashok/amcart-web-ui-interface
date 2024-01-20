@@ -82,7 +82,20 @@
             <p-splitButton label="Account" [model]="this.items" icon="pi pi-user" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
                     *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-splitButton>
             <p-button label="Sign Out" (onClick)="logout($event)" icon="pi pi-sign-out" *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}" ></p-button>
-            <p-button label="Cart"  badge="{{this.commonService.totalCartItemCount}}" badgeClass="p-badge-success" (onClick)="onClickCart($event)"  icon="pi pi-shopping-cart" [style]="{'margin-right': '3%'}"> </p-button>
+            <p-overlayPanel #op>
+                <div *ngIf="this.commonService.totalCartItemCount == 0">
+                    <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                        <strong><span >Your Cart is empty</span></strong>
+                    </div>
+                </div>
+                <div *ngIf="this.commonService.totalCartItemCount && this.commonService.totalCartItemCount > 0">
+                    <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                        <strong><span >{{this.commonService.totalCartItemCount}} Cart Items Available</span></strong>
+                    </div>
+                    <p-button label="Remove Cart" [link]="true" (onClick)="this.commonService.emptyCart($event)"  [style]="{'margin-right': '3%'}"> </p-button>
+                </div>
+            </p-overlayPanel>
+            <p-button label="Cart" (click)="op.toggle($event)" [outlined]="true"  badge="{{this.commonService.totalCartItemCount}}" badgeClass="p-badge-success p-overlay-badge" (onClick)="onClickCart($event)"  icon="pi pi-shopping-cart" [style]="{'margin-right': '3%'}"> </p-button>
                 <!-- <button pButton pRipple label="Cart" p-button-icon="pi pi-shopping-cart" style="margin-right: 0.1%;"></button> -->
         </ng-template> 
 

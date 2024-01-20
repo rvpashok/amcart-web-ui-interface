@@ -24,6 +24,8 @@ import { MenubarModule } from 'primeng/menubar';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { BadgeModule } from 'primeng/badge';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 
 
 
@@ -47,7 +49,7 @@ interface Category {
     MatSelectModule,MatGridListModule, MatMenuModule, MatButtonModule,
     AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule,
     SplitButtonModule, ButtonModule, AuthModule, MenubarModule, 
-    InputGroupModule,InputGroupAddonModule, BadgeModule],
+    InputGroupModule,InputGroupAddonModule, BadgeModule, OverlayPanelModule],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
