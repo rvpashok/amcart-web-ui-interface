@@ -63,7 +63,7 @@
 
 <!-- Menu Bar Html Started-->
   <div class="card" >
-    <p-menubar [model]="this.categoryMenuBarItem" [style]="{'border-radius': '0.1rem', 'background-image': 'linear-gradient(to right, var(--bluegray-200), var(--bluegray-200))'}">
+    <p-megaMenu [model]="this.categoryMenuBarItem" [style]="{'border-radius': '0.1rem', 'background-image': 'linear-gradient(to right, var(--bluegray-200), var(--bluegray-200))'}">
         <ng-template pTemplate="start">
             <div class="justify-content-start" (click)=onClickHomeIcon() style="margin-right: 5%;margin-left: 5px;">
                 <img src="./assets/amcart-high-resolution-logo.ico" height="50" class="mr-4" />
@@ -99,7 +99,7 @@
                 <!-- <button pButton pRipple label="Cart" p-button-icon="pi pi-shopping-cart" style="margin-right: 0.1%;"></button> -->
         </ng-template> 
 
-    </p-menubar>
+    </p-megaMenu>
 </div>
 <!-- Menu Bar Html Ended-->
 

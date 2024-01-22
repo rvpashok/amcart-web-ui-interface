@@ -281,7 +281,14 @@
     </div>
     <div fxFlex="80%">
         <div class="column-content">
-            <p-dataView #dv [value]="productList">
+            <p-dataView #dv [value]="productList" >
+                <ng-template pTemplate="empty">
+                    <div class="empty-message">
+                        <h1 class="m-0" style="margin-top: 10%;text-align: left; margin-left: 20%;">
+                            No data available !!!
+                        </h1>
+                    </div>
+                  </ng-template>
                 <ng-template pTemplate="listItem" let-products>
                     <div class="grid grid-nogutter" style="display: block;">
                         <div class="card" *ngFor="let item of productList; let first = first" style="display: inline-flex;" >

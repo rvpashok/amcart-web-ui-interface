@@ -49,17 +49,18 @@ export class ProductsListingComponent {
       var searchResults = new Array<ProductSearchResponse>();
       this.searchService.fetchSearchData(searchTerm, categoryId).subscribe( (response)=>{
        console.log("API Response: " + response);
-      response.forEach((itemIItr)=>{
-        if(itemIItr.shortDescription?.length > 60) {
-          itemIItr.shortDescription = itemIItr.shortDescription.substring(0,60) + "...";
-        }
-        if(itemIItr.name?.length > 30) {
-          itemIItr.name = itemIItr.name.substring(0,30) + "...";
-        }
-        itemIItr.inventoryStatus = "INSTOCK";
-      }) 
-      this.productList = response;
-      
+      if(response != null && response.length > 0){
+        response.forEach((itemIItr)=>{
+          if(itemIItr.shortDescription?.length > 60) {
+            itemIItr.shortDescription = itemIItr.shortDescription.substring(0,60) + "...";
+          }
+          if(itemIItr.name?.length > 30) {
+            itemIItr.name = itemIItr.name.substring(0,30) + "...";
+          }
+          itemIItr.inventoryStatus = "INSTOCK";
+        }) 
+      } 
+      this.productList = response?response:[];
       console.log(this.productList)
    });
   

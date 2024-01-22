@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { MenuItem } from 'primeng/api';
+import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
@@ -25,9 +25,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-
-
-
+import { MegaMenuModule } from 'primeng/megamenu';
 
 
 
@@ -49,7 +47,8 @@ interface Category {
     MatSelectModule,MatGridListModule, MatMenuModule, MatButtonModule,
     AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule,
     SplitButtonModule, ButtonModule, AuthModule, MenubarModule, 
-    InputGroupModule,InputGroupAddonModule, BadgeModule, OverlayPanelModule],
+    InputGroupModule,InputGroupAddonModule, BadgeModule, OverlayPanelModule,
+    MegaMenuModule],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
@@ -68,14 +67,16 @@ export class TopBarComponent /*implements AfterViewInit*/{
   selectedItem: any;
   suggestions = new Array<string>();
   categories = new Array<Category>();
+  topCategories = new Array<Category>();
   selectedCategory: Category | undefined;
   items = new Array<MenuItem>();
-  categoryMenuBarItem = new Array<MenuItem>();
+  categoryMenuBarItem = new Array<MegaMenuItem>();
 
   ngOnInit() {
         this.productService.fetchSearchCategoryData().subscribe((reponse)=>{
           console.log("Category API Response:" + reponse);
           this.categories = reponse;
+          //this.topCategories = this.getTopCategories(this.categories);
           this.selectedCategory = this.categories[0];
           this.categoryMenuBarItem = this.constructDynamicMenuBarItems(this.categories);
         })
@@ -132,19 +133,41 @@ export class TopBarComponent /*implements AfterViewInit*/{
   // }  
 
   constructDynamicMenuBarItems(categoryList : Array<Category>){
-  var categoryMenuBarItemTemp = new Array<MenuItem>();
+  var categoryMenuBarItemTemp = new Array<MegaMenuItem>();
   for(var idx = 0;idx<categoryList.length;idx++) {
       var categoryItem = categoryList[idx];
       if(categoryItem.parentCategoryId == null){
         console.log(categoryItem);
-        var menuItem : MenuItem = {};
-        menuItem.label = categoryItem.displayName;
-        menuItem.id = categoryItem.categoryId;
+        var megaMenuItem : MegaMenuItem = {};
+        megaMenuItem.label = categoryItem.displayName;
+        megaMenuItem.id = categoryItem.categoryId;
+        var tempMenuItems = this.processCategoryData(categoryItem.categoryId, categoryList, megaMenuItem);
+        console.log("SubmenuItems: " + tempMenuItems);
+        if(categoryItem.displayName=="Kids"){
+          megaMenuItem.icon = "fa fa-child";
+        }
+        else if(categoryItem.displayName=="Men"){
+          megaMenuItem.icon = "fa fa-male";
+        }
+        else if(categoryItem.displayName=="Women"){
+          megaMenuItem.icon = "fa fa-female";
+        }
+        megaMenuItem.items = [tempMenuItems];
+        // megaMenuItem.items = [[
+        //   {
+        //       'label': 'Event 1',
+        //       items: [{ label: 'Event 1.1' }, { label: 'Event 1.2' }]
+        //   },
+        //   {
+        //       label: 'Event 2',
+        //       items: [{ label: 'Event 2.1' }, { label: 'Event 2.2' }]
+        //   }]]
         //menuItem.styleClass = "amcartMenuItem";
-        menuItem.style  = {
-           'margin-right': '5px'
+        megaMenuItem.style  = {
+           'margin-right': '5px',
+           'list-style': 'none'
          };
-        menuItem.command = (event)=>{
+         megaMenuItem.command = (event)=>{
           var navigationExtras = {
             queryParams: { 'searchTerm': "",
                             'categoryId':event.item?.id
@@ -155,11 +178,44 @@ export class TopBarComponent /*implements AfterViewInit*/{
         //menuItem.separator = true;
         //menuItem.queryParams = {'categoryId': categoryItem.categoryId };
         //menuItem.icon = "pi pi-times";
-        categoryMenuBarItemTemp.push(menuItem);
+        categoryMenuBarItemTemp.push(megaMenuItem);
       }
       
     }
     return categoryMenuBarItemTemp;
+  }
+
+  processCategoryData(parentCategoryId:string, categoryList : Array<Category>, parentMenuItem:MenuItem){
+      var toRet = new Array<MenuItem>;
+      for(var idx = 0;idx<categoryList.length;idx++) {
+          var category : Category = categoryList[idx];
+          if(category.parentCategoryId != null && category.parentCategoryId.length > 0 && category.parentCategoryId == parentCategoryId){
+            var menuItemTemp : MenuItem  = {};
+            menuItemTemp.label = category.displayName;
+            menuItemTemp.id = category.categoryId;
+            menuItemTemp.command = (event)=>{
+              var navigationExtras = {
+                queryParams: { 'searchTerm': "",
+                                'categoryId':event.item?.id
+                              }
+              };
+              this.router.navigate(['/product'], navigationExtras);
+            };
+            var parentMenuItemsTemp = parentMenuItem.items;
+            if(parentMenuItemsTemp == null || parentMenuItemsTemp.length == 0){
+              parentMenuItemsTemp = [];
+            }
+            parentMenuItemsTemp.push(menuItemTemp);
+            parentMenuItem.items = parentMenuItemsTemp;
+            var tempItems = this.processCategoryData(category.categoryId, categoryList, menuItemTemp);
+            if(tempItems && tempItems.length){
+              menuItemTemp.items = tempItems;
+            }
+            toRet.push(menuItemTemp);
+          }
+          
+      }
+      return toRet;
   }
 
   save(severity: string) {
