@@ -10,6 +10,7 @@ import { PressReleaseComponent } from './footer-bar/press-release/press-release.
 import { AuthGuard } from '@auth0/auth0-angular';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 export const routes: Routes = [
     {path:'product',component:ProductsListingComponent},
@@ -20,6 +21,7 @@ export const routes: Routes = [
     {path:'careers',component:CareersComponent},
     {path:'press-release',component:PressReleaseComponent},
     {path:'notifications',component:NotificationComponent, canActivate: [AuthGuard]},
+    {path:'wishlist',component:WishlistComponent, canActivate: [AuthGuard]},
     {path:'product-detail',component:ProductDetailsComponent},
     {path:'',component:HomePageComponent},
 ];

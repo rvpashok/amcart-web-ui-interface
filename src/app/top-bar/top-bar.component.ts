@@ -102,7 +102,15 @@ export class TopBarComponent /*implements AfterViewInit*/{
             command: () => {
               this.notifications();
           }
-        },{ separator: true }
+         },
+         {
+          label: 'Wishlist',
+          icon: 'fa fa-light fa-heart',
+          command: () => {
+              this.wishlist();
+          }
+        },
+        { separator: true }
       ];
       this.auth.getAccessTokenSilently().subscribe((accessToken)=>{
         console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
@@ -111,26 +119,8 @@ export class TopBarComponent /*implements AfterViewInit*/{
           console.log("New acessToken: " + this.commonService.getItem("accessToken"));
         }
       });
-      // this.auth.idTokenClaims$.subscribe((idToken) => {
-      //   console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
-       
-      //   var accessToken = idToken?.__raw;
-      //   if(accessToken != null && accessToken != undefined){
-      //     this.commonService.setItem("accessToken",accessToken);
-      //     console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
-      //   }
-        
-      // });
-  
-      // this.auth.accessToken$.subscribe((accessToken) => {
-      //   console.log('Access Token:', accessToken);
-      // });
     }
   
-  // ngAfterViewInit() {
-  //   @ViewChild('selectCategoryId') selectCategoryId: ElementRef;
-  //   console.log("Inner HTML is:" + this.selectCategoryId.nativeElement.innerHTML);
-  // }  
 
   constructDynamicMenuBarItems(categoryList : Array<Category>){
   var categoryMenuBarItemTemp = new Array<MegaMenuItem>();
@@ -236,6 +226,11 @@ export class TopBarComponent /*implements AfterViewInit*/{
   orders(){
     console.log("Orders button Clicker")
     this.router.navigate(['/orders'])
+  }
+
+  wishlist(){
+    console.log("Wishlist button Clicker")
+    this.router.navigate(['/wishlist'])
   }
 
   notifications(){
