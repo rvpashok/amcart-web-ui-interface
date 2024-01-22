@@ -62,41 +62,43 @@
 <!-- Tool Bar Html Ended -->
 
 <!-- Menu Bar Html Started-->
-  <div class="card" >
-    <p-megaMenu [model]="this.categoryMenuBarItem" [style]="{'border-radius': '0.1rem', 'background-image': 'linear-gradient(to right, var(--bluegray-200), var(--bluegray-200))'}">
+  <div class="" >
+    <p-megaMenu [model]="this.categoryMenuBarItem" styleClass= "flex" [style]="{'display':'inline-flex','width':'100%','border-radius': '0.1rem', 'background-image': 'linear-gradient(to right, var(--bluegray-200), var(--bluegray-200))'}">
         <ng-template pTemplate="start">
-            <div class="justify-content-start" (click)=onClickHomeIcon() style="margin-right: 5%;margin-left: 5px;">
+            <div class="justify-content-start" (click)=onClickHomeIcon() style="margin-right: 1px;margin-left: 1px;">
                 <img src="./assets/amcart-high-resolution-logo.ico" height="50" class="mr-4" />
             </div>
         </ng-template>
         
-        <ng-template pTemplate="end">
-                   
-            <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName" optionValue="categoryId"
+        <ng-template pTemplate="end" [style]="{'width': '60%'}">
+            <div style="width: 100% !important;">
+                <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName" optionValue="categoryId"
                 [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
-            <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" 
-                (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" 
-                dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)" 
-                [style]="{'margin-right': '3%','border-radius':0, 'border-top-right-radius': '6px', 'border-bottom-right-radius': '6px'}" ></p-autoComplete>
-            <p-button label="Sign In" (onClick)="login($event)"  icon="pi pi-sign-in" [style]="{'margin-right': '3%'}" *ngIf="(auth.isAuthenticated$ | async) === false"> </p-button>
-            <p-splitButton label="Account" [model]="this.items" icon="pi pi-user" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
-                    *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-splitButton>
-            <p-button label="Sign Out" (onClick)="logout($event)" icon="pi pi-sign-out" *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}" ></p-button>
-            <p-overlayPanel #op>
-                <div *ngIf="this.commonService.totalCartItemCount == 0">
-                    <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
-                        <strong><span >Your Cart is empty</span></strong>
+                <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" 
+                    (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" 
+                    dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)" 
+                    [style]="{'margin-right': '1%','border-radius':0, 'border-top-right-radius': '6px', 'border-bottom-right-radius': '6px'}" ></p-autoComplete>
+                <p-button label="Sign In" (onClick)="login($event)"  icon="pi pi-sign-in" [style]="{'margin-right': '3%'}" *ngIf="(auth.isAuthenticated$ | async) === false"> </p-button>
+                <p-splitButton label="Account" [model]="this.items" icon="pi pi-user" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
+                        *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-splitButton>
+                <p-button label="Sign Out" (onClick)="logout($event)" icon="pi pi-sign-out" *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}" ></p-button>
+                <p-overlayPanel #op>
+                    <div *ngIf="this.commonService.totalCartItemCount == 0">
+                        <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                            <strong><span >Your Cart is empty</span></strong>
+                        </div>
                     </div>
-                </div>
-                <div *ngIf="this.commonService.totalCartItemCount && this.commonService.totalCartItemCount > 0">
-                    <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
-                        <strong><span >{{this.commonService.totalCartItemCount}} Cart Items Available</span></strong>
+                    <div *ngIf="this.commonService.totalCartItemCount && this.commonService.totalCartItemCount > 0">
+                        <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                            <strong><span >{{this.commonService.totalCartItemCount}} Cart Items Available</span></strong>
+                        </div>
+                        <p-button label="Remove Cart" [link]="true" (onClick)="this.commonService.emptyCart($event)"  [style]="{'margin-right': '3%'}"> </p-button>
                     </div>
-                    <p-button label="Remove Cart" [link]="true" (onClick)="this.commonService.emptyCart($event)"  [style]="{'margin-right': '3%'}"> </p-button>
-                </div>
-            </p-overlayPanel>
-            <p-button label="Cart" (click)="op.toggle($event)" [outlined]="true"  badge="{{this.commonService.totalCartItemCount}}" badgeClass="p-badge-success p-overlay-badge" (onClick)="onClickCart($event)"  icon="pi pi-shopping-cart" [style]="{'margin-right': '3%'}"> </p-button>
-                <!-- <button pButton pRipple label="Cart" p-button-icon="pi pi-shopping-cart" style="margin-right: 0.1%;"></button> -->
+                </p-overlayPanel>
+                <p-button label="Cart" (click)="op.toggle($event)" [outlined]="true"  badge="{{this.commonService.totalCartItemCount}}"
+                badgeClass="p-badge-success p-overlay-badge" (onClick)="onClickCart($event)"  icon="pi pi-shopping-cart" [style]="{'margin-right': '3%'}"> </p-button>
+            </div>       
+           
         </ng-template> 
 
     </p-megaMenu>

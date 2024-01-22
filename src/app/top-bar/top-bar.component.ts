@@ -153,15 +153,6 @@ export class TopBarComponent /*implements AfterViewInit*/{
           megaMenuItem.icon = "fa fa-female";
         }
         megaMenuItem.items = [tempMenuItems];
-        // megaMenuItem.items = [[
-        //   {
-        //       'label': 'Event 1',
-        //       items: [{ label: 'Event 1.1' }, { label: 'Event 1.2' }]
-        //   },
-        //   {
-        //       label: 'Event 2',
-        //       items: [{ label: 'Event 2.1' }, { label: 'Event 2.2' }]
-        //   }]]
         //menuItem.styleClass = "amcartMenuItem";
         megaMenuItem.style  = {
            'margin-right': '5px',
@@ -176,8 +167,6 @@ export class TopBarComponent /*implements AfterViewInit*/{
           this.router.navigate(['/product'], navigationExtras);
         };
         //menuItem.separator = true;
-        //menuItem.queryParams = {'categoryId': categoryItem.categoryId };
-        //menuItem.icon = "pi pi-times";
         categoryMenuBarItemTemp.push(megaMenuItem);
       }
       

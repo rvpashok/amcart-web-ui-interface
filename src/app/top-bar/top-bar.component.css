@@ -1,4 +1,4 @@
-  .top-bar-search-box  {
+  /* .top-bar-search-box  {
     min-width: 40%;
     max-width: 50%;
     margin-top: 15px;
@@ -33,7 +33,5 @@
     width: 100%;
   }
 
+*/
 
-  html body .p-menubar .p-menubar-end{
-    margin-right: 10% !important;
-  }
