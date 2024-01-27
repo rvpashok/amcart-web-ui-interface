@@ -46,6 +46,7 @@ export class ProductsListingComponent {
         return false;
     };  
     this.productSortingOptions = [
+      {displayName: 'Featured', name: 'featured',sortObj:'{"fieldName":"_score","direction":"DESC"}'},
       { displayName: 'Price: Low to High', name: 'price_low_to_high' , sortObj :'{"fieldName":"price","direction":"ASC"}'},
       { displayName: 'Price: High to Low', name: 'price_high_to_low', sortObj:'{"fieldName":"price","direction":"DESC"}'}
       ];
@@ -76,7 +77,7 @@ export class ProductsListingComponent {
         this.currentPageDetails.searchTerm = searchTerm;
         this.currentPageDetails.sortObj = sortByReq;
       }
-      this.searchService.fetchSearchData(searchTerm, categoryId, sortByReq).subscribe( (response)=>{
+      this.searchService.fetchSearchData(searchTerm, categoryId, sortByReq, "").subscribe( (response)=>{
        console.log("API Response: " + response);
       if(response != null && response.length > 0){
         response.forEach((itemIItr)=>{

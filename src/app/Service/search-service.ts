@@ -27,11 +27,20 @@ export class SearchService{
             
     }
 
-    fetchSearchData(searchTerm: any, categoryId:any, sortBy:any){
+    fetchSearchData(searchTerm: any, categoryId:any, sortBy:any, filter:any){
         console.log("SearchTerm:" + searchTerm + " :: CategoryId" + categoryId + " ::SortBy:" + sortBy);
+        var paramsObj = {};
+        if(filter != undefined && filter != ""){
+            paramsObj = {"searchTerm":searchTerm.trim(), "categoryId":categoryId.trim(), "amcartSort":sortBy,
+        "amcartFilter": filter};
+        }
+        else{
+            paramsObj =  {"searchTerm":searchTerm.trim(), "categoryId":categoryId.trim(), "amcartSort":sortBy};
+        }
+        
         return this.http.get<SearchResults>("http://localhost:9010/orchestrationservices/api/search/products",
         //return this.http.get<SearchResults>("https://ojx3smmf5b.execute-api.ap-south-1.amazonaws.com/orchestrationservices/api/search/products",
-        {params:{"searchTerm":searchTerm.trim(), "categoryId":categoryId.trim(), "amcartSort":sortBy},"responseType":"json"})
+        {params:paramsObj,"responseType":"json"})
         .pipe(
             map(res => {
                 console.log('Pipe reponse' + res);

@@ -48,7 +48,8 @@ export class HomePageComponent {
     var categoryId = "all";
     if(searchTerm || categoryId){
       var searchResults = new Array<ProductSearchResponse>();
-      this.searchService.fetchSearchData(searchTerm, categoryId, "").subscribe( (response)=>{
+      var amcartDealOfTheDayFilter = '[{"fieldName":"tags","fieldValue":["Deal of the day"],"operator":"IN"}]';
+      this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartDealOfTheDayFilter).subscribe( (response)=>{
       console.log("API Response: " + response);
       this.productList = response;
       console.log(this.productList)

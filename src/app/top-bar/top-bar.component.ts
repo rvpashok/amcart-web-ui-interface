@@ -241,7 +241,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
   search(event: AutoCompleteCompleteEvent) {
     console.log("AutoCompleteCompleteEvent selected: " + event);
     var resultsSuggestions = new Array<string>();
-    let categoryId = this.selectedCategory?JSON.stringify(this.selectedCategory):'all';
+    let categoryId = this.selectedCategory?JSON.stringify(this.selectedCategory.categoryId):'all';
     categoryId = JSON.parse(categoryId);
     this.searchService.fetchSuggestions(encodeURIComponent(event.query), encodeURIComponent(categoryId)).subscribe( (response)=>{
       console.log("API Response: " + response);
@@ -262,7 +262,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
 
     var navigationExtras = {
       queryParams: { 'searchTerm': encodeURIComponent(this.selectedItem),
-                      'categoryId':this.selectedCategory
+                      'categoryId':this.selectedCategory?.categoryId
                     }
     };
     
@@ -288,7 +288,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
 
     var navigationExtras = {
       queryParams: { 'searchTerm': encodeURIComponent(event.value),
-                      'categoryId':this.selectedCategory
+                      'categoryId':this.selectedCategory?.categoryId
                     }
     };
     

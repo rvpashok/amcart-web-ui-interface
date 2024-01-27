@@ -72,7 +72,7 @@
         
         <ng-template pTemplate="end" [style]="{'width': '60%'}">
             <div style="width: 100% !important;">
-                <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName" optionValue="categoryId"
+                <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="displayName"
                 [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
                 <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" 
                     (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" 
