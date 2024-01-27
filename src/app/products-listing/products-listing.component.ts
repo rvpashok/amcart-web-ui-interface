@@ -3,7 +3,6 @@ import { Product } from '../model/common-models';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-
 import {MatGridListModule} from '@angular/material/grid-list';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -17,37 +16,67 @@ import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CommonService } from '../Service/common.service';
-
-
-
-
-
+import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
+import {ProductSorting, ProductListingPageDetails} from '../model/common-models';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-products-listing',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
-    MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule],
+  imports: [FormsModule, CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
+    MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule,DropdownModule
+    ],
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.css'
 })
 export class ProductsListingComponent {
 
+  
   public productList = new Array<ProductSearchResponse>();
   public filterCategory : any
   searchKey:string ="";
   layout: string = 'list';
+  public productSortingOptions = new Array<ProductSorting>;
+  public selectedSortByOption: ProductSorting | undefined;
+  public currentPageDetails: ProductListingPageDetails | undefined;
+
   constructor(private searchService: SearchService, public commonService:CommonService, private router : Router,
     private activatedRoute: ActivatedRoute) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
     };  
+    this.productSortingOptions = [
+      { displayName: 'Price: Low to High', name: 'price_low_to_high' , sortObj :'{"fieldName":"price","direction":"ASC"}'},
+      { displayName: 'Price: High to Low', name: 'price_high_to_low', sortObj:'{"fieldName":"price","direction":"DESC"}'}
+      ];
+
     const navigation = this.router.getCurrentNavigation();  
+    var stateold = this.router.routerState;
     var searchTerm = navigation?.extras.queryParams?.["searchTerm"];
     var categoryId = navigation?.extras.queryParams?.["categoryId"];
+    var sortBy = navigation?.extras.queryParams?.["sortBy"];
+    var sortByReq = "";
+    this.currentPageDetails = {"categoryId":"all","searchTerm":"",sortObj:""};
+    if(sortBy == undefined || sortBy == ""){
+      sortByReq = this.productSortingOptions[0].sortObj;
+      this.selectedSortByOption = this.productSortingOptions[0];
+    }
+    else{
+      for(var idx=0; idx<this.productSortingOptions.length; idx++){
+        if(sortBy == this.productSortingOptions[idx].name){
+          sortByReq = this.productSortingOptions[idx].sortObj;
+          this.selectedSortByOption = this.productSortingOptions[idx];
+          break;
+        }
+      }
+    }
     if(searchTerm || categoryId){
-      var searchResults = new Array<ProductSearchResponse>();
-      this.searchService.fetchSearchData(searchTerm, categoryId).subscribe( (response)=>{
+      if(this.currentPageDetails){
+        this.currentPageDetails.categoryId = categoryId;
+        this.currentPageDetails.searchTerm = searchTerm;
+        this.currentPageDetails.sortObj = sortByReq;
+      }
+      this.searchService.fetchSearchData(searchTerm, categoryId, sortByReq).subscribe( (response)=>{
        console.log("API Response: " + response);
       if(response != null && response.length > 0){
         response.forEach((itemIItr)=>{
@@ -63,8 +92,26 @@ export class ProductsListingComponent {
       this.productList = response?response:[];
       console.log(this.productList)
    });
-  
-  }}
+
+
+  }
+
+}
+
+productSortByChange(event:DropdownChangeEvent){
+  console.log("EventChanged");
+  this.selectedSortByOption = this.selectedSortByOption ? this.selectedSortByOption : undefined;
+
+    var navigationExtras = {
+      queryParams: { 'searchTerm': this.currentPageDetails?.searchTerm,
+                      'categoryId': this.currentPageDetails?.categoryId?this.currentPageDetails.categoryId:"all",
+                      'sortBy': this.selectedSortByOption?.name
+                    },
+      state:{"keyPrev":"SelectedSoryByOptions"}
+    };
+    
+    this.router.navigate(['/product'], navigationExtras);
+}
 
   getSeverity(product: Product) {
     switch (product.inventoryStatus) {

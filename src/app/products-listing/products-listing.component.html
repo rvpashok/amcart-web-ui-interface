@@ -275,8 +275,12 @@
 
   <div fxLayout="row" fxLayoutGap="16px" style="margin-top: 30px;">
     <div fxFlex="20%">
-        <div class="column-content">
-                <p>Filter & Sorting Options will come here</p>
+        <div class="card flex justify-content-center">
+            <span id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Sort By: </span>
+            <p-dropdown [options]="this.productSortingOptions" [(ngModel)]="this.selectedSortByOption" optionLabel="displayName"
+            [showClear]="false" placeholder="Select a SortBy" (onChange)="productSortByChange($event)"></p-dropdown>
+            <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+            <span id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Filter Options </span>
         </div>
     </div>
     <div fxFlex="80%">

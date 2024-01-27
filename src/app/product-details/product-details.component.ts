@@ -36,9 +36,10 @@ export class ProductDetailsComponent {
    // this.router.onSameUrlNavigation = 'reload';
     const navigation = this.router.getCurrentNavigation();  
     var productId = navigation?.extras.queryParams?.["productId"];
-    if(productId == undefined){
+    if(productId == undefined && navigation){
+      productId = navigation.extractedUrl.queryParams["productId"];
       var navigationExtras = {
-        queryParams: { 'productId': '156835'
+        queryParams: { 'productId': productId
                     }
       };
       this.router.navigate(['/product-detail'], navigationExtras);

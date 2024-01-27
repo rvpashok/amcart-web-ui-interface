@@ -1,7 +1,7 @@
 
 
 <div class="card">
-    <h2>Blockbuster Deals</h2>
+    <h2>Today's Deal</h2>
     <p-carousel [value]="this.productList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
         <ng-template let-product pTemplate="item" [style]="{'margin-right': '50px'}">
             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" (click)="caroselProductClick($event)">
@@ -9,6 +9,11 @@
                     <img src="{{product.skuMediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
                 </div>
                 <div>
+                    <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#b50b32 40%,#b50b32 30%,#b50b32 100%)'}">
+                        <div class="flex align-items-center gap-2">
+                            {{ product.tags }}
+                        </div>
+                    </p-tag>
                     <h5 class="mb-1">{{ product.name }}</h5>
                     <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
                         <strong><span >{{ '₹' + product.price }}</span></strong>

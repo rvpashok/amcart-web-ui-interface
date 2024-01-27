@@ -27,11 +27,11 @@ export class SearchService{
             
     }
 
-    fetchSearchData(searchTerm: any, categoryId:any){
-        console.log("SearchTerm:" + searchTerm + " :: CategoryId" + categoryId);
+    fetchSearchData(searchTerm: any, categoryId:any, sortBy:any){
+        console.log("SearchTerm:" + searchTerm + " :: CategoryId" + categoryId + " ::SortBy:" + sortBy);
         return this.http.get<SearchResults>("http://localhost:9010/orchestrationservices/api/search/products",
         //return this.http.get<SearchResults>("https://ojx3smmf5b.execute-api.ap-south-1.amazonaws.com/orchestrationservices/api/search/products",
-        {params:{"searchTerm":searchTerm.trim(), "categoryId":categoryId.trim()},"responseType":"json"})
+        {params:{"searchTerm":searchTerm.trim(), "categoryId":categoryId.trim(), "amcartSort":sortBy},"responseType":"json"})
         .pipe(
             map(res => {
                 console.log('Pipe reponse' + res);

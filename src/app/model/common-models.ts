@@ -23,6 +23,7 @@ export interface ProductSearchResponse{
     'skuColor' : string
     'skuMediaUrl' : string
     'skuSize' : string
+    'tags': string[]
     'inventoryStatus': string
     'price': number
     'originalPrice': number
@@ -93,3 +94,15 @@ export class Product {
     'inventoryStatus': string
     'originalPrice': number
  }
+
+ export interface ProductSorting {
+    'name': string;
+    'displayName': string;
+    'sortObj' : string;
+  }
+
+  export interface ProductListingPageDetails {
+    'searchTerm': string;
+    'categoryId': string;
+    'sortObj' : string;
+  }

@@ -12,6 +12,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { NgZone } from '@angular/core';
 import { CommonService } from '../Service/common.service';
+import { TagModule } from 'primeng/tag';
+
 
 
 
@@ -21,7 +23,7 @@ import { CommonService } from '../Service/common.service';
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, DropdownModule, SplitButtonModule, CarouselModule, DividerModule, ToastModule],
+  imports: [CommonModule, DropdownModule, SplitButtonModule, CarouselModule, DividerModule, ToastModule, TagModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -46,7 +48,7 @@ export class HomePageComponent {
     var categoryId = "all";
     if(searchTerm || categoryId){
       var searchResults = new Array<ProductSearchResponse>();
-      this.searchService.fetchSearchData(searchTerm, categoryId).subscribe( (response)=>{
+      this.searchService.fetchSearchData(searchTerm, categoryId, "").subscribe( (response)=>{
       console.log("API Response: " + response);
       this.productList = response;
       console.log(this.productList)
