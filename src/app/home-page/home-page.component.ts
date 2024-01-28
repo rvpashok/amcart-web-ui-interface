@@ -30,6 +30,7 @@ import { TagModule } from 'primeng/tag';
 export class HomePageComponent {
 
   public productList = new Array<ProductSearchResponse>();
+  public topPicksOfTheWeekproductList = new Array<ProductSearchResponse>();
   public filterCategory : any
   searchKey:string ="";
   layout: string = 'list';
@@ -47,13 +48,20 @@ export class HomePageComponent {
     var searchTerm = "";
     var categoryId = "all";
     if(searchTerm || categoryId){
-      var searchResults = new Array<ProductSearchResponse>();
-      var amcartDealOfTheDayFilter = '[{"fieldName":"tags","fieldValue":["Deal of the day"],"operator":"IN"}]';
+      var amcartDealOfTheDayFilter = '[{"fieldName":"tags","fieldValue":["Deal"],"operator":"IN"}]';
       this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartDealOfTheDayFilter).subscribe( (response)=>{
       console.log("API Response: " + response);
       this.productList = response;
       console.log(this.productList)
    });
+
+   var amcartTopPicksOfTheWeekFilter = '[{"fieldName":"tags","fieldValue":["Top Picks"],"operator":"IN"}]';
+      this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartTopPicksOfTheWeekFilter).subscribe( (response)=>{
+      console.log("API Response: " + response);
+      this.topPicksOfTheWeekproductList = response;
+      console.log(this.topPicksOfTheWeekproductList)
+   });
+
   }}
 
   ngOnInit() {

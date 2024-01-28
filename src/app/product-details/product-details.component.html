@@ -29,6 +29,11 @@
                     <div>
                         <span >{{productDetails.shortDescription}}</span>
                     </div>
+                    <p-tag [style]="{ 'margin-bottom': '5px', 'margin-top': '10px','background': 'linear-gradient(-225deg,#b50b32 40%,#b50b32 30%,#b50b32 100%)'}">
+                        <span class="flex align-items-center gap-2">
+                            {{ productDetails.brand }}
+                        </span>
+                    </p-tag>
                     <div class="amcart-pdp-price-container">
                         <div style="margin-top: 20px;">
                             <strong><span >{{ '₹' + productDetails.salePrice }}</span></strong>

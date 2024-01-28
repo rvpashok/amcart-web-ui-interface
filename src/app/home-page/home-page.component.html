@@ -39,13 +39,18 @@
 <div class="card">
     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
     <h3>Top Picks of the Week</h3>
-    <p-carousel [value]="this.productList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
+    <p-carousel [value]="this.topPicksOfTheWeekproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
         <ng-template let-product pTemplate="item" [style]="{'margin-right': '50px'}">
             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" (click)="caroselProductClick($event)">
                 <div class="mb-3">
                     <img src="{{product.skuMediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
                 </div>
                 <div>
+                    <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#b50b32 40%,#b50b32 30%,#b50b32 100%)'}">
+                        <div class="flex align-items-center gap-2">
+                            {{ product.tags }}
+                        </div>
+                    </p-tag>
                     <h5 class="mb-1">{{ product.name }}</h5>
                     <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
                         <strong><span >{{ '₹' + product.price }}</span></strong>
@@ -66,7 +71,7 @@
     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
     <h3>Get 25% Discount Today!</h3>
     <div class="text-600 text-2xl block mt-4 lg:text-left">Sign up our email list and know all about new
-        collections of Peak</div>
+        collections</div>
         <div><br/></div>
     <div class="mt-4 mx-auto lg:mx-0" style="max-width: 38rem; margin-right: auto;margin-left: auto;display: block;">
         <div class="p-inputgroup">
