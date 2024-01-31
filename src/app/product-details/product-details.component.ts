@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductSearchResponse } from '../model/common-models';
+import { ProductSearchResponse, Sku } from '../model/common-models';
 import { ProductService } from '../Service/product-service';
 import { Product, ProductDetailResponse } from '../model/common-models';
 import { CommonModule } from '@angular/common';
@@ -27,6 +27,7 @@ import { CommonService } from '../Service/common.service';
 export class ProductDetailsComponent {
 
   public productDetails : ProductDetailResponse | any;
+  public productImageDetails : ProductDetailResponse | any;
 
   constructor(private productService: ProductService, private router : Router,
     private activatedRoute: ActivatedRoute,public commonService:CommonService) {
@@ -38,8 +39,10 @@ export class ProductDetailsComponent {
     var productId = navigation?.extras.queryParams?.["productId"];
     if(productId == undefined && navigation){
       productId = navigation.extractedUrl.queryParams["productId"];
+      var skuId = navigation?.extractedUrl.queryParams?.["skuId"];
       var navigationExtras = {
-        queryParams: { 'productId': productId
+        queryParams: { 'productId': productId,
+                       'skuId': skuId
                     }
       };
       this.router.navigate(['/product-detail'], navigationExtras);
@@ -49,15 +52,22 @@ export class ProductDetailsComponent {
       this.productService.fetchProductDetails(productId).subscribe( (response)=>{
       console.log("API Response: " + response);
       this.productDetails = response;
+      this.productImageDetails = Object.create(response);
       var skus = response.skus;
       var priceDetails = skus[0].priceDetail;
       this.productDetails["inventoryStatus"] = skus[0].inventoryStatus;
       this.productDetails['id'] = response.productId;
+      this.productImageDetails.skus = new Array<Sku>;
+      this.productImageDetails.skus[0] = skus[0];
       for(var idx=0; idx<skus.length; idx++){
         if(skuId == skus[idx].name){
           priceDetails = skus[idx].priceDetail;
           this.productDetails["inventoryStatus"] = skus[idx].inventoryStatus;
-          break;
+          this.productImageDetails.skus[0] = skus[idx];
+          //break;
+        }
+        else{
+          this.productImageDetails.skus.push(skus[idx]);
         }
       }
       for(var priceIdx=0; priceIdx<priceDetails.length; priceIdx++){
