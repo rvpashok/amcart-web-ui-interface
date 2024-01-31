@@ -29,7 +29,7 @@
                     <div>
                         <span >{{productDetails.shortDescription}}</span>
                     </div>
-                    <p-tag [style]="{ 'margin-bottom': '5px', 'margin-top': '10px','background': 'linear-gradient(-225deg,#b50b32 40%,#b50b32 30%,#b50b32 100%)'}">
+                    <p-tag severity="info" [style]="{'margin-top': '10px'}">
                         <span class="flex align-items-center gap-2">
                             {{ productDetails.brand }}
                         </span>
@@ -54,11 +54,34 @@
                         </div>
                     </div>
                     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+                    <div *ngIf="productDetails.inventoryStatus=='LOW_STOCK'">
+                        <p-tag severity="warning" [style]="{'margin-bottom': '10px'}">
+                            <span class="flex align-items-center gap-2">
+                                Low Stock
+                            </span>
+                        </p-tag>
+                    </div>
+                    <div *ngIf="productDetails.inventoryStatus=='OUT_OF_STOCK'">
+                        <p-tag severity="danger" [style]="{'margin-bottom': '10px'}">
+                            <span class="flex align-items-center gap-2">
+                                Out Of Stock
+                            </span>
+                        </p-tag>
+                    </div>
+                    <div *ngIf="productDetails.inventoryStatus=='IN_STOCK'">
+                        <p-tag severity="success" [style]="{'margin-bottom': '10px'}">
+                            <span class="flex align-items-center gap-2">
+                               In Stock
+                            </span>
+                        </p-tag>
+                    </div>
                     <div class="mt-5 flex align-items-center justify-content-center gap-2">
                         <p-button label="Add To Cart"  (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
-                        icon="pi pi-shopping-cart" [outlined]="true" severity="info"> </p-button>
+                        icon="pi pi-shopping-cart" [outlined]="true" 
+                        [severity]="this.commonService.getSeverity(productDetails.inventoryStatus?productDetails.inventoryStatus:'')"
+                        [disabled]="this.commonService.isDisabled(productDetails.inventoryStatus?productDetails.inventoryStatus:'')"> </p-button>
                         <p-button label="Add To Wishlist"   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
-                        icon="pi pi-heart" [outlined]="true" severity="info"> </p-button>
+                        icon="pi pi-heart" [outlined]="true" severity="primary"> </p-button>
                     </div>
                     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                     <div>

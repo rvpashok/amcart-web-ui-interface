@@ -1,278 +1,3 @@
-<!--<p>products-listing works!</p> -->
-
-<!--<div class="card-top container-fluid">
-    <div class="container d-flex">
-        <div class="item">
-            <a (click)="filter('')">
-                <img src="https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100" alt="">
-                <h6>All products</h6>
-            </a>
-        </div>
-        <div class="item">
-            <a (click)="filter('electronics')">
-                <img src="https://rukminim1.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100" alt="">
-                <h6>Electronics</h6>
-            </a>
-        </div>
-        <div class="item">
-            <a (click)="filter('fashion')">
-                <img src="https://rukminim1.flixcart.com/flap/128/128/image/82b3ca5fb2301045.png?q=100" alt="">
-                <h6>Fashion</h6>
-            </a>
-        </div>
-        <div class="item">
-            <a (click)="filter('jewelery')">
-                <img style="width: 62px; margin-top: 5px;" src="https://rukminim1.flixcart.com/image/580/696/kkh6zrk0/jewellery-set/o/w/z/gt-ns-862-matushri-art-original-imafzt9teacakjyn.jpeg?q=50" alt="">
-                <h6>Jewllery</h6>
-            </a>
-        </div>
-    </div>
-</div> 
-
-<div class="container">
-    <div class="row" style="display: inline-block;">
-        <ng-container *ngFor="let item of productList" style="display: inline-block;">
-            <h6>Fashion</h6>
-            <div class="card col-md-6" style="display: inline-block;">
-                <img src="https://rukminim1.flixcart.com/image/580/696/kkh6zrk0/jewellery-set/o/w/z/gt-ns-862-matushri-art-original-imafzt9teacakjyn.jpeg?q=50" alt="">
-                <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.name}}</h5>
-                <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.shortDescription}}</p>
-                <p><strong>Price:</strong> 100</p>
-                <button class="btn btn-primary" (click)=addtocart()>Add to cart</button>
-            </div>
-        </ng-container>
-    </div>
-</div>
-<div *ngFor="let item of productList">
-    <mat-grid-list cols="2" rowHeight="2:1">
-        <mat-card class="example-card" >
-            <mat-grid-tile>
-                <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>{{item.name}}</mat-card-title>
-                </mat-card-header>
-                <img mat-card-lg-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                <p>
-                    {{item.shortDescription}}
-                </p>
-                </mat-card-content>
-                <mat-card-actions>
-                <button mat-button>Add to Cart</button>
-                </mat-card-actions>
-            </mat-grid-tile>
-        </mat-card>
-    </mat-grid-list>
-</div>
-
-
-
-<mat-toolbar color="primary"> Card view demo </mat-toolbar>
-<div class="content">
-  <mat-card class="mat-elevation-z4">
-    <mat-card-header>
-      <mat-card-title>Himalayan Peaks</mat-card-title>
-    </mat-card-header>
-    <img
-      mat-card-image
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-    />
-    <mat-card-content>
-      <p>The Himalayas is a mountain range in Asia.</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
-</div> -->
-
-<!--<ng-container *ngFor="let item of productList" style="display: inline-block;">
-    <h6>Fashion</h6>
-    <div class="card col-md-6" style="display: inline-block;">
-        <img src="https://rukminim1.flixcart.com/image/580/696/kkh6zrk0/jewellery-set/o/w/z/gt-ns-862-matushri-art-original-imafzt9teacakjyn.jpeg?q=50" alt="">
-        <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.name}}</h5>
-        <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.shortDescription}}</p>
-        <p><strong>Price:</strong> 100</p>
-        <button class="btn btn-primary" (click)=addtocart()>Add to cart</button>
-    </div>
-</ng-container> -->
-
-<!--<div class="content">
-    <div fxLayout="row wrap" fxLayoutGap="10px grid">
-      <div fxFlex="24%" fxFlex.xs="100%"
-      fxFlex.sm="33%" 
-      *ngFor="let item of productList" class="custom-list-card1">
-        <mat-card class="mat-elevation-z4">
-          <mat-card-header>
-            <mat-card-title>{{item.name}}</mat-card-title>
-          </mat-card-header>
-          <img
-            mat-card-image
-            src="https://rukminim1.flixcart.com/image/580/696/kkh6zrk0/jewellery-set/o/w/z/gt-ns-862-matushri-art-original-imafzt9teacakjyn.jpeg?q=50" alt=""
-          />
-          <mat-card-content>
-            <p>{{item.shortDescription}}</p>
-            <!-- <p style="color: red;"><strong>Price:</strong> {{item.price}}</p> 
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button (click)=addtocart() style="margin-left: 35%;">Add To Cart</button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- <p-dataView [value]="productList">
-    <ng-template let-product pTemplate="listItem">
-      <div class="product">
-        <img src="{{product.image}}" alt="{{product.name}}">
-        <h3>{{product.name}}</h3>
-        <p>{{product.description}}</p>
-        <span class="price">{{product.price | currency:'USD':true}}</span>
-      </div>
-    </ng-template>
-  </p-dataView> -->
-
-  
-<!-- <div class="card">
-  <p-dataView #dv [value]="productList">
-      <ng-template pTemplate="list" let-products>
-          <div class="grid grid-nogutter">
-              <div class="col-12" *ngFor="let item of productList; let first = first">
-                  <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
-                       <img class="w-9 sm:w-16rem xl:w-3rem shadow-2 block xl:block mx-auto border-round" [src]="'https://rukminim1.flixcart.com/image/580/696/kkh6zrk0/jewellery-set/o/w/z/gt-ns-862-matushri-art-original-imafzt9teacakjyn.jpeg?q=50'" />
-                      <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                          <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                              <div class="text-2xl font-bold text-900">{{item.name}}</div>
-                              <div class="flex align-items-center gap-3">
-                                  <span class="flex align-items-center gap-2">
-                                      <i class="pi pi-tag"></i>
-                                      <span class="font-semibold">{{item.shortDescription}}</span>
-                                  </span>
-                              </div>
-                          </div>
-                          <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                              <span class="text-2xl font-semibold">{{item.brand}}</span>
-                              <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded"></button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </ng-template>
-  </p-dataView>
-</div> -->
-
-
-
-<!-- <div class="card">
-  <p-dataView #dv [value]="productList">
-      <ng-template pTemplate="header">
-          <div class="flex justify-content-end">
-              <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-          </div>
-      </ng-template>
-      <ng-template let-product pTemplate="list" let-products>
-          <div class="grid grid-nogutter">
-              <div class="col-12" *ngFor="let product of products; let first = first">
-                  <div id="productItem" [attr.data-id]="product.productId" class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }" (click)="productClick($event)">
-                      <! -- <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="product.skuMediaUrl" [alt]="product.name" /> -- >
-                      <img [src]="product.skuMediaUrl" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
-                      <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                          <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                              <div class="text-2xl font-bold text-900">{{ product.name }}</div>
-                              <! -- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -- >
-                              <div class="flex align-items-center gap-3">
-                                  <span class="flex align-items-center gap-2">
-                                      <i class="pi pi-tag"></i>
-                                      <span class="font-semibold">{{ product.category }}</span>
-                                  </span>
-                                  <! -- <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag> -- >
-                              </div>
-                          </div>
-                          <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                              <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                              <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </ng-template>
-      <ng-template let-product pTemplate="grid" let-products>
-          <div class="grid grid-nogutter">
-              <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" *ngFor="let product of products">
-                  <div id="productItem" [attr.data-id]="product.productId" class="p-4 border-1 surface-border surface-card border-round">
-                      <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                          <span class="flex align-items-center gap-2">
-                              <i class="pi pi-tag"></i>
-                              <span class="font-semibold">{{ product.category }}</span>
-                          </span>
-                          < !-- <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag> -- >
-                      </div>
-                      <div class="flex flex-column align-items-center gap-3 py-5">
-                          < !-- <img class="w-9 shadow-2 border-round" [src]="product.skuMediaUrl" [alt]="product.name" /> -- >
-                          <img [src]="product.skuMediaUrl" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
-                          <div class="text-2xl font-bold">{{ product.name }}</div>
-                         < !-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -- >
-                      </div>
-                      <div class="flex align-items-center justify-content-between">
-                          <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                          <button pButton icon="pi pi-shopping-cart" class="p-button-rounded"></button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </ng-template>
-  </p-dataView>
-</div> -->
-  
-<!-- TRY Proper View In Listing-->
-
-<!--<div class="card">
-    <p-dataView #dv [value]="productList">
-        <ng-template pTemplate="list" let-products>
-            <div class="grid grid-nogutter">
-                <div class="col-12" *ngFor="let item of products; let first = first">
-                    <div class="flex flex-column xl:align-items-start" [ngClass]="{ 'border-top-1 surface-border': !first }">
-                        <img [src]="item.skuMediaUrl" width="300px" height= "300px" [alt]="item.name" class="w-6 shadow-2" />
-                        <div class="flex flex-column justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                            <div class="flex flex-column align-items-center">
-                                <div class="text-2xl font-bold text-900">{{ item.name }}</div>
-                                < !-- <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false"></p-rating> -- >
-                                <div class="flex align-items-center gap-3">
-                                    <span class="flex align-items-center gap-2">
-                                        <i class="pi pi-tag"></i>
-                                        <span class="font-semibold">{{ item.category }}</span>
-                                    </span>
-                                    < !-- <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item?)"></p-tag> -- >
-                                </div>
-                            </div>
-                            <div class="flex gap-3">
-                                <span class="text-2xl font-semibold">{{ '$' + item.price }}</span>
-                                <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </p-dataView>
-</div> 
-
-<p-dataView [value]="productList">
-    <ng-template let-product pTemplate="listItem">
-      <div class="product">
-        <img src="{{product.image}}" alt="{{product.name}}">
-        <h3>{{product.name}}</h3>
-        <p>{{product.description}}</p>
-        <span class="price">{{product.price | currency:'USD':true}}</span>
-      </div>
-    </ng-template>
-  </p-dataView> -->
-
-
   <div fxLayout="row" fxLayoutGap="16px" style="margin-top: 30px;">
     <div fxFlex="20%">
         <div class="card flex justify-content-center">
@@ -297,7 +22,7 @@
                     <div class="grid grid-nogutter" style="display: block;">
                         <div class="card" *ngFor="let item of productList; let first = first" style="display: inline-flex;" >
                             <div   [ngClass]="{ 'border-top-1 surface-border': !first }" >
-                                <div id="productItem" [attr.data-id]="item.productId" (click)="productClick($event)">
+                                <div id="productItem" [attr.data-id]="item.productId" [attr.data-sku-id]="item.skuId" (click)="productClick($event)">
                                     <div class="text-2xl font-bold" style="margin-bottom: 5px" >{{item.name}}</div>
                                     <img [src]="item.skuMediaUrl" width="300px" height= "300px" [alt]="item.name" class="w-6 shadow-2" style="margin-left: auto;margin-bottom: 5px;"/>
                                     <p-tag severity="info">
@@ -316,15 +41,35 @@
                                     </div>
                                 </div>
                                 <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
-                                <p-tag severity="success">
-                                    <span class="flex align-items-center gap-2">
-                                        {{ item.inventoryStatus }}
-                                    </span>
-                                </p-tag>
-                                <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                                    <p-button label="Add To Cart"   (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
-                                    icon="pi pi-shopping-cart" [outlined]="true" severity="info"> </p-button>
+                                <div *ngIf="item.inventoryStatus=='LOW_STOCK'">
+                                    <p-tag severity="warning" [style]="{'margin-bottom': '10px'}">
+                                        <span class="flex align-items-center gap-2">
+                                            Low Stock
+                                        </span>
+                                    </p-tag>
                                 </div>
+                                <div *ngIf="item.inventoryStatus=='OUT_OF_STOCK'">
+                                    <p-tag severity="danger" [style]="{'margin-bottom': '10px'}">
+                                        <span class="flex align-items-center gap-2">
+                                            Out Of Stock
+                                        </span>
+                                    </p-tag>
+                                </div>
+                                <div *ngIf="item.inventoryStatus=='IN_STOCK'">
+                                    <p-tag severity="success" [style]="{'margin-bottom': '10px'}">
+                                        <span class="flex align-items-center gap-2">
+                                           In Stock
+                                        </span>
+                                    </p-tag>
+                                </div>
+                                <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                                    <p-button label="Add To Cart"  (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
+                                    icon="pi pi-shopping-cart" [outlined]="true" 
+                                    [severity]="this.commonService.getSeverity(item.inventoryStatus?item.inventoryStatus:'')"
+                                    [disabled]="this.commonService.isDisabled(item.inventoryStatus?item.inventoryStatus:'')"> </p-button>
+                                </div>
+
+                                
                             </div>
                         </div>
                     </div>

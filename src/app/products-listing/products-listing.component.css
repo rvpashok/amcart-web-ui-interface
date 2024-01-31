@@ -64,7 +64,8 @@
   
     .card {
     width: 350px; 
-    height: 560px;
+    /* height: 600px; */
+    height: auto;
     margin: 12px;
     padding: 20px;
     border: 1px solid #ddd;

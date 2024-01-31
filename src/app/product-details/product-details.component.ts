@@ -51,10 +51,12 @@ export class ProductDetailsComponent {
       this.productDetails = response;
       var skus = response.skus;
       var priceDetails = skus[0].priceDetail;
+      this.productDetails["inventoryStatus"] = skus[0].inventoryStatus;
       this.productDetails['id'] = response.productId;
       for(var idx=0; idx<skus.length; idx++){
         if(skuId == skus[idx].name){
           priceDetails = skus[idx].priceDetail;
+          this.productDetails["inventoryStatus"] = skus[idx].inventoryStatus;
           break;
         }
       }

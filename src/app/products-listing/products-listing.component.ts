@@ -42,9 +42,9 @@ export class ProductsListingComponent {
 
   constructor(private searchService: SearchService, public commonService:CommonService, private router : Router,
     private activatedRoute: ActivatedRoute) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
-    };  
+    }; 
     this.productSortingOptions = [
       {displayName: 'Featured', name: 'featured',sortObj:'{"fieldName":"_score","direction":"DESC"}'},
       { displayName: 'Price: Low to High', name: 'price_low_to_high' , sortObj :'{"fieldName":"price","direction":"ASC"}'},
@@ -87,7 +87,7 @@ export class ProductsListingComponent {
           if(itemIItr.name?.length > 30) {
             itemIItr.name = itemIItr.name.substring(0,30) + "...";
           }
-          itemIItr.inventoryStatus = "INSTOCK";
+          //itemIItr.inventoryStatus = "INSTOCK";
         }) 
       } 
       this.productList = response?response:[];
@@ -114,21 +114,6 @@ productSortByChange(event:DropdownChangeEvent){
     this.router.navigate(['/product'], navigationExtras);
 }
 
-  getSeverity(product: Product) {
-    switch (product.inventoryStatus) {
-        case 'INSTOCK':
-            return 'success';
-
-        case 'LOWSTOCK':
-            return 'warning';
-
-        case 'OUTOFSTOCK':
-            return 'danger';
-
-        default:
-            return null;
-    }
-};
 
   addtocart(){
     console.log("Add To Cart Button clicked");
@@ -141,10 +126,12 @@ productSortByChange(event:DropdownChangeEvent){
   productClick(event: Event){ 
     const el = event.currentTarget as HTMLInputElement;
     const selectedProduct = el.getAttribute('data-id');
+    const selectedSku = el.getAttribute('data-sku-id');
     console.log("Product Cicked from listing for ProductId:" + selectedProduct);
 
     var navigationExtras = {
-      queryParams: { 'productId': selectedProduct
+      queryParams: { 'productId': selectedProduct,
+                      'skuId': selectedSku
                     }
     };
     

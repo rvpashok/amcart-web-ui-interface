@@ -41,5 +41,37 @@ export class CommonService {
     }
     this.cartItemDetails = [1,2,3]
   }
+
+  getSeverity(inventoryStatus: String) {
+    switch (inventoryStatus) {
+        case 'IN_STOCK':
+            return 'primary';
+
+        case 'LOW_STOCK':
+            return 'warning';
+
+        case 'OUT_OF_STOCK':
+            return 'secondary';
+
+        default:
+            return '';
+    }
+};
+
+isDisabled(inventoryStatus: String) {
+  switch (inventoryStatus) {
+      case 'IN_STOCK':
+          return false;
+
+      case 'LOW_STOCK':
+          return false;
+
+      case 'OUT_OF_STOCK':
+          return true;
+
+      default:
+          return false;
+  }
+};
   
 }

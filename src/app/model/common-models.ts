@@ -81,6 +81,7 @@ export class Product {
     'mediaUrl' : string
     'size' : string
     'priceDetail': Array<PriceDetail>
+    'inventoryStatus': string
  }
 
  export interface PriceDetail{
