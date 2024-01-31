@@ -51,6 +51,16 @@ export class HomePageComponent {
       var amcartDealOfTheDayFilter = '[{"fieldName":"tags","fieldValue":["Deal"],"operator":"IN"}]';
       this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartDealOfTheDayFilter).subscribe( (response)=>{
       console.log("API Response: " + response);
+      if(response != null && response.length > 0){
+        response.forEach((itemIItr)=>{
+          if(itemIItr.shortDescription?.length > 60) {
+            itemIItr.shortDescription = itemIItr.shortDescription.substring(0,60) + "...";
+          }
+          if(itemIItr.name?.length > 30) {
+            itemIItr.name = itemIItr.name.substring(0,30) + "...";
+          }
+        }) 
+      } 
       this.productList = response;
       console.log(this.productList)
    });
@@ -58,6 +68,16 @@ export class HomePageComponent {
    var amcartTopPicksOfTheWeekFilter = '[{"fieldName":"tags","fieldValue":["Top Picks"],"operator":"IN"}]';
       this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartTopPicksOfTheWeekFilter).subscribe( (response)=>{
       console.log("API Response: " + response);
+      if(response != null && response.length > 0){
+        response.forEach((itemIItr)=>{
+          if(itemIItr.shortDescription?.length > 60) {
+            itemIItr.shortDescription = itemIItr.shortDescription.substring(0,60) + "...";
+          }
+          if(itemIItr.name?.length > 30) {
+            itemIItr.name = itemIItr.name.substring(0,30) + "...";
+          }
+        }) 
+      } 
       this.topPicksOfTheWeekproductList = response;
       console.log(this.topPicksOfTheWeekproductList)
    });
@@ -88,10 +108,12 @@ export class HomePageComponent {
   caroselProductClick(event: Event){
     const el = event.currentTarget as HTMLInputElement;
     const selectedProduct = el.getAttribute('data-id');
+    const selectedSku = el.getAttribute('data-sku-id');
     console.log("Product Cicked from listing for ProductId:" + selectedProduct);
 
     var navigationExtras = {
-      queryParams: { 'productId': selectedProduct}
+      queryParams: { 'productId': selectedProduct,
+      'skuId': selectedSku}
     };
     
     this.router.navigate(['/product-detail'], navigationExtras);

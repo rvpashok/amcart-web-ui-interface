@@ -14,7 +14,7 @@
                     </p-carousel>
                 </div>
                 <div>
-                    <h4>Products specifications will come here!</h4>
+                    <h6>Products specifications will come here!</h6>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@
                     </div>
                     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                     <div>
-                        <h4>Products addtional info will come here!</h4>
+                        <h6>Products addtional info will come here!</h6>
                     </div>
                     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                     
@@ -92,4 +92,28 @@
             </div>
         </div>
     </div>
+</div>
+<p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+<div class="card">
+    <h3 style="text-align: left;">Customers who viewed this items also viewed below items</h3>
+    <p-carousel [value]="this.customerWhoViewedAlsoViewedproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
+        <ng-template let-product pTemplate="item" [style]="{'margin-right': '50px'}">
+            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" [attr.data-sku-id]="product.skuId" (click)="caroselProductClick($event)">
+                <div class="mb-3">
+                    <img src="{{product.skuMediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
+                </div>
+                <div>
+                    <h5 class="mb-1">{{ product.name }}</h5>
+                    <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                        <strong><span >{{ '₹' + product.price }}</span></strong>
+                        <s><span style="margin-left: 10px;">{{'₹' + product.originalPrice }}</span></s>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                <p-button label="Add To Cart"   (onClick)="this.commonService.addToCart($event)" [style]="{'margin-right': '1%','margin-bottom': '3px'}"
+                icon="pi pi-shopping-cart" [outlined]="true" severity="info"> </p-button>
+            </div>
+        </ng-template>
+    </p-carousel>
 </div>
