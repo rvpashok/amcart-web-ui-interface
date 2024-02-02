@@ -14,7 +14,7 @@
                 <ng-template pTemplate="empty">
                     <div class="empty-message">
                         <h1 class="m-0" style="margin-top: 10%;text-align: left; margin-left: 20%;">
-                            No data available !!!
+                            No Products Found !!!
                         </h1>
                     </div>
                   </ng-template>
@@ -22,46 +22,49 @@
                     <div class="grid grid-nogutter" style="display: block;">
                         <div class="card" *ngFor="let item of productList; let first = first" style="display: inline-flex;" >
                             <div   [ngClass]="{ 'border-top-1 surface-border': !first }" >
-                                <div id="productItem" [attr.data-id]="item.productId" [attr.data-sku-id]="item.skuId" (click)="productClick($event)">
-                                    <div class="text-2xl font-bold" style="margin-bottom: 5px" >{{item.name}}</div>
-                                    <img [src]="item.skuMediaUrl" width="300px" height= "300px" [alt]="item.name" class="w-6 shadow-2" style="margin-left: auto;margin-bottom: 5px;"/>
-                                    <p-tag severity="info">
-                                        <span class="flex align-items-center gap-2">
-                                            {{ item.brand }}
-                                        </span>
-                                    </p-tag>
-                                    <div style="height: 30px;margin-top: 10px;">
-                                        <span >{{item.shortDescription}}</span>
-                                    </div>
-                                    <div>
-                                        <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 10px;">
-                                            <strong><span >{{ '₹' + item.price }}</span></strong>
-                                            <s><span style="margin-left: 10px;">{{'₹' + item.originalPrice }}</span></s>
+                                <div style="cursor:pointer">
+                                    <div id="productItem" [attr.data-id]="item.productId" [attr.data-sku-id]="item.skuId" (click)="productClick($event)">
+                                        <div class="text-2xl font-bold" style="margin-bottom: 5px" >{{item.name}}</div>
+                                        <img [src]="item.skuMediaUrl" width="300px" height= "300px" [alt]="item.name" class="w-6 shadow-2" style="margin-left: auto;margin-bottom: 5px;"/>
+                                        <p-tag severity="info">
+                                            <span class="flex align-items-center gap-2">
+                                                {{ item.brand }}
+                                            </span>
+                                        </p-tag>
+                                        <div style="height: 30px;margin-top: 10px;">
+                                            <span >{{item.shortDescription}}</span>
+                                        </div>
+                                        <div>
+                                            <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 10px;">
+                                                <strong><span >{{ '₹' + item.price }}</span></strong>
+                                                <s><span style="margin-left: 10px;">{{'₹' + item.originalPrice }}</span></s>
+                                            </div>
                                         </div>
                                     </div>
+                                    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+                                    <div *ngIf="item.inventoryStatus=='LOW_STOCK'">
+                                        <p-tag severity="warning" [style]="{'margin-bottom': '10px'}">
+                                            <span class="flex align-items-center gap-2">
+                                                Low Stock
+                                            </span>
+                                        </p-tag>
+                                    </div>
+                                    <div *ngIf="item.inventoryStatus=='OUT_OF_STOCK'">
+                                        <p-tag severity="danger" [style]="{'margin-bottom': '10px'}">
+                                            <span class="flex align-items-center gap-2">
+                                                Out Of Stock
+                                            </span>
+                                        </p-tag>
+                                    </div>
+                                    <div *ngIf="item.inventoryStatus=='IN_STOCK'">
+                                        <p-tag severity="success" [style]="{'margin-bottom': '10px'}">
+                                            <span class="flex align-items-center gap-2">
+                                               In Stock
+                                            </span>
+                                        </p-tag>
+                                    </div>
                                 </div>
-                                <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
-                                <div *ngIf="item.inventoryStatus=='LOW_STOCK'">
-                                    <p-tag severity="warning" [style]="{'margin-bottom': '10px'}">
-                                        <span class="flex align-items-center gap-2">
-                                            Low Stock
-                                        </span>
-                                    </p-tag>
-                                </div>
-                                <div *ngIf="item.inventoryStatus=='OUT_OF_STOCK'">
-                                    <p-tag severity="danger" [style]="{'margin-bottom': '10px'}">
-                                        <span class="flex align-items-center gap-2">
-                                            Out Of Stock
-                                        </span>
-                                    </p-tag>
-                                </div>
-                                <div *ngIf="item.inventoryStatus=='IN_STOCK'">
-                                    <p-tag severity="success" [style]="{'margin-bottom': '10px'}">
-                                        <span class="flex align-items-center gap-2">
-                                           In Stock
-                                        </span>
-                                    </p-tag>
-                                </div>
+                                
                                 <div class="mt-5 flex align-items-center justify-content-center gap-2">
                                     <p-button label="Add To Cart"  (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
                                     icon="pi pi-shopping-cart" [outlined]="true" 

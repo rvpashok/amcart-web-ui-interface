@@ -117,7 +117,12 @@ export class TopBarComponent /*implements AfterViewInit*/{
         if(accessToken != null && accessToken != undefined){
           this.commonService.setItem("accessToken",accessToken);
           console.log("New acessToken: " + this.commonService.getItem("accessToken"));
+          this.auth.user$.subscribe(userDetails=>{
+            console.log("UserID: " + userDetails?.sub);
+            this.commonService.setItem("profileId",userDetails?.sub);
+          });
         }
+        
       });
     }
   
@@ -220,6 +225,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
   logout(event:Event) {  
     console.log("Logout button Clicker" + this.doc.location.origin);
     this.commonService.setItem("accessToken","");
+    this.commonService.setItem("profileId","");
     this.auth.logout({ logoutParams: { returnTo: this.doc.location.origin } });
   }
   
