@@ -20,4 +20,5 @@ phases:
       - aws s3 sync dist/app s3://$S3_BUCKET_NAME --delete
       - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
       - while [ $(aws cloudfront get-distribution --id $CLOUDFRONT_DISTRIBUTION_ID | grep -c Deployed) -eq 0 ]; do echo "sleep 60s"; sleep 60; done 
-      - echo CloudFront Cache Invalidated Successfully      
+      - echo CloudFront Cache Invalidated Successfully   
+      - echo Frontend Code Deployed Successfully      
