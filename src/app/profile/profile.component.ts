@@ -33,7 +33,7 @@ export class ProfileComponent {
     
       if(profileId){
           this.userService.fetchProfileDetails(profileId, accessToken).subscribe( (response)=>{
-          console.log("API Response: " + response);
+          //console.log("API Response: " + response);
           this.userDetails = response;
       });
     

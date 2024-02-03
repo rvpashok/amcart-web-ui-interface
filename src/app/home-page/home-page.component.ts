@@ -50,7 +50,7 @@ export class HomePageComponent {
     if(searchTerm || categoryId){
       var amcartDealOfTheDayFilter = '[{"fieldName":"tags","fieldValue":["Deal"],"operator":"IN"}]';
       this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartDealOfTheDayFilter).subscribe( (response)=>{
-      console.log("API Response: " + response);
+      //console.log("API Response: " + response);
       if(response != null && response.length > 0){
         response.forEach((itemIItr)=>{
           if(itemIItr.shortDescription?.length > 60) {
@@ -62,12 +62,12 @@ export class HomePageComponent {
         }) 
       } 
       this.productList = response;
-      console.log(this.productList)
+      //console.log(this.productList)
    });
 
    var amcartTopPicksOfTheWeekFilter = '[{"fieldName":"tags","fieldValue":["Top Picks"],"operator":"IN"}]';
       this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartTopPicksOfTheWeekFilter).subscribe( (response)=>{
-      console.log("API Response: " + response);
+      //console.log("API Response: " + response);
       if(response != null && response.length > 0){
         response.forEach((itemIItr)=>{
           if(itemIItr.shortDescription?.length > 60) {
@@ -79,7 +79,7 @@ export class HomePageComponent {
         }) 
       } 
       this.topPicksOfTheWeekproductList = response;
-      console.log(this.topPicksOfTheWeekproductList)
+      //console.log(this.topPicksOfTheWeekproductList)
    });
 
   }}
@@ -109,7 +109,7 @@ export class HomePageComponent {
     const el = event.currentTarget as HTMLInputElement;
     const selectedProduct = el.getAttribute('data-id');
     const selectedSku = el.getAttribute('data-sku-id');
-    console.log("Product Cicked from listing for ProductId:" + selectedProduct);
+    //console.log("Product Cicked from listing for ProductId:" + selectedProduct);
 
     var navigationExtras = {
       queryParams: { 'productId': selectedProduct,
@@ -120,7 +120,7 @@ export class HomePageComponent {
   }
 
   subscribeEvent(event:Event){
-    console.log("Subscribe button Clicked");
+    //console.log("Subscribe button Clicked");
   }
 
   showToast1() {

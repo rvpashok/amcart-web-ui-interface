@@ -53,7 +53,7 @@ export class ProductDetailsComponent {
     var skuId = navigation?.extras.queryParams?.["skuId"];
     if(productId){
       this.productService.fetchProductDetails(productId).subscribe( (response)=>{
-      console.log("API Response: " + response);
+      //console.log("API Response: " + response);
       this.productDetails = response;
       this.productImageDetails = Object.create(response);
       var skus = response.skus;
@@ -84,14 +84,14 @@ export class ProductDetailsComponent {
       this.productDetails["discountPercentage"] = Math.ceil(((this.productDetails["originalPrice"] 
       - this.productDetails["salePrice"]) * 100)/this.productDetails["originalPrice"]);
 
-      console.log(this.productDetails)
+      //console.log(this.productDetails)
    });
 
    var searchTerm = "";
    var categoryId = "all";
    //var amcartTopPicksOfTheWeekFilter = '[{"fieldName":"tags","fieldValue":["Top Picks"],"operator":"IN"}]';
       this.searchService.fetchSearchData(searchTerm, categoryId, "","").subscribe( (response)=>{
-      console.log("API Response: " + response);
+      //console.log("API Response: " + response);
 
       response = response.filter(item=>
         item.productId != productId
@@ -108,7 +108,7 @@ export class ProductDetailsComponent {
         }) 
       } 
       this.customerWhoViewedAlsoViewedproductList = filteredResponse;
-      console.log(this.customerWhoViewedAlsoViewedproductList)
+      //console.log(this.customerWhoViewedAlsoViewedproductList)
    });
   
   }
@@ -155,12 +155,12 @@ ngOnInit() {
 }
 
   selectSkuEvent(event: Event){
-    console.log("Sku Select Event Triggered" + event);
+    //console.log("Sku Select Event Triggered" + event);
     const el = event.currentTarget as HTMLInputElement;
     const selectedProductId = el.parentElement?.getAttribute('data-id');
     const selectedSkuId = el.parentElement?.getAttribute('data-skuId');
     
-    console.log("Product Cicked from listing for ProductId:" + selectedProductId + " skuId:" + selectedSkuId);
+    //console.log("Product Cicked from listing for ProductId:" + selectedProductId + " skuId:" + selectedSkuId);
 
     var navigationExtras = {
       queryParams: { 'productId': selectedProductId,
@@ -175,7 +175,7 @@ ngOnInit() {
     const el = event.currentTarget as HTMLInputElement;
     const selectedProduct = el.getAttribute('data-id');
     const selectedSku = el.getAttribute('data-sku-id');
-    console.log("Product Cicked from listing for ProductId:" + selectedProduct);
+    //console.log("Product Cicked from listing for ProductId:" + selectedProduct);
 
     var navigationExtras = {
       queryParams: { 'productId': selectedProduct,

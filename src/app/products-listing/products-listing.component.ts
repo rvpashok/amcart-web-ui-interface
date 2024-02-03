@@ -78,7 +78,7 @@ export class ProductsListingComponent {
         this.currentPageDetails.sortObj = sortByReq;
       }
       this.searchService.fetchSearchData(searchTerm, categoryId, sortByReq, "").subscribe( (response)=>{
-       console.log("API Response: " + response);
+       //console.log("API Response: " + response);
       if(response != null && response.length > 0){
         response.forEach((itemIItr)=>{
           if(itemIItr.shortDescription?.length > 60) {
@@ -91,7 +91,7 @@ export class ProductsListingComponent {
         }) 
       } 
       this.productList = response?response:[];
-      console.log(this.productList)
+      //console.log(this.productList)
    });
 
 
@@ -100,7 +100,7 @@ export class ProductsListingComponent {
 }
 
 productSortByChange(event:DropdownChangeEvent){
-  console.log("EventChanged");
+  //console.log("EventChanged");
   this.selectedSortByOption = this.selectedSortByOption ? this.selectedSortByOption : undefined;
 
     var navigationExtras = {
@@ -115,10 +115,6 @@ productSortByChange(event:DropdownChangeEvent){
 }
 
 
-  addtocart(){
-    console.log("Add To Cart Button clicked");
-  }
-
   filter(filter: string){
     console.log("Filter Button clicked");
   }
@@ -127,7 +123,7 @@ productSortByChange(event:DropdownChangeEvent){
     const el = event.currentTarget as HTMLInputElement;
     const selectedProduct = el.getAttribute('data-id');
     const selectedSku = el.getAttribute('data-sku-id');
-    console.log("Product Cicked from listing for ProductId:" + selectedProduct);
+    //console.log("Product Cicked from listing for ProductId:" + selectedProduct);
 
     var navigationExtras = {
       queryParams: { 'productId': selectedProduct,

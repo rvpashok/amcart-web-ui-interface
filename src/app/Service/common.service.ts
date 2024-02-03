@@ -11,7 +11,7 @@ export class CommonService {
   cartItemDetails = new Array<number>();
   constructor() { 
     //this.accessToken = "";
-    console.log("Common Service Constructor called");
+    //console.log("Common Service Constructor called");
   }
 
   setItem(key: string, value: any): void {
@@ -28,13 +28,13 @@ export class CommonService {
   }
 
   addToCart(event:Event){
-    console.log("AddToCart button Clicked");
+    //console.log("AddToCart button Clicked");
     this.totalCartItemCount = this.totalCartItemCount + 1;
     this.cartItemDetails = [1,2,3]
   }
 
   emptyCart(event:Event){
-    console.log("EmptyCart button Clicked");
+    //onsole.log("EmptyCart button Clicked");
     this.totalCartItemCount = this.totalCartItemCount - 1;
     if(this.totalCartItemCount < 0){
       this.totalCartItemCount = 0;

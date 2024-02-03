@@ -61,7 +61,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
     public auth: AuthService,
     @Inject(DOCUMENT) private doc: Document,
     public commonService:CommonService){
-      console.log("AuthModule config Clicked");
+      //console.log("AuthModule config Clicked");
   }
   
   selectedItem: any;
@@ -74,7 +74,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
 
   ngOnInit() {
         this.productService.fetchSearchCategoryData().subscribe((reponse)=>{
-          console.log("Category API Response:" + reponse);
+          //console.log("Category API Response:" + reponse);
           this.categories = reponse;
           //this.topCategories = this.getTopCategories(this.categories);
           this.selectedCategory = this.categories[0];
@@ -113,10 +113,10 @@ export class TopBarComponent /*implements AfterViewInit*/{
         { separator: true }
       ];
       this.auth.getAccessTokenSilently().subscribe((accessToken)=>{
-        console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
+        //console.log("Existing acessToken: " + this.commonService.getItem("accessToken"));
         if(accessToken != null && accessToken != undefined){
           this.commonService.setItem("accessToken",accessToken);
-          console.log("New acessToken: " + this.commonService.getItem("accessToken"));
+         // console.log("New acessToken: " + this.commonService.getItem("accessToken"));
           this.auth.user$.subscribe(userDetails=>{
             console.log("UserID: " + userDetails?.sub);
             this.commonService.setItem("profileId",userDetails?.sub);
@@ -132,12 +132,12 @@ export class TopBarComponent /*implements AfterViewInit*/{
   for(var idx = 0;idx<categoryList.length;idx++) {
       var categoryItem = categoryList[idx];
       if(categoryItem.parentCategoryId == null){
-        console.log(categoryItem);
+        //console.log(categoryItem);
         var megaMenuItem : MegaMenuItem = {};
         megaMenuItem.label = categoryItem.displayName;
         megaMenuItem.id = categoryItem.categoryId;
         var tempMenuItems = this.processCategoryData(categoryItem.categoryId, categoryList, megaMenuItem);
-        console.log("SubmenuItems: " + tempMenuItems);
+        //console.log("SubmenuItems: " + tempMenuItems);
         if(categoryItem.displayName=="Kids"){
           megaMenuItem.icon = "fa fa-child";
         }
@@ -207,54 +207,54 @@ export class TopBarComponent /*implements AfterViewInit*/{
   } 
 
   profile(){
-    console.log("Profile button Clicker" + this.auth.isAuthenticated$);
+    //console.log("Profile button Clicker" + this.auth.isAuthenticated$);
    this.router.navigate(['/profile'])
   }
 
   login(event:MouseEvent){
-    console.log("Login button Clicker" + this.auth.isAuthenticated$);
+    //console.log("Login button Clicker" + this.auth.isAuthenticated$);
     this.auth.loginWithRedirect();
     this.auth.getAccessTokenSilently();
     
   }
 
   onClickCart(event:Event){
-    console.log("AddToCart button Clicked");
+    console.log("Cart button Clicked");
   }
 
   logout(event:Event) {  
-    console.log("Logout button Clicker" + this.doc.location.origin);
+   // console.log("Logout button Clicker" + this.doc.location.origin);
     this.commonService.setItem("accessToken","");
     this.commonService.setItem("profileId","");
     this.auth.logout({ logoutParams: { returnTo: this.doc.location.origin } });
   }
   
   orders(){
-    console.log("Orders button Clicker")
+    //console.log("Orders button Clicker")
     this.router.navigate(['/orders'])
   }
 
   wishlist(){
-    console.log("Wishlist button Clicker")
+    //console.log("Wishlist button Clicker")
     this.router.navigate(['/wishlist'])
   }
 
   notifications(){
-    console.log("Notification button Clicker")
+    //console.log("Notification button Clicker")
     this.router.navigate(['/notifications'])
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    console.log("AutoCompleteCompleteEvent selected: " + event);
+    //console.log("AutoCompleteCompleteEvent selected: " + event);
     var resultsSuggestions = new Array<string>();
     let categoryId = this.selectedCategory?JSON.stringify(this.selectedCategory.categoryId):'all';
     categoryId = JSON.parse(categoryId);
     this.searchService.fetchSuggestions(encodeURIComponent(event.query), encodeURIComponent(categoryId)).subscribe( (response)=>{
-      console.log("API Response: " + response);
+      //console.log("API Response: " + response);
       if(response != null){
         response.forEach(function (arrayItem) {
           var x = arrayItem.name;
-          console.log(x);
+          //console.log(x);
           resultsSuggestions.push(x);
       });
     }
@@ -263,7 +263,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
   }
 
   onEnter(event: Event){
-    console.log("Enter pressed selected: " + this.selectedItem);
+    //console.log("Enter pressed selected: " + this.selectedItem);
     this.selectedItem = this.selectedItem ? this.selectedItem : "";
 
     var navigationExtras = {
@@ -286,11 +286,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
   }
 
   suggestionSelected(event : AutoCompleteSelectEvent){
-    // const selectCategoryId = document.getElementById(
-    //   'selectCategoryId',
-    // ) as HTMLDivElement | null;
-    // console.log("selectCategoryId"+selectCategoryId?.nodeValue);
-    console.log("Suggestion selected: " + event.value + " :: Selected Category: " + this.selectedCategory);
+    //console.log("Suggestion selected: " + event.value + " :: Selected Category: " + this.selectedCategory);
 
     var navigationExtras = {
       queryParams: { 'searchTerm': encodeURIComponent(event.value),
