@@ -17,7 +17,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CommonService } from '../Service/common.service';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
-import {ProductSorting, ProductListingPageDetails} from '../model/common-models';
+import {ProductSorting, ProductListingPageDetails, ProductFilter, ProductFilterRequest} from '../model/common-models';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -37,8 +37,13 @@ export class ProductsListingComponent {
   searchKey:string ="";
   layout: string = 'list';
   public productSortingOptions = new Array<ProductSorting>;
+  public productFilterByColorOptions = new Array<ProductFilter>;
+  public productFilterByBrandOptions = new Array<ProductFilter>;
   public selectedSortByOption: ProductSorting | undefined;
+  public selectedFilterByColorOption: ProductFilter | undefined;
+  public selectedFilterByBrandOption: ProductFilter | undefined;
   public currentPageDetails: ProductListingPageDetails | undefined;
+  public appliedFilter = new Array<ProductFilterRequest>();
 
   constructor(private searchService: SearchService, public commonService:CommonService, private router : Router,
     private activatedRoute: ActivatedRoute) {
@@ -51,6 +56,30 @@ export class ProductsListingComponent {
       { displayName: 'Price: High to Low', name: 'price_high_to_low', sortObj:'{"fieldName":"price","direction":"DESC"}'}
       ];
 
+    this.productFilterByColorOptions = [
+        {fieldName:'skuColor', displayName: 'Blue', name: 'blue',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Brown', name: 'brown',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Dark Blue', name: 'dark blue',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Light Blue', name: 'light blue',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Light Grey', name: 'light grey',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Green', name: 'green',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Grey', name: 'grey',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Orange', name: 'orange',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Pink', name: 'pink',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Purple', name: 'purple',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Red', name: 'red',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Rose', name: 'rose',operator:'IN'},
+        {fieldName:'skuColor', displayName: 'Yellow', name: 'yellow',operator:'IN'},
+      ];
+
+      this.productFilterByBrandOptions = [
+        {fieldName:'brand', displayName: 'Urbano', name: 'urbano',operator:'IN'},
+        {fieldName:'brand', displayName: 'Lenskart', name: 'lenskart',operator:'IN'},
+        {fieldName:'brand', displayName: 'Puma', name: 'puma',operator:'IN'},
+        {fieldName:'brand', displayName: 'Polo', name: 'polo',operator:'IN'},
+        {fieldName:'brand', displayName: 'Bumzee', name: 'bumzee',operator:'IN'}
+      ];
+
     const navigation = this.router.getCurrentNavigation();  
     var stateold = this.router.routerState;
     var searchTerm = navigation?.extras.queryParams?.["searchTerm"];
@@ -58,6 +87,18 @@ export class ProductsListingComponent {
     var sortBy = navigation?.extras.queryParams?.["sortBy"];
     var sortByReq = "";
     this.currentPageDetails = {"categoryId":"all","searchTerm":"",sortObj:""};
+    var appliedFilterTemp = this.commonService.productListingFilter;
+    if(appliedFilterTemp != null && appliedFilterTemp.length > 0){
+      for(var idx=0; idx<appliedFilterTemp.length; idx++){
+        var tempFilterReq : ProductFilterRequest;
+        tempFilterReq = {"fieldName":"","fieldValue":[],"operator":""};
+        tempFilterReq["fieldName"] = appliedFilterTemp[idx].fieldName;
+        tempFilterReq["fieldValue"] = new Array<string>();
+        tempFilterReq["fieldValue"][0]= appliedFilterTemp[idx].name;
+        tempFilterReq["operator"] = appliedFilterTemp[idx].operator;
+        this.appliedFilter.push(tempFilterReq);
+      }
+    }
     if(sortBy == undefined || sortBy == ""){
       sortByReq = this.productSortingOptions[0].sortObj;
       this.selectedSortByOption = this.productSortingOptions[0];
@@ -77,7 +118,7 @@ export class ProductsListingComponent {
         this.currentPageDetails.searchTerm = searchTerm;
         this.currentPageDetails.sortObj = sortByReq;
       }
-      this.searchService.fetchSearchData(searchTerm, categoryId, sortByReq, "").subscribe( (response)=>{
+      this.searchService.fetchSearchData(searchTerm, categoryId, sortByReq, JSON.stringify(this.appliedFilter)).subscribe( (response)=>{
        //console.log("API Response: " + response);
       if(response != null && response.length > 0){
         response.forEach((itemIItr)=>{
@@ -101,6 +142,16 @@ export class ProductsListingComponent {
 
 productSortByChange(event:DropdownChangeEvent){
   //console.log("EventChanged");
+  this.selectedFilterByBrandOption = this.selectedFilterByBrandOption?this.selectedFilterByBrandOption : undefined;
+  this.selectedFilterByColorOption = this.selectedFilterByColorOption?this.selectedFilterByColorOption: undefined;
+  this.commonService.productListingFilter = new Array<ProductFilter>();
+  if(this.selectedFilterByBrandOption != null){
+    this.commonService.productListingFilter.push(this.selectedFilterByBrandOption);
+  }
+  if(this.selectedFilterByColorOption != null){
+    this.commonService.productListingFilter.push(this.selectedFilterByColorOption);
+  }
+  
   this.selectedSortByOption = this.selectedSortByOption ? this.selectedSortByOption : undefined;
 
     var navigationExtras = {
@@ -115,8 +166,30 @@ productSortByChange(event:DropdownChangeEvent){
 }
 
 
-  filter(filter: string){
-    console.log("Filter Button clicked");
+  applyFilter(event:Event){
+    this.selectedFilterByBrandOption = this.selectedFilterByBrandOption?this.selectedFilterByBrandOption : undefined;
+    this.selectedFilterByColorOption = this.selectedFilterByColorOption?this.selectedFilterByColorOption: undefined;
+    this.commonService.productListingFilter = new Array<ProductFilter>();
+    if(this.selectedFilterByBrandOption != null){
+      this.commonService.productListingFilter.push(this.selectedFilterByBrandOption);
+    }
+    if(this.selectedFilterByColorOption != null){
+      this.commonService.productListingFilter.push(this.selectedFilterByColorOption);
+    }
+    this.selectedSortByOption = this.selectedSortByOption ? this.selectedSortByOption : undefined;
+
+    var navigationExtras = {
+      queryParams: { 'searchTerm': this.currentPageDetails?.searchTerm,
+                      'categoryId': this.currentPageDetails?.categoryId?this.currentPageDetails.categoryId:"all",
+                      'sortBy': this.selectedSortByOption?.name
+                    }
+    };
+    
+    this.router.navigate(['/product'], navigationExtras);  
+  }
+
+  resetFilter(event:Event){
+    console.log("Reset Filter Button clicked");
   }
 
   productClick(event: Event){ 

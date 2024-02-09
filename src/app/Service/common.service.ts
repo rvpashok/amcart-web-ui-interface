@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ProductSearchResponse } from '../model/common-models';
+import { ProductFilter, ProductSearchResponse } from '../model/common-models';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class CommonService {
   accessToken : string = "";
   totalCartItemCount : number = 0;
   cartItemDetails = new Array<number>();
+  productListingFilter = new Array<ProductFilter>();
   constructor() { 
     //this.accessToken = "";
     //console.log("Common Service Constructor called");

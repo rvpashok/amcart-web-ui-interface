@@ -102,6 +102,19 @@ export class Product {
     'sortObj' : string;
   }
 
+  export interface ProductFilter {
+    'fieldName': string | any;
+    'name': string;
+    'displayName': string;
+    'operator' : string;
+  }
+
+  export interface ProductFilterRequest {
+    'fieldName': string;
+    'fieldValue': string[];
+    'operator' : string;
+  }
+
   export interface ProductListingPageDetails {
     'searchTerm': string;
     'categoryId': string;
