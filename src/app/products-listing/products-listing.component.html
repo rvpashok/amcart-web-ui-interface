@@ -1,29 +1,41 @@
   <div fxLayout="row" fxLayoutGap="16px" style="margin-top: 30px;">
     <div fxFlex="20%">
         <div class="card flex justify-content-center">
-            <span id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Sort By: </span>
-            <p-dropdown [options]="this.productSortingOptions" [(ngModel)]="this.selectedSortByOption" optionLabel="displayName"
-            [showClear]="false" placeholder="Select a SortBy" (onChange)="productSortByChange($event)"></p-dropdown>
+            <h4 id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Sort Options </h4>
+            <div>
+                <p-accordion [multiple]="true" [activeIndex]="[0]">
+                    <p-accordionTab header="Sorting">
+                        <span id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Sort By: </span>
+                        <p-dropdown [options]="this.productSortingOptions" [(ngModel)]="this.selectedSortByOption" optionLabel="displayName"
+                        [showClear]="false" placeholder="Select a SortBy" (onChange)="productSortByChange($event)"></p-dropdown>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
             <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
             <h4 id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Filter Options </h4>
-            <span id="productFilterByColorLabel" style="text-size-adjust: 50px;">Color: </span>
-            <p-dropdown [options]="this.productFilterByColorOptions" [(ngModel)]="this.selectedFilterByColorOption" optionLabel="displayName"
-            [showClear]="false" placeholder="Select a Color"></p-dropdown>
-            <div style="margin-top: 10px;">
-                <span id="productFilterByBrandLabel" style="text-size-adjust: 50px;">Brand: </span>
-                <p-dropdown [options]="this.productFilterByBrandOptions" [(ngModel)]="this.selectedFilterByBrandOption" optionLabel="displayName"
-                [showClear]="false" placeholder="Select a Brand"></p-dropdown>
-                <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
-                
+            
+            <div>
+                <p-accordion [multiple]="true" [activeIndex]="[0,1]">
+                    <p-accordionTab header="Color">
+                        <span id="productFilterByColorLabel" style="text-size-adjust: 50px;">Color: </span>
+                        <p-dropdown [options]="this.productFilterByColorOptions" [(ngModel)]="this.selectedFilterByColorOption" optionLabel="displayName"
+                        [showClear]="false" placeholder="Select a Color"></p-dropdown>
+                    </p-accordionTab>
+                    <p-accordionTab header="Brand">
+                        <span id="productFilterByBrandLabel" style="text-size-adjust: 50px;">Brand: </span>
+                        <p-dropdown [options]="this.productFilterByBrandOptions" [(ngModel)]="this.selectedFilterByBrandOption" optionLabel="displayName"
+                        [showClear]="false" placeholder="Select a Brand"></p-dropdown>
+                        <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+                    </p-accordionTab>
+                </p-accordion>
             </div>
             
-            <div class="mt-5 flex align-items-center justify-content-center gap-2">
+            <div style="margin-top: 20px;" class="mt-5 flex align-items-center justify-content-center gap-2">
                 <p-button label="Apply Filter"  (onClick)="applyFilter($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
                     [outlined]="true"> </p-button>
                 <p-button label="Reset Filter"  (onClick)="resetFilter($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
                     [outlined]="true" severity="danger"> </p-button>
             </div>
-
         </div>
     </div>
     <div fxFlex="80%">
@@ -31,7 +43,7 @@
             <p-dataView #dv [value]="productList" >
                 <ng-template pTemplate="empty">
                     <div class="empty-message">
-                        <h1 class="m-0" style="margin-top: 10%;text-align: left; margin-left: 20%;">
+                        <h1 class="m-0" style="margin-top: 10%;text-align: left; margin-left: 30%;">
                             No Products Found !!!
                         </h1>
                     </div>

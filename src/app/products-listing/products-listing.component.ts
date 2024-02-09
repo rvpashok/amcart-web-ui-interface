@@ -19,12 +19,15 @@ import { CommonService } from '../Service/common.service';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import {ProductSorting, ProductListingPageDetails, ProductFilter, ProductFilterRequest} from '../model/common-models';
 import {FormsModule} from '@angular/forms';
+import { AccordionModule } from 'primeng/accordion';
+
 
 @Component({
   selector: 'app-products-listing',
   standalone: true,
   imports: [FormsModule, CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
-    MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule,DropdownModule
+    MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule,
+    DropdownModule, AccordionModule
     ],
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.css'
@@ -151,7 +154,7 @@ productSortByChange(event:DropdownChangeEvent){
   if(this.selectedFilterByColorOption != null){
     this.commonService.productListingFilter.push(this.selectedFilterByColorOption);
   }
-  
+
   this.selectedSortByOption = this.selectedSortByOption ? this.selectedSortByOption : undefined;
 
     var navigationExtras = {
