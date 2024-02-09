@@ -20,6 +20,8 @@ import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import {ProductSorting, ProductListingPageDetails, ProductFilter, ProductFilterRequest} from '../model/common-models';
 import {FormsModule} from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
+import { CheckboxModule } from 'primeng/checkbox';
+
 
 
 @Component({
@@ -27,7 +29,7 @@ import { AccordionModule } from 'primeng/accordion';
   standalone: true,
   imports: [FormsModule, CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
     MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule,
-    DropdownModule, AccordionModule
+    DropdownModule, AccordionModule, CheckboxModule
     ],
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.css'
@@ -43,8 +45,8 @@ export class ProductsListingComponent {
   public productFilterByColorOptions = new Array<ProductFilter>;
   public productFilterByBrandOptions = new Array<ProductFilter>;
   public selectedSortByOption: ProductSorting | undefined;
-  public selectedFilterByColorOption: ProductFilter | undefined;
-  public selectedFilterByBrandOption: ProductFilter | undefined;
+  public selectedFilterByColorOption = new Array<ProductFilter>;
+  public selectedFilterByBrandOption =  new Array<ProductFilter>;
   public currentPageDetails: ProductListingPageDetails | undefined;
   public appliedFilter = new Array<ProductFilterRequest>();
 
@@ -95,11 +97,22 @@ export class ProductsListingComponent {
       for(var idx=0; idx<appliedFilterTemp.length; idx++){
         var tempFilterReq : ProductFilterRequest;
         tempFilterReq = {"fieldName":"","fieldValue":[],"operator":""};
-        tempFilterReq["fieldName"] = appliedFilterTemp[idx].fieldName;
-        tempFilterReq["fieldValue"] = new Array<string>();
-        tempFilterReq["fieldValue"][0]= appliedFilterTemp[idx].name;
-        tempFilterReq["operator"] = appliedFilterTemp[idx].operator;
-        this.appliedFilter.push(tempFilterReq);
+        var isExistingObjAvailable = false;
+        for(var idy=0; idy<this.appliedFilter.length; idy++){
+          if(this.appliedFilter[idy].fieldName == appliedFilterTemp[idx].fieldName){
+            tempFilterReq = this.appliedFilter[idy];
+            this.appliedFilter[idy].fieldValue.push(appliedFilterTemp[idx].name)
+            isExistingObjAvailable = true;
+            break;
+          }
+        }
+        if(isExistingObjAvailable == false){
+          tempFilterReq["fieldName"] = appliedFilterTemp[idx].fieldName;
+          tempFilterReq["operator"] = appliedFilterTemp[idx].operator;
+          tempFilterReq["fieldValue"] = new Array<string>();
+          tempFilterReq["fieldValue"][0]= appliedFilterTemp[idx].name;
+          this.appliedFilter.push(tempFilterReq);
+        }
       }
     }
     if(sortBy == undefined || sortBy == ""){
@@ -145,14 +158,14 @@ export class ProductsListingComponent {
 
 productSortByChange(event:DropdownChangeEvent){
   //console.log("EventChanged");
-  this.selectedFilterByBrandOption = this.selectedFilterByBrandOption?this.selectedFilterByBrandOption : undefined;
-  this.selectedFilterByColorOption = this.selectedFilterByColorOption?this.selectedFilterByColorOption: undefined;
+  this.selectedFilterByBrandOption = this.selectedFilterByBrandOption?this.selectedFilterByBrandOption : [];
+  this.selectedFilterByColorOption = this.selectedFilterByColorOption?this.selectedFilterByColorOption: [];
   this.commonService.productListingFilter = new Array<ProductFilter>();
   if(this.selectedFilterByBrandOption != null){
-    this.commonService.productListingFilter.push(this.selectedFilterByBrandOption);
+    this.commonService.productListingFilter.push(...this.selectedFilterByBrandOption);
   }
   if(this.selectedFilterByColorOption != null){
-    this.commonService.productListingFilter.push(this.selectedFilterByColorOption);
+    this.commonService.productListingFilter.push(...this.selectedFilterByColorOption);
   }
 
   this.selectedSortByOption = this.selectedSortByOption ? this.selectedSortByOption : undefined;
@@ -170,14 +183,14 @@ productSortByChange(event:DropdownChangeEvent){
 
 
   applyFilter(event:Event){
-    this.selectedFilterByBrandOption = this.selectedFilterByBrandOption?this.selectedFilterByBrandOption : undefined;
-    this.selectedFilterByColorOption = this.selectedFilterByColorOption?this.selectedFilterByColorOption: undefined;
+    this.selectedFilterByBrandOption = this.selectedFilterByBrandOption?this.selectedFilterByBrandOption : [];
+    this.selectedFilterByColorOption = this.selectedFilterByColorOption?this.selectedFilterByColorOption: [];
     this.commonService.productListingFilter = new Array<ProductFilter>();
     if(this.selectedFilterByBrandOption != null){
-      this.commonService.productListingFilter.push(this.selectedFilterByBrandOption);
+      this.commonService.productListingFilter.push(...this.selectedFilterByBrandOption);
     }
-    if(this.selectedFilterByColorOption != null){
-      this.commonService.productListingFilter.push(this.selectedFilterByColorOption);
+    if(this.selectedFilterByColorOption != null && this.selectedFilterByColorOption){
+      this.commonService.productListingFilter.push(...this.selectedFilterByColorOption);
     }
     this.selectedSortByOption = this.selectedSortByOption ? this.selectedSortByOption : undefined;
 

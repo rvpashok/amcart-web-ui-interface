@@ -6,7 +6,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { CarouselModule } from 'primeng/carousel';
 import { SearchService } from '../Service/search-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductSearchResponse } from '../model/common-models';
+import { ProductSearchResponse, ProductFilter } from '../model/common-models';
 import { DividerModule } from 'primeng/divider';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -47,6 +47,7 @@ export class HomePageComponent {
     const navigation = this.router.getCurrentNavigation();  
     var searchTerm = "";
     var categoryId = "all";
+    this.commonService.productListingFilter = new Array<ProductFilter>();
     if(searchTerm || categoryId){
       var amcartDealOfTheDayFilter = '[{"fieldName":"tags","fieldValue":["Deal"],"operator":"IN"}]';
       this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartDealOfTheDayFilter).subscribe( (response)=>{
@@ -110,7 +111,6 @@ export class HomePageComponent {
     const selectedProduct = el.getAttribute('data-id');
     const selectedSku = el.getAttribute('data-sku-id');
     //console.log("Product Cicked from listing for ProductId:" + selectedProduct);
-
     var navigationExtras = {
       queryParams: { 'productId': selectedProduct,
       'skuId': selectedSku}

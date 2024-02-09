@@ -18,11 +18,12 @@ import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
-import { CommonService } from '../Service/common.service';
+import { CommonService} from '../Service/common.service';
 import { PrimeIcons } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import {ProductFilter } from '../model/common-models';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MegaMenuModule } from 'primeng/megamenu';
@@ -154,6 +155,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
            'list-style': 'none'
          };
          megaMenuItem.command = (event)=>{
+          this.commonService.productListingFilter = new Array<ProductFilter>();
           var navigationExtras = {
             queryParams: { 'searchTerm': "",
                             'categoryId':event.item?.id
@@ -178,6 +180,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
             menuItemTemp.label = category.displayName;
             menuItemTemp.id = category.categoryId;
             menuItemTemp.command = (event)=>{
+              this.commonService.productListingFilter = new Array<ProductFilter>();
               var navigationExtras = {
                 queryParams: { 'searchTerm': "",
                                 'categoryId':event.item?.id
@@ -265,7 +268,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
   onEnter(event: Event){
     //console.log("Enter pressed selected: " + this.selectedItem);
     this.selectedItem = this.selectedItem ? this.selectedItem : "";
-
+    this.commonService.productListingFilter = new Array<ProductFilter>();
     var navigationExtras = {
       queryParams: { 'searchTerm': encodeURIComponent(this.selectedItem),
                       'categoryId':this.selectedCategory?.categoryId
@@ -287,7 +290,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
 
   suggestionSelected(event : AutoCompleteSelectEvent){
     //console.log("Suggestion selected: " + event.value + " :: Selected Category: " + this.selectedCategory);
-
+    this.commonService.productListingFilter = new Array<ProductFilter>();
     var navigationExtras = {
       queryParams: { 'searchTerm': encodeURIComponent(event.value),
                       'categoryId':this.selectedCategory?.categoryId

@@ -1,7 +1,10 @@
   <div fxLayout="row" fxLayoutGap="16px" style="margin-top: 30px;">
     <div fxFlex="20%">
         <div class="card flex justify-content-center">
-            <h4 id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Sort Options </h4>
+            <h4 class="m-0" style="text-size-adjust: 50px;">
+                Sort Options
+            </h4>
+
             <div>
                 <p-accordion [multiple]="true" [activeIndex]="[0]">
                     <p-accordionTab header="Sorting">
@@ -17,19 +20,29 @@
             <div>
                 <p-accordion [multiple]="true" [activeIndex]="[0,1]">
                     <p-accordionTab header="Color">
-                        <span id="productFilterByColorLabel" style="text-size-adjust: 50px;">Color: </span>
+                        <!-- <span id="productFilterByColorLabel" style="text-size-adjust: 50px;">Color: </span>
                         <p-dropdown [options]="this.productFilterByColorOptions" [(ngModel)]="this.selectedFilterByColorOption" optionLabel="displayName"
-                        [showClear]="false" placeholder="Select a Color"></p-dropdown>
+                        [showClear]="false" placeholder="Select a Color"></p-dropdown> -->
+                        <div style="display: grid;">
+                            <div style="display: inline-grid; margin-bottom: 10px; float: left;" *ngFor="let colorOption of this.productFilterByColorOptions" class="field-checkbox">
+                                <p-checkbox [label]="colorOption.displayName" name="group" [value]="colorOption" [(ngModel)]="this.selectedFilterByColorOption"></p-checkbox>
+                            </div>
+                        </div>
                     </p-accordionTab>
                     <p-accordionTab header="Brand">
-                        <span id="productFilterByBrandLabel" style="text-size-adjust: 50px;">Brand: </span>
+                        <!-- <span id="productFilterByBrandLabel" style="text-size-adjust: 50px;">Brand: </span>
                         <p-dropdown [options]="this.productFilterByBrandOptions" [(ngModel)]="this.selectedFilterByBrandOption" optionLabel="displayName"
-                        [showClear]="false" placeholder="Select a Brand"></p-dropdown>
-                        <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+                        [showClear]="false" placeholder="Select a Brand"></p-dropdown> -->
+                        <div style="display: grid;">
+                            <div style="display: inline-grid; margin-bottom: 10px; float: left;" *ngFor="let brandOption of this.productFilterByBrandOptions" class="field-checkbox">
+                                <p-checkbox [label]="brandOption.displayName" name="group" [value]="brandOption" [(ngModel)]="this.selectedFilterByBrandOption"></p-checkbox>
+                            </div>
+                        </div>
+                        
                     </p-accordionTab>
                 </p-accordion>
             </div>
-            
+            <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
             <div style="margin-top: 20px;" class="mt-5 flex align-items-center justify-content-center gap-2">
                 <p-button label="Apply Filter"  (onClick)="applyFilter($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
                     [outlined]="true"> </p-button>
