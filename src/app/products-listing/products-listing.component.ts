@@ -78,11 +78,15 @@ export class ProductsListingComponent {
       ];
 
       this.productFilterByBrandOptions = [
-        {fieldName:'brand', displayName: 'Urbano', name: 'urbano',operator:'IN'},
+        {fieldName:'brand', displayName: 'Allen Solly', name: 'allen solly',operator:'IN'},
+        {fieldName:'brand', displayName: 'Bumzee', name: 'bumzee',operator:'IN'},
+        {fieldName:'brand', displayName: 'Crossfit-Diva', name: 'drossfit-diva',operator:'IN'},
         {fieldName:'brand', displayName: 'Lenskart', name: 'lenskart',operator:'IN'},
-        {fieldName:'brand', displayName: 'Puma', name: 'puma',operator:'IN'},
         {fieldName:'brand', displayName: 'Polo', name: 'polo',operator:'IN'},
-        {fieldName:'brand', displayName: 'Bumzee', name: 'bumzee',operator:'IN'}
+        {fieldName:'brand', displayName: 'Puma', name: 'puma',operator:'IN'},
+        {fieldName:'brand', displayName: 'Rikidoos', name: 'rikidoos',operator:'IN'},
+        {fieldName:'brand', displayName: 'Urbano', name: 'urbano',operator:'IN'},
+        {fieldName:'brand', displayName: 'Winter Fuel', name: 'winter fuel',operator:'IN'}
       ];
 
     const navigation = this.router.getCurrentNavigation();  
@@ -90,9 +94,20 @@ export class ProductsListingComponent {
     var searchTerm = navigation?.extras.queryParams?.["searchTerm"];
     var categoryId = navigation?.extras.queryParams?.["categoryId"];
     var sortBy = navigation?.extras.queryParams?.["sortBy"];
+
+
+    if(navigation && categoryId == undefined){
+      searchTerm = navigation.extractedUrl.queryParams["searchTerm"];
+      categoryId = navigation?.extractedUrl.queryParams?.["categoryId"];
+      sortBy = navigation?.extractedUrl.queryParams?.["sortBy"];
+    }
+
+
     var sortByReq = "";
     this.currentPageDetails = {"categoryId":"all","searchTerm":"",sortObj:""};
     var appliedFilterTemp = this.commonService.productListingFilter;
+    this.selectedFilterByBrandOption = appliedFilterTemp;
+    this.selectedFilterByColorOption = appliedFilterTemp;
     if(appliedFilterTemp != null && appliedFilterTemp.length > 0){
       for(var idx=0; idx<appliedFilterTemp.length; idx++){
         var tempFilterReq : ProductFilterRequest;
@@ -106,6 +121,12 @@ export class ProductsListingComponent {
             break;
           }
         }
+        // for(var idz=0; idz<this.productFilterByBrandOptions.length; idz++){
+        //   if(this.productFilterByBrandOptions[idz].fieldName==appliedFilterTemp[idx].fieldName){
+        //     this.selectedFilterByBrandOption.push(this.productFilterByBrandOptions[idz]);
+        //     break;
+        //   }
+        // }
         if(isExistingObjAvailable == false){
           tempFilterReq["fieldName"] = appliedFilterTemp[idx].fieldName;
           tempFilterReq["operator"] = appliedFilterTemp[idx].operator;
@@ -115,6 +136,9 @@ export class ProductsListingComponent {
         }
       }
     }
+   
+
+   // Default select the choosen sortBy options
     if(sortBy == undefined || sortBy == ""){
       sortByReq = this.productSortingOptions[0].sortObj;
       this.selectedSortByOption = this.productSortingOptions[0];
@@ -144,8 +168,8 @@ export class ProductsListingComponent {
           if(itemIItr.name?.length > 30) {
             itemIItr.name = itemIItr.name.substring(0,30) + "...";
           }
-          //itemIItr.inventoryStatus = "INSTOCK";
         }) 
+
       } 
       this.productList = response?response:[];
       //console.log(this.productList)
@@ -183,6 +207,7 @@ productSortByChange(event:DropdownChangeEvent){
 
 
   applyFilter(event:Event){
+    console.log("Apply Filter Button clicked");
     this.selectedFilterByBrandOption = this.selectedFilterByBrandOption?this.selectedFilterByBrandOption : [];
     this.selectedFilterByColorOption = this.selectedFilterByColorOption?this.selectedFilterByColorOption: [];
     this.commonService.productListingFilter = new Array<ProductFilter>();
@@ -205,6 +230,10 @@ productSortByChange(event:DropdownChangeEvent){
   }
 
   resetFilter(event:Event){
+    this.commonService.productListingFilter = new Array<ProductFilter>();
+    this.selectedFilterByBrandOption = [];
+    this.selectedFilterByColorOption = [];
+    this.applyFilter(event);
     console.log("Reset Filter Button clicked");
   }
 
