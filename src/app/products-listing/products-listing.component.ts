@@ -121,12 +121,6 @@ export class ProductsListingComponent {
             break;
           }
         }
-        // for(var idz=0; idz<this.productFilterByBrandOptions.length; idz++){
-        //   if(this.productFilterByBrandOptions[idz].fieldName==appliedFilterTemp[idx].fieldName){
-        //     this.selectedFilterByBrandOption.push(this.productFilterByBrandOptions[idz]);
-        //     break;
-        //   }
-        // }
         if(isExistingObjAvailable == false){
           tempFilterReq["fieldName"] = appliedFilterTemp[idx].fieldName;
           tempFilterReq["operator"] = appliedFilterTemp[idx].operator;
@@ -222,7 +216,8 @@ productSortByChange(event:DropdownChangeEvent){
     var navigationExtras = {
       queryParams: { 'searchTerm': this.currentPageDetails?.searchTerm,
                       'categoryId': this.currentPageDetails?.categoryId?this.currentPageDetails.categoryId:"all",
-                      'sortBy': this.selectedSortByOption?.name
+                      'sortBy': this.selectedSortByOption?.name,
+                      'timestamp': new Date().getMilliseconds()
                     }
     };
     
