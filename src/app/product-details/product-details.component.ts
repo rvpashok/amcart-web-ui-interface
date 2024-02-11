@@ -15,13 +15,15 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { CommonService } from '../Service/common.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
   imports: [CommonModule, FlexLayoutModule,
     MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule,
-    CarouselModule],
+    CarouselModule, BreadcrumbModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
@@ -31,6 +33,8 @@ export class ProductDetailsComponent {
   public productImageDetails : ProductDetailResponse | any;
   public customerWhoViewedAlsoViewedproductList = new Array<ProductSearchResponse>();
   responsiveOptions: any[] | undefined;
+  breadCrumbItems: MenuItem[] | undefined;
+  homePage: MenuItem | undefined;
 
   constructor(private searchService: SearchService,private productService: ProductService, private router : Router,
     private activatedRoute: ActivatedRoute,public commonService:CommonService) {
@@ -38,6 +42,7 @@ export class ProductDetailsComponent {
         return false;
     }; 
    // this.router.onSameUrlNavigation = 'reload';
+    this.homePage = { icon: 'pi pi-home', routerLink: '/' };
     const navigation = this.router.getCurrentNavigation();  
     var productId = navigation?.extras.queryParams?.["productId"];
     if(productId == undefined && navigation){
@@ -83,6 +88,8 @@ export class ProductDetailsComponent {
       }
       this.productDetails["discountPercentage"] = Math.ceil(((this.productDetails["originalPrice"] 
       - this.productDetails["salePrice"]) * 100)/this.productDetails["originalPrice"]);
+      var categoriesID = this.productDetails.categoryIds;
+      this.breadCrumbItems = this.commonService.getBreadCrumbItems(categoriesID.reverse()[0])
 
       //console.log(this.productDetails)
    });

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ProductFilter, ProductSearchResponse, Category } from '../model/common-models';
+import { MenuItem } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,40 @@ export class CommonService {
   cartItemDetails = new Array<number>();
   productListingFilter = new Array<ProductFilter>();
   categoryItems = new Array<Category>();
+  
   constructor() { 
     //this.accessToken = "";
     //console.log("Common Service Constructor called");
+  }
+
+  getBreadCrumbItems(selectedCategoryId: string){
+    var breadCrumbItems: MenuItem[] = [];
+    var categories = this.categoryItems;
+    var categoryNameArr = this.getCategoryName(selectedCategoryId, categories);
+    categoryNameArr = categoryNameArr.reverse();
+    if(categoryNameArr.length == 0){
+      breadCrumbItems = [{ label: 'All' }];
+    }
+    for(var idx=0; idx<categoryNameArr.length; idx++){
+      var menuItem : MenuItem = {};
+      menuItem["label"] = categoryNameArr[idx];
+      breadCrumbItems?.push(menuItem);
+    }
+    return breadCrumbItems;
+  }
+  
+  getCategoryName(selectedCategoryId: string,  categories : Category[]){
+    var toRet = new Array<string>;
+    for(var idx=0; idx<categories.length; idx++){
+      if(categories[idx].categoryId == selectedCategoryId){
+        toRet.push(categories[idx].displayName);
+        if(categories[idx].parentCategoryId != null){
+          toRet.push(...this.getCategoryName(categories[idx].parentCategoryId, categories))
+        }
+        break;
+      }
+    }
+    return toRet;
   }
 
   setItem(key: string, value: any): void {

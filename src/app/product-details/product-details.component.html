@@ -1,3 +1,6 @@
+<div style="margin-top: 10px;">
+    <p-breadcrumb class="max-w-full" [model]="breadCrumbItems" [home]="homePage"></p-breadcrumb>
+</div>
 <div fxLayout="row" fxLayoutGap="16px" style="margin-top: 50px;" *ngIf="this.productDetails!=null">
     <div fxFlex="40%">
         <div class="column-content">
@@ -95,7 +98,7 @@
 </div>
 <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
 <div class="card">
-    <h3 style="text-align: left;">Customers who viewed this items also viewed below items</h3>
+    <h3 style="text-align: center;">Customers who viewed this items also viewed below items</h3>
     <p-carousel [value]="this.customerWhoViewedAlsoViewedproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
         <ng-template let-product pTemplate="item">
             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" [attr.data-sku-id]="product.skuId" (click)="caroselProductClick($event)">

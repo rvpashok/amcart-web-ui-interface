@@ -60,8 +60,7 @@ export class ProductsListingComponent {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
     }; 
-    this.breadCrumbItems = [{ label: 'All' }];
-
+    
     this.homePage = { icon: 'pi pi-home', routerLink: '/' };
 
     this.productSortingOptions = [
@@ -157,7 +156,7 @@ export class ProductsListingComponent {
       }
     }
     if(searchTerm || categoryId){
-      this.getBreadCrumbItems(categoryId);
+      this.breadCrumbItems = this.commonService.getBreadCrumbItems(categoryId);
       if(this.currentPageDetails){
         this.currentPageDetails.categoryId = categoryId;
         this.currentPageDetails.searchTerm = searchTerm;
@@ -185,33 +184,6 @@ export class ProductsListingComponent {
 
 }
 
-getBreadCrumbItems(selectedCategoryId: string){
-  var categories = this.commonService.categoryItems; 
-  var categoryNameArr = this.getCategoryName(selectedCategoryId, categories);
-  categoryNameArr = categoryNameArr.reverse();
-  if(categoryNameArr.length != 0){
-    this.breadCrumbItems = [];
-  }
-  for(var idx=0; idx<categoryNameArr.length; idx++){
-    var menuItem : MenuItem = {};
-    menuItem["label"] = categoryNameArr[idx];
-    this.breadCrumbItems?.push(menuItem);
-  }
-}
-
-getCategoryName(selectedCategoryId: string,  categories : Category[]){
-  var toRet = new Array<string>;
-  for(var idx=0; idx<categories.length; idx++){
-    if(categories[idx].categoryId == selectedCategoryId){
-      toRet.push(categories[idx].displayName);
-      if(categories[idx].parentCategoryId != null){
-        toRet.push(...this.getCategoryName(categories[idx].parentCategoryId, categories))
-      }
-      break;
-    }
-  }
-  return toRet;
-}
 
 productSortByChange(event:DropdownChangeEvent){
   //console.log("EventChanged");
