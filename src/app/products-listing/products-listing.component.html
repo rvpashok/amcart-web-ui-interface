@@ -7,8 +7,8 @@
 
             <div>
                 <p-accordion [multiple]="true" [activeIndex]="[0]">
-                    <p-accordionTab header="Sorting">
-                        <span id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Sort By: </span>
+                    <p-accordionTab header="Sort By">
+                        <!-- <span id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Sort By: </span> -->
                         <p-dropdown [options]="this.productSortingOptions" [(ngModel)]="this.selectedSortByOption" optionLabel="displayName"
                         [showClear]="false" placeholder="Select a SortBy" (onChange)="productSortByChange($event)"></p-dropdown>
                     </p-accordionTab>
@@ -63,7 +63,7 @@
                   </ng-template>
                 <ng-template pTemplate="listItem" let-products>
                     <div class="grid grid-nogutter" style="display: block;">
-                        <div class="card" *ngFor="let item of productList; let first = first" style="display: inline-flex;" >
+                        <div class="card" *ngFor="let item of productList; let first = first" style="display: inline-flex; float: left;" >
                             <div   [ngClass]="{ 'border-top-1 surface-border': !first }" >
                                 <div style="cursor:pointer">
                                     <div id="productItem" [attr.data-id]="item.productId" [attr.data-sku-id]="item.skuId" (click)="productClick($event)">
