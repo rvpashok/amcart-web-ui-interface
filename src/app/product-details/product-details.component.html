@@ -18,7 +18,7 @@
                 </div>
                 <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                 <div>
-                    <h5>No product specifications available !</h5>
+                    <h5 style="font-family: var(--font-family);">No product specifications available !</h5>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                     </div>
                     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                     <div>
-                        <h5>No addtional product info available !</h5>
+                        <h5 style="font-family: var(--font-family);">No addtional product info available !</h5>
                     </div>
                     
                 </div>
@@ -98,7 +98,7 @@
 </div>
 <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
 <div class="card">
-    <h3 style="text-align: center;">Customers who viewed this items also viewed below items</h3>
+    <h3 style="text-align: center;font-family: var(--font-family);">Customers who viewed this items also viewed below items</h3>
     <p-carousel [value]="this.customerWhoViewedAlsoViewedproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
         <ng-template let-product pTemplate="item">
             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" [attr.data-sku-id]="product.skuId" (click)="caroselProductClick($event)">

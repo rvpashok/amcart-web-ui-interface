@@ -1,7 +1,7 @@
 
 
 <div class="card">
-    <h2>Today's Deal</h2>
+    <h2 style="font-family: var(--font-family);">Today's Deal</h2>
     <p-carousel [value]="this.productList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
         <ng-template let-product pTemplate="item">
             <div class="grid grid-nogutter" style="display: block;">
@@ -42,7 +42,7 @@
 
 <div class="card">
     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
-    <h2>Top Picks of the Week</h2>
+    <h2 style="font-family: var(--font-family);">Top Picks of the Week</h2>
     <p-carousel [value]="this.topPicksOfTheWeekproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
         <ng-template let-product pTemplate="item">
             <div style="cursor: pointer;" class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" [attr.data-sku-id]="product.skuId" (click)="caroselProductClick($event)">
@@ -72,7 +72,7 @@
 </div>
 <div class=" px-4 py-8 md:px-6 lg:px-8">
     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
-    <h3>Get 25% Discount Today!</h3>
+    <h3 style="font-family: var(--font-family);">Get 25% Discount Today!</h3>
     <div class="text-600 text-2xl block mt-4 lg:text-left">Sign up our email list and know all about new
         collections</div>
         <div><br/></div>
