@@ -77,6 +77,7 @@ export class TopBarComponent /*implements AfterViewInit*/{
         this.productService.fetchSearchCategoryData().subscribe((reponse)=>{
           //console.log("Category API Response:" + reponse);
           this.categories = reponse;
+          this.commonService.categoryItems = reponse;
           //this.topCategories = this.getTopCategories(this.categories);
           this.selectedCategory = this.categories[0];
           this.categoryMenuBarItem = this.constructDynamicMenuBarItems(this.categories);

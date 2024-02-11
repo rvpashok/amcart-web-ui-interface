@@ -17,10 +17,13 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CommonService } from '../Service/common.service';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
-import {ProductSorting, ProductListingPageDetails, ProductFilter, ProductFilterRequest} from '../model/common-models';
+import {ProductSorting, ProductListingPageDetails, ProductFilter, ProductFilterRequest, Category} from '../model/common-models';
 import {FormsModule} from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem } from 'primeng/api';
+
 
 
 
@@ -29,7 +32,7 @@ import { CheckboxModule } from 'primeng/checkbox';
   standalone: true,
   imports: [FormsModule, CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
     MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule,
-    DropdownModule, AccordionModule, CheckboxModule
+    DropdownModule, AccordionModule, CheckboxModule, BreadcrumbModule
     ],
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.css'
@@ -49,12 +52,18 @@ export class ProductsListingComponent {
   public selectedFilterByBrandOption =  new Array<ProductFilter>;
   public currentPageDetails: ProductListingPageDetails | undefined;
   public appliedFilter = new Array<ProductFilterRequest>();
+  breadCrumbItems: MenuItem[] | undefined;
+  homePage: MenuItem | undefined;
 
   constructor(private searchService: SearchService, public commonService:CommonService, private router : Router,
     private activatedRoute: ActivatedRoute) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
     }; 
+    this.breadCrumbItems = [{ label: 'All' }];
+
+    this.homePage = { icon: 'pi pi-home', routerLink: '/' };
+
     this.productSortingOptions = [
       {displayName: 'Featured', name: 'featured',sortObj:'{"fieldName":"_score","direction":"DESC"}'},
       { displayName: 'Price: Low to High', name: 'price_low_to_high' , sortObj :'{"fieldName":"price","direction":"ASC"}'},
@@ -88,7 +97,8 @@ export class ProductsListingComponent {
         {fieldName:'brand', displayName: 'Urbano', name: 'urbano',operator:'IN'},
         {fieldName:'brand', displayName: 'Winter Fuel', name: 'winter fuel',operator:'IN'}
       ];
-
+      
+    
     const navigation = this.router.getCurrentNavigation();  
     var stateold = this.router.routerState;
     var searchTerm = navigation?.extras.queryParams?.["searchTerm"];
@@ -147,6 +157,7 @@ export class ProductsListingComponent {
       }
     }
     if(searchTerm || categoryId){
+      this.getBreadCrumbItems(categoryId);
       if(this.currentPageDetails){
         this.currentPageDetails.categoryId = categoryId;
         this.currentPageDetails.searchTerm = searchTerm;
@@ -172,6 +183,34 @@ export class ProductsListingComponent {
 
   }
 
+}
+
+getBreadCrumbItems(selectedCategoryId: string){
+  var categories = this.commonService.categoryItems; 
+  var categoryNameArr = this.getCategoryName(selectedCategoryId, categories);
+  categoryNameArr = categoryNameArr.reverse();
+  if(categoryNameArr.length != 0){
+    this.breadCrumbItems = [];
+  }
+  for(var idx=0; idx<categoryNameArr.length; idx++){
+    var menuItem : MenuItem = {};
+    menuItem["label"] = categoryNameArr[idx];
+    this.breadCrumbItems?.push(menuItem);
+  }
+}
+
+getCategoryName(selectedCategoryId: string,  categories : Category[]){
+  var toRet = new Array<string>;
+  for(var idx=0; idx<categories.length; idx++){
+    if(categories[idx].categoryId == selectedCategoryId){
+      toRet.push(categories[idx].displayName);
+      if(categories[idx].parentCategoryId != null){
+        toRet.push(...this.getCategoryName(categories[idx].parentCategoryId, categories))
+      }
+      break;
+    }
+  }
+  return toRet;
 }
 
 productSortByChange(event:DropdownChangeEvent){

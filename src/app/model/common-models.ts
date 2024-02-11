@@ -129,3 +129,9 @@ export class Product {
     'phone_number' : string;
     'profilePicUrl' : string;
   }
+
+  export interface Category {
+    displayName: string;
+    categoryId: string;
+    parentCategoryId: string;
+  }
