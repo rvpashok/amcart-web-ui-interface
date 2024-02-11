@@ -148,7 +148,10 @@ export class TopBarComponent /*implements AfterViewInit*/{
         else if(categoryItem.displayName=="Women"){
           megaMenuItem.icon = "fa fa-female";
         }
-        megaMenuItem.items = [tempMenuItems];
+        if(categoryItem.displayName !="All"){
+          megaMenuItem.items = [tempMenuItems];
+        }
+        
         //menuItem.styleClass = "amcartMenuItem";
         megaMenuItem.style  = {
            'margin-right': '5px',

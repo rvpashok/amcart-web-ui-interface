@@ -13,8 +13,9 @@
                         </ng-template>
                     </p-carousel>
                 </div>
+                <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                 <div>
-                    <h5>No product specifications!</h5>
+                    <h5>No product specifications available !</h5>
                 </div>
             </div>
         </div>
@@ -75,18 +76,17 @@
                         </p-tag>
                     </div>
                     <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                        <p-button label="Add To Cart"  (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
+                        <p-button label="Add To Cart"  (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '1%'}" 
                         icon="pi pi-shopping-cart" [outlined]="true" 
                         [severity]="this.commonService.getSeverity(productDetails.inventoryStatus?productDetails.inventoryStatus:'')"
                         [disabled]="this.commonService.isDisabled(productDetails.inventoryStatus?productDetails.inventoryStatus:'')"> </p-button>
-                        <p-button label="Add To Wishlist"   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
+                        <p-button label="Add To Wishlist"   [style]="{'margin-right': '1%','margin-bottom': '1%'}" 
                         icon="pi pi-heart" [outlined]="true" severity="primary"> </p-button>
                     </div>
                     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                     <div>
-                        <h5>No addtional product info !</h5>
+                        <h5>No addtional product info available !</h5>
                     </div>
-                    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
                     
                 </div>
             </div>

@@ -1,9 +1,9 @@
   <div fxLayout="row" fxLayoutGap="16px" style="margin-top: 30px;">
     <div fxFlex="20%">
         <div class="card flex justify-content-center">
-            <h4 class="m-0" style="text-size-adjust: 50px;">
+            <b><p class="p-text-primary" style="text-size-adjust: 50px;">
                 Sort Options
-            </h4>
+            </p></b>
 
             <div>
                 <p-accordion [multiple]="true" [activeIndex]="[0]">
@@ -15,7 +15,7 @@
                 </p-accordion>
             </div>
             <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
-            <h4 id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Filter Options </h4>
+            <b><p id="productSortingOptionsLabel" class="p-text-primary" style="text-size-adjust: 50px;">Filter Options </p></b>
             
             <div>
                 <p-accordion [multiple]="true" [activeIndex]="[0,1]">
