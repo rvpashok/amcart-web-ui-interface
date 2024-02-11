@@ -1,10 +1,10 @@
 <div fxLayout="row" fxLayoutGap="16px" style="margin-top: 70px;">
-    <div fxFlex="100%">
+    <div fxFlex="100%" *ngIf="this.userDetails != null">
         <div class="column-content">
             <div class="card">
-                    <div class="border-1 surface-border border-round m-2 text-center py-5 px-3 profilePic">
+                    <div *ngIf="this.userDetails != null && this.userDetails.profilePicUrl != undefined" class="border-1 surface-border border-round m-2 text-center py-5 px-3 profilePic">
                         <div class="mb-3">
-                            <img src="{{userDetails.profilePicUrl}}" alt="Test" class="w-6 shadow-2" />
+                            <img src="{{this.userDetails.profilePicUrl}}" alt="Profile Pic Image comes here !!!" class="w-6 shadow-2" />
                         </div>
                     </div>
             </div>

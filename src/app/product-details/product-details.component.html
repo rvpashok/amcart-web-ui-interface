@@ -1,9 +1,9 @@
-<div fxLayout="row" fxLayoutGap="16px" style="margin-top: 50px;">
+<div fxLayout="row" fxLayoutGap="16px" style="margin-top: 50px;" *ngIf="this.productDetails!=null">
     <div fxFlex="40%">
         <div class="column-content">
             <div class="card">
-                <div  id="productItem" [attr.data-id]="productDetails.id" [ngClass]="{ 'border-top-1 surface-border': '10px' }">
-                    <p-carousel [value]="productImageDetails.skus" [circular]="true" [numVisible]="1" [numScroll]="1" [autoplayInterval]="5000" [showNavigators]="false">
+                <div  [attr.data-id]="this.productDetails.id" [ngClass]="{ 'border-top-1 surface-border': '10px' }">
+                    <p-carousel [value]="this.productImageDetails.skus" [circular]="true" [numVisible]="1" [numScroll]="1" [autoplayInterval]="5000" [showNavigators]="false">
                         <ng-template let-product pTemplate="item">
                             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId">
                                 <div class="mb-3">
@@ -22,7 +22,7 @@
     <div fxFlex="60%">
         <div class="column-content" style="text-align: left !important;">
             <div class="card">
-                <div  id="productItem" [attr.data-id]="productDetails.id" [ngClass]="{ 'border-top-1 surface-border': '10px'}">
+                <div  [attr.data-id]="productDetails.id" [ngClass]="{ 'border-top-1 surface-border': '10px'}">
                     <h3 class="text-2xl font-bold" >{{productDetails.name}}</h3>
                     
                     <div>
@@ -97,7 +97,7 @@
 <div class="card">
     <h3 style="text-align: left;">Customers who viewed this items also viewed below items</h3>
     <p-carousel [value]="this.customerWhoViewedAlsoViewedproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
-        <ng-template let-product pTemplate="item" [style]="{'margin-right': '50px'}">
+        <ng-template let-product pTemplate="item">
             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" [attr.data-sku-id]="product.skuId" (click)="caroselProductClick($event)">
                 <div class="mb-3">
                     <img src="{{product.skuMediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />

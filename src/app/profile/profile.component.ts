@@ -8,13 +8,15 @@ import { UserProfileResponse } from '../model/common-models';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CardModule, DividerModule, FlexLayoutModule, InputTextModule, FormsModule],
+  imports: [CardModule, DividerModule, FlexLayoutModule, InputTextModule, FormsModule, CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
