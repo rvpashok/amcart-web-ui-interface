@@ -9,6 +9,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoadingService } from '../Service/loading.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 
@@ -16,16 +18,17 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CardModule, DividerModule, FlexLayoutModule, InputTextModule, FormsModule, CommonModule],
+  imports: [CardModule, DividerModule, FlexLayoutModule, InputTextModule, FormsModule, CommonModule, ProgressSpinnerModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
 
   public userDetails : UserProfileResponse | any;
+  isPageLoading = false;
 
   constructor(private userService: UserService,private router : Router,
-    private activatedRoute: ActivatedRoute,public commonService:CommonService) {
+    private activatedRoute: ActivatedRoute,public commonService:CommonService, private loadingService: LoadingService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
     }; 
@@ -41,4 +44,12 @@ export class ProfileComponent {
     
     }
   }
+
+  
+ngOnInit(): void {
+  this.loadingService.isLoading().subscribe(loading => {
+    this.isPageLoading = loading;
+  });
+}
+
 }

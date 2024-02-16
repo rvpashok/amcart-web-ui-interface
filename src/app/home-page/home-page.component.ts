@@ -13,17 +13,13 @@ import { MessageService } from 'primeng/api';
 import { NgZone } from '@angular/core';
 import { CommonService } from '../Service/common.service';
 import { TagModule } from 'primeng/tag';
-
-
-
-
-
-
+import { LoadingService } from '../Service/loading.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, DropdownModule, SplitButtonModule, CarouselModule, DividerModule, ToastModule, TagModule],
+  imports: [CommonModule, DropdownModule, SplitButtonModule, CarouselModule, DividerModule, ToastModule, TagModule, ProgressSpinnerModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -36,11 +32,12 @@ export class HomePageComponent {
   layout: string = 'list';
 
   responsiveOptions: any[] | undefined;
+  isPageLoading = false;
 
   constructor(private searchService: SearchService, private router : Router,
     private activatedRoute: ActivatedRoute, public commonService:CommonService,
     private messageService: MessageService,
-    private zone: NgZone) {
+    private zone: NgZone, private loadingService: LoadingService) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
     };  
@@ -86,6 +83,10 @@ export class HomePageComponent {
   }}
 
   ngOnInit() {
+
+    this.loadingService.isLoading().subscribe(loading => {
+      this.isPageLoading = loading;
+    });
     
     this.responsiveOptions = [
         {

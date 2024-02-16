@@ -1,6 +1,10 @@
 
 
-<div class="card">
+<div *ngIf="isPageLoading" style="margin-left: auto; margin-right: auto; margin-top: 10%;">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+</div>
+
+<div *ngIf="isPageLoading==false" class="card">
     <h2 style="font-family: var(--font-family);">Today's Deal</h2>
     <p-carousel [value]="this.productList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
         <ng-template let-product pTemplate="item">
@@ -40,7 +44,7 @@
     </p-carousel>
 </div>
 
-<div class="card">
+<div *ngIf="isPageLoading==false" class="card">
     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
     <h2 style="font-family: var(--font-family);">Top Picks of the Week</h2>
     <p-carousel [value]="this.topPicksOfTheWeekproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
@@ -70,7 +74,7 @@
         </ng-template>
     </p-carousel>
 </div>
-<div class=" px-4 py-8 md:px-6 lg:px-8">
+<div *ngIf="isPageLoading==false" class=" px-4 py-8 md:px-6 lg:px-8">
     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
     <h3> Random GUID: 07250329-b924-42ea-b86d-d10eb6e32899</h3>
     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
