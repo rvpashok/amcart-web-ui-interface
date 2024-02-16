@@ -2,15 +2,7 @@ import { Component } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
-import { DropdownModule } from 'primeng/dropdown';
-import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { AuthModule, AuthService } from '@auth0/auth0-angular';
-import { DOCUMENT } from '@angular/common';
-import { CommonService } from '../Service/common.service';
-import { PrimeIcons } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 
 
@@ -80,7 +72,7 @@ export class FooterBarComponent {
         //     'margin-right': 'auto',
         //     'display': 'block'},
         command: () => {
-          this.onClickPressRelease();
+          //this.onClickPressRelease();
       }
     }
   ];
