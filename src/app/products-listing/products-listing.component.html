@@ -2,7 +2,11 @@
     <p-breadcrumb class="max-w-full" [model]="breadCrumbItems" [home]="homePage"></p-breadcrumb>
 </div>
 
-  <div fxLayout="row" fxLayoutGap="16px" style="margin-top: 10px;">
+<div *ngIf="isPageLoading" style="margin-left: auto; margin-right: auto; margin-top: 10%;">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+</div>
+
+  <div *ngIf="isPageLoading==false" fxLayout="row" fxLayoutGap="16px" style="margin-top: 10px;">
     <div fxFlex="20%">
         <div class="card flex justify-content-center">
             <b><p class="p-text-primary" style="text-size-adjust: 50px; font-family: var(--font-family);">

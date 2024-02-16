@@ -17,13 +17,15 @@ import { CarouselModule } from 'primeng/carousel';
 import { CommonService } from '../Service/common.service';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
+import { LoadingService } from '../Service/loading.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
   imports: [CommonModule, FlexLayoutModule,
     MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule,
-    CarouselModule, BreadcrumbModule],
+    CarouselModule, BreadcrumbModule, ProgressSpinnerModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
@@ -35,8 +37,9 @@ export class ProductDetailsComponent {
   responsiveOptions: any[] | undefined;
   breadCrumbItems: MenuItem[] | undefined;
   homePage: MenuItem | undefined;
+  isPageLoading = false;
 
-  constructor(private searchService: SearchService,private productService: ProductService, private router : Router,
+  constructor(private searchService: SearchService,private loadingService: LoadingService,private productService: ProductService, private router : Router,
     private activatedRoute: ActivatedRoute,public commonService:CommonService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
@@ -122,6 +125,7 @@ export class ProductDetailsComponent {
 
 }
 
+
 shuffle(array: Array<ProductSearchResponse>) {
   let currentIndex = array.length,  randomIndex;
 
@@ -141,6 +145,10 @@ shuffle(array: Array<ProductSearchResponse>) {
 }
 
 ngOnInit() {
+
+  this.loadingService.isLoading().subscribe(loading => {
+    this.isPageLoading = loading;
+  });
     
   this.responsiveOptions = [
       {

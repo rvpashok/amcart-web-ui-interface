@@ -1,7 +1,12 @@
 <div style="margin-top: 10px;">
     <p-breadcrumb class="max-w-full" [model]="breadCrumbItems" [home]="homePage"></p-breadcrumb>
 </div>
-<div fxLayout="row" fxLayoutGap="16px" style="margin-top: 50px;" *ngIf="this.productDetails!=null">
+
+<div *ngIf="isPageLoading" style="margin-left: auto; margin-right: auto; margin-top: 10%;">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+</div>
+
+<div fxLayout="row" fxLayoutGap="16px" style="margin-top: 50px;" *ngIf="this.productDetails!=null && isPageLoading==false">
     <div fxFlex="40%">
         <div class="column-content">
             <div class="card">
@@ -97,7 +102,7 @@
     </div>
 </div>
 <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
-<div class="card">
+<div *ngIf="isPageLoading==false" class="card">
     <h3 style="text-align: center;font-family: var(--font-family);">Customers who viewed this items also viewed below items</h3>
     <p-carousel [value]="this.customerWhoViewedAlsoViewedproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
         <ng-template let-product pTemplate="item">

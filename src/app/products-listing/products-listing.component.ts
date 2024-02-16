@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Product } from '../model/common-models';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
@@ -17,13 +16,14 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CommonService } from '../Service/common.service';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
-import {ProductSorting, ProductListingPageDetails, ProductFilter, ProductFilterRequest, Category} from '../model/common-models';
-import {FormsModule} from '@angular/forms';
+import { ProductSorting, ProductListingPageDetails, ProductFilter, ProductFilterRequest } from '../model/common-models';
+import { FormsModule } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
-
+import { LoadingService } from '../Service/loading.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 
@@ -32,7 +32,7 @@ import { MenuItem } from 'primeng/api';
   standalone: true,
   imports: [FormsModule, CommonModule, MatCardModule, MatButtonModule, MatGridListModule, FlexLayoutModule,
     MatToolbarModule, DataViewModule, TagModule, RatingModule, DividerModule, CardModule, ButtonModule,
-    DropdownModule, AccordionModule, CheckboxModule, BreadcrumbModule
+    DropdownModule, AccordionModule, CheckboxModule, BreadcrumbModule, ProgressSpinnerModule
     ],
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.css'
@@ -54,13 +54,13 @@ export class ProductsListingComponent {
   public appliedFilter = new Array<ProductFilterRequest>();
   breadCrumbItems: MenuItem[] | undefined;
   homePage: MenuItem | undefined;
+  isPageLoading = false;
 
-  constructor(private searchService: SearchService, public commonService:CommonService, private router : Router,
+  constructor(private searchService: SearchService, private loadingService: LoadingService, public commonService:CommonService, private router : Router,
     private activatedRoute: ActivatedRoute) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
     }; 
-    
     this.homePage = { icon: 'pi pi-home', routerLink: '/' };
 
     this.productSortingOptions = [
@@ -182,6 +182,12 @@ export class ProductsListingComponent {
 
   }
 
+}
+
+ngOnInit(): void {
+  this.loadingService.isLoading().subscribe(loading => {
+    this.isPageLoading = loading;
+  });
 }
 
 
