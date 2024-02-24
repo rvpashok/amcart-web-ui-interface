@@ -6,7 +6,7 @@
 
 <div *ngIf="isPageLoading==false" class="card">
     <h2 style="font-family: var(--font-family);">Today's Deal</h2>
-    <p-carousel [value]="this.productList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
+    <p-carousel [value]="this.productList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
         <ng-template let-product pTemplate="item">
             <div class="grid grid-nogutter" style="display: block;">
                 <div class="card">
@@ -47,7 +47,7 @@
 <div *ngIf="isPageLoading==false" class="card">
     <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
     <h2 style="font-family: var(--font-family);">Top Picks of the Week</h2>
-    <p-carousel [value]="this.topPicksOfTheWeekproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="20000">
+    <p-carousel [value]="this.topPicksOfTheWeekproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="8000">
         <ng-template let-product pTemplate="item">
             <div style="cursor: pointer;" class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" [attr.data-sku-id]="product.skuId" (click)="caroselProductClick($event)">
                 <div class="mb-3">
