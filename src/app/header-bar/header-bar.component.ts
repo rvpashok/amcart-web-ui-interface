@@ -1,13 +1,9 @@
 import { Component, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
+import { MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule} from '@angular/forms';
 import { SearchService } from '../Service/search-service';
-import {ProductService} from '../Service/product-service'
+import { ProductService} from '../Service/product-service'
 import { AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CommonModule } from '@angular/common';
@@ -19,11 +15,10 @@ import { ButtonModule } from 'primeng/button';
 import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
 import { CommonService} from '../Service/common.service';
-import { PrimeIcons } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import {ProductFilter } from '../model/common-models';
+import { ProductFilter } from '../model/common-models';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MegaMenuModule } from 'primeng/megamenu';
@@ -42,18 +37,17 @@ interface Category {
 }
 
 @Component({
-  selector: 'app-top-bar',
+  selector: 'app-header-bar',
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule,MatGridListModule, MatMenuModule, MatButtonModule,
     AutoCompleteModule, ToolbarModule, CommonModule, DropdownModule,
     SplitButtonModule, ButtonModule, AuthModule, MenubarModule, 
     InputGroupModule,InputGroupAddonModule, BadgeModule, OverlayPanelModule,
     MegaMenuModule],
-  templateUrl: './top-bar.component.html',
-  styleUrl: './top-bar.component.css'
+  templateUrl: './header-bar.component.html',
+  styleUrl: './header-bar.component.css'
 })
-export class TopBarComponent /*implements AfterViewInit*/{
+export class HeaderBarComponent /*implements AfterViewInit*/{
   values = '';
   //public auth: AuthService
   constructor(private searchService: SearchService, 
