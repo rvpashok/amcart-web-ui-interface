@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
+import { CommonService } from '../service/common.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { MenubarModule } from 'primeng/menubar';
 })
 export class FooterBarComponent {
 
-  constructor(private router : Router){
+  constructor(private router : Router, public commonService:CommonService){
 
 
   }
@@ -79,15 +80,21 @@ export class FooterBarComponent {
   }
 
   onClickAboutUs(){
+    this.commonService.resetHeaderToDefault();
     this.router.navigate(['/about-us'])
   }
   onClickCareers(){
+    this.commonService.resetHeaderToDefault();
     this.router.navigate(['/careers'])
   }
   onClickContactUs(){
+    this.commonService.resetHeaderToDefault();
     this.router.navigate(['/contact-us'])
   }
   onClickPressRelease(){
+    this.commonService.resetHeaderToDefault();
     this.router.navigate(['/press-release'])
   }
+
+
 }

@@ -56,10 +56,10 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
     public auth: AuthService,
     @Inject(DOCUMENT) private doc: Document,
     public commonService:CommonService){
-      //console.log("AuthModule config Clicked");
+      console.log("AuthModule config Clicked");
   }
   
-  selectedItem: any;
+  //selectedItem: any;
   suggestions = new Array<string>();
   categories = new Array<Category>();
   topCategories = new Array<Category>();
@@ -209,6 +209,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
 
   profile(){
     //console.log("Profile button Clicker" + this.auth.isAuthenticated$);
+   this.commonService.resetHeaderToDefault();
    this.router.navigate(['/profile'])
   }
 
@@ -232,16 +233,19 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
   
   orders(){
     //console.log("Orders button Clicker")
+    this.commonService.resetHeaderToDefault();
     this.router.navigate(['/orders'])
   }
 
   wishlist(){
     //console.log("Wishlist button Clicker")
+    this.commonService.resetHeaderToDefault();
     this.router.navigate(['/wishlist'])
   }
 
   notifications(){
     //console.log("Notification button Clicker")
+    this.commonService.resetHeaderToDefault();
     this.router.navigate(['/notifications'])
   }
 
@@ -265,10 +269,10 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
 
   onEnter(event: Event){
     //console.log("Enter pressed selected: " + this.selectedItem);
-    this.selectedItem = this.selectedItem ? this.selectedItem : "";
+    this.commonService.selectedSearchTermItem = this.commonService.selectedSearchTermItem ? this.commonService.selectedSearchTermItem : "";
     this.commonService.productListingFilter = new Array<ProductFilter>();
     var navigationExtras = {
-      queryParams: { 'searchTerm': encodeURIComponent(this.selectedItem),
+      queryParams: { 'searchTerm': encodeURIComponent(this.commonService.selectedSearchTermItem),
                       'categoryId':this.commonService.selectedCategory?.categoryId
                     }
     };

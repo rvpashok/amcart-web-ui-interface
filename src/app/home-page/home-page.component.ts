@@ -46,6 +46,7 @@ export class HomePageComponent {
     var categoryId = "all";
     this.commonService.productListingFilter = new Array<ProductFilter>();
     if(searchTerm || categoryId){
+      this.commonService.resetSelectedSearchTermItem();
       this.commonService.setSelectedCategory(categoryId);
       var amcartDealOfTheDayFilter = '[{"fieldName":"tags","fieldValue":["Deal"],"operator":"IN"}]';
       this.searchService.fetchSearchData(searchTerm, categoryId, "",amcartDealOfTheDayFilter).subscribe( (response)=>{

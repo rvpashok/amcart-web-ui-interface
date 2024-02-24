@@ -11,7 +11,7 @@
             <div style="width: 100% !important;">
                 <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="this.commonService.selectedCategory" optionLabel="displayName"
                 [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
-                <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="selectedItem" [suggestions]="suggestions" 
+                <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="this.commonService.selectedSearchTermItem" [suggestions]="suggestions" 
                     (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" 
                     dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)" [showClear]="true" [autoOptionFocus]="false" [autoHighlight]="false"
                     [style]="{'margin-right': '1%','border-radius':0, 'border-top-right-radius': '6px', 'border-bottom-right-radius': '6px'}" ></p-autoComplete>

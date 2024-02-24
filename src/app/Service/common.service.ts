@@ -13,10 +13,17 @@ export class CommonService {
   productListingFilter = new Array<ProductFilter>();
   categoryItems = new Array<Category>();
   selectedCategory: Category | undefined;
+  selectedSearchTermItem : any
   
   constructor() { 
     //this.accessToken = "";
     //console.log("Common Service Constructor called");
+  }
+
+  resetHeaderToDefault(){
+    var categoryId = "all";
+    this.resetSelectedSearchTermItem();
+    this.setSelectedCategory(categoryId);
   }
 
   setSelectedCategory(selectedCategoryId: string){
@@ -27,6 +34,10 @@ export class CommonService {
         break;
       }
     }
+  }
+
+  resetSelectedSearchTermItem(){
+    this.selectedSearchTermItem = "";
   }
 
   getBreadCrumbItems(selectedCategoryId: string){
