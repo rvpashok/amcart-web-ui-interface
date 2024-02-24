@@ -63,7 +63,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
   suggestions = new Array<string>();
   categories = new Array<Category>();
   topCategories = new Array<Category>();
-  selectedCategory: Category | undefined;
+  //selectedCategory: Category | undefined;
   items = new Array<MenuItem>();
   categoryMenuBarItem = new Array<MegaMenuItem>();
 
@@ -73,7 +73,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
           this.categories = reponse;
           this.commonService.categoryItems = reponse;
           //this.topCategories = this.getTopCategories(this.categories);
-          this.selectedCategory = this.categories[0];
+          this.commonService.selectedCategory = this.categories[0];
           this.categoryMenuBarItem = this.constructDynamicMenuBarItems(this.categories);
         })
 
@@ -248,7 +248,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
   search(event: AutoCompleteCompleteEvent) {
     //console.log("AutoCompleteCompleteEvent selected: " + event);
     var resultsSuggestions = new Array<string>();
-    let categoryId = this.selectedCategory?JSON.stringify(this.selectedCategory.categoryId):'all';
+    let categoryId = this.commonService.selectedCategory?JSON.stringify(this.commonService.selectedCategory.categoryId):'all';
     categoryId = JSON.parse(categoryId);
     this.searchService.fetchSuggestions(encodeURIComponent(event.query), encodeURIComponent(categoryId)).subscribe( (response)=>{
       //console.log("API Response: " + response);
@@ -269,7 +269,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
     this.commonService.productListingFilter = new Array<ProductFilter>();
     var navigationExtras = {
       queryParams: { 'searchTerm': encodeURIComponent(this.selectedItem),
-                      'categoryId':this.selectedCategory?.categoryId
+                      'categoryId':this.commonService.selectedCategory?.categoryId
                     }
     };
     
@@ -278,7 +278,6 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
   }
 
   onClickHomeIcon(){
-    this.selectedCategory = this.categories[0];
     this.router.navigate(['/']);
   }
 
@@ -292,7 +291,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
     this.commonService.productListingFilter = new Array<ProductFilter>();
     var navigationExtras = {
       queryParams: { 'searchTerm': encodeURIComponent(event.value),
-                      'categoryId':this.selectedCategory?.categoryId
+                      'categoryId':this.commonService.selectedCategory?.categoryId
                     }
     };
     

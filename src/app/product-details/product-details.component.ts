@@ -92,7 +92,9 @@ export class ProductDetailsComponent {
       this.productDetails["discountPercentage"] = Math.ceil(((this.productDetails["originalPrice"] 
       - this.productDetails["salePrice"]) * 100)/this.productDetails["originalPrice"]);
       var categoriesID = this.productDetails.categoryIds;
-      this.breadCrumbItems = this.commonService.getBreadCrumbItems(categoriesID.reverse()[0])
+      var selCategoryId = categoriesID.reverse()[0];
+      this.commonService.setSelectedCategory(selCategoryId);
+      this.breadCrumbItems = this.commonService.getBreadCrumbItems(selCategoryId);
 
       //console.log(this.productDetails)
    });

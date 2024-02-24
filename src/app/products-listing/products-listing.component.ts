@@ -156,6 +156,7 @@ export class ProductsListingComponent {
       }
     }
     if(searchTerm || categoryId){
+      this.commonService.setSelectedCategory(categoryId);
       this.breadCrumbItems = this.commonService.getBreadCrumbItems(categoryId);
       if(this.currentPageDetails){
         this.currentPageDetails.categoryId = categoryId;

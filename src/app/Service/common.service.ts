@@ -12,10 +12,21 @@ export class CommonService {
   cartItemDetails = new Array<number>();
   productListingFilter = new Array<ProductFilter>();
   categoryItems = new Array<Category>();
+  selectedCategory: Category | undefined;
   
   constructor() { 
     //this.accessToken = "";
     //console.log("Common Service Constructor called");
+  }
+
+  setSelectedCategory(selectedCategoryId: string){
+    var categories = this.categoryItems;
+    for(var idx=0; idx<categories.length; idx++){
+      if(categories[idx].categoryId == selectedCategoryId){
+        this.selectedCategory = categories[idx];
+        break;
+      }
+    }
   }
 
   getBreadCrumbItems(selectedCategoryId: string){
