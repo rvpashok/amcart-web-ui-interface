@@ -15,10 +15,10 @@
                     (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" 
                     dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)" [showClear]="true" [autoOptionFocus]="false" [autoHighlight]="false"
                     [style]="{'margin-right': '1%','border-radius':0, 'border-top-right-radius': '6px', 'border-bottom-right-radius': '6px'}" ></p-autoComplete>
-                <p-button label="Sign In" (onClick)="login($event)"  icon="pi pi-sign-in" [style]="{'margin-right': '3%'}" *ngIf="(auth.isAuthenticated$ | async) === false"> </p-button>
-                <p-splitButton label="Account" [model]="this.items" icon="pi pi-user" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
+                <p-button label="Sign In" (onClick)="login($event)"  icon="fa fa-sign-in" [style]="{'margin-right': '3%'}" *ngIf="(auth.isAuthenticated$ | async) === false"> </p-button>
+                <p-splitButton label="Account" [model]="this.items" icon="fa fa-user-o" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
                         *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-splitButton>
-                <p-button label="Sign Out" (onClick)="logout($event)" icon="pi pi-sign-out" *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}" ></p-button>
+                <p-button label="Sign Out" (onClick)="logout($event)" icon="fa fa-sign-out" *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}" ></p-button>
                 <p-overlayPanel #op>
                     <div *ngIf="this.commonService.totalCartItemCount == 0">
                         <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">

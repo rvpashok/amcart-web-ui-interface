@@ -16,7 +16,6 @@
             <div>
                 <p-accordion [multiple]="true" [activeIndex]="[0]">
                     <p-accordionTab header="Sort By">
-                        <!-- <span id="productSortingOptionsLabel" style="text-size-adjust: 50px;">Sort By: </span> -->
                         <p-dropdown [options]="this.productSortingOptions" [(ngModel)]="this.selectedSortByOption" optionLabel="displayName"
                         [showClear]="false" placeholder="Select a SortBy" (onChange)="productSortByChange($event)"></p-dropdown>
                     </p-accordionTab>

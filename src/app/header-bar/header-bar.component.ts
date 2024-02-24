@@ -87,7 +87,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
           },
           {
               label: 'Orders',
-              icon: 'pi pi-history',
+              icon: 'fa fa-history',
               command: () => {
                   this.orders();
               }
@@ -278,6 +278,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
   }
 
   onClickHomeIcon(){
+    this.selectedCategory = this.categories[0];
     this.router.navigate(['/']);
   }
 
