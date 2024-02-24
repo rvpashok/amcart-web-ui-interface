@@ -5,7 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { SearchService } from '../Service/search-service';
+import { SearchService } from '../service/search-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductSearchResponse } from '../model/common-models';
 import { DataViewModule } from 'primeng/dataview';
@@ -14,7 +14,7 @@ import { RatingModule } from 'primeng/rating';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { CommonService } from '../Service/common.service';
+import { CommonService } from '../service/common.service';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { ProductSorting, ProductListingPageDetails, ProductFilter, ProductFilterRequest } from '../model/common-models';
 import { FormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
-import { LoadingService } from '../Service/loading.service';
+import { LoadingService } from '../service/loading.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from '../Service/common.service';
-import { UserService } from '../Service/user-service';
+import { CommonService } from '../service/common.service';
+import { UserService } from '../service/user-service';
 import { DividerModule } from 'primeng/divider';
 import { UserProfileResponse } from '../model/common-models';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { LoadingService } from '../Service/loading.service';
+import { LoadingService } from '../service/loading.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
