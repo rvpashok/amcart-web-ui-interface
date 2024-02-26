@@ -32,7 +32,7 @@
                         [showClear]="false" placeholder="Select a Color"></p-dropdown> -->
                         <div style="display: grid;">
                             <div style="display: inline-grid; margin-bottom: 10px; float: left;" *ngFor="let colorOption of this.productFilterByColorOptions" class="field-checkbox">
-                                <p-checkbox [label]="colorOption.displayName" name="group" [value]="colorOption" [(ngModel)]="this.selectedFilterByColorOption"></p-checkbox>
+                                <p-checkbox [label]="colorOption.displayName" name="group" [value]="colorOption" trueValue="true" [(ngModel)]="this.selectedFilterByColorOption"></p-checkbox>
                             </div>
                         </div>
                     </p-accordionTab>

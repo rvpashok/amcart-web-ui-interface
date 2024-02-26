@@ -115,8 +115,8 @@ export class ProductsListingComponent {
     var sortByReq = "";
     this.currentPageDetails = {"categoryId":"all","searchTerm":"",sortObj:""};
     var appliedFilterTemp = this.commonService.productListingFilter;
-    this.selectedFilterByBrandOption = appliedFilterTemp;
-    this.selectedFilterByColorOption = appliedFilterTemp;
+    this.selectedFilterByBrandOption = appliedFilterTemp.filter(itr=> itr.fieldName=="brand");
+    this.selectedFilterByColorOption = appliedFilterTemp.filter(itr=> itr.fieldName=="skuColor");;
     if(appliedFilterTemp != null && appliedFilterTemp.length > 0){
       for(var idx=0; idx<appliedFilterTemp.length; idx++){
         var tempFilterReq : ProductFilterRequest;
@@ -139,8 +139,8 @@ export class ProductsListingComponent {
         }
       }
     }
-   
-
+    //reset the global filter
+    this.commonService.productListingFilter = new Array<ProductFilter>();
    // Default select the choosen sortBy options
     if(sortBy == undefined || sortBy == ""){
       sortByReq = this.productSortingOptions[0].sortObj;
@@ -235,10 +235,11 @@ productSortByChange(event:DropdownChangeEvent){
       queryParams: { 'searchTerm': this.currentPageDetails?.searchTerm,
                       'categoryId': this.currentPageDetails?.categoryId?this.currentPageDetails.categoryId:"all",
                       'sortBy': this.selectedSortByOption?.name,
-                      'timestamp': new Date().getMilliseconds()
+                      't': new Date().getMilliseconds()
                     }
     };
-    
+    this.selectedFilterByBrandOption = [];
+    this.selectedFilterByColorOption = [];
     this.router.navigate(['/product'], navigationExtras);  
   }
 
