@@ -15,6 +15,9 @@
                     (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" 
                     dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)" [showClear]="true" [autoOptionFocus]="false" [autoHighlight]="false"
                     [style]="{'margin-right': '1%','border-radius':0, 'border-top-right-radius': '6px', 'border-bottom-right-radius': '6px'}" ></p-autoComplete>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                </span>    
                 <p-button label="Sign In" (onClick)="login($event)"  icon="fa fa-sign-in" [style]="{'margin-right': '3%'}" *ngIf="(auth.isAuthenticated$ | async) === false"> </p-button>
                 <p-splitButton label="Account" [model]="this.items" icon="fa fa-user-o" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
                         *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-splitButton>

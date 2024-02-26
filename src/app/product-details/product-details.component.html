@@ -54,7 +54,11 @@
                         <h4>Select Size</h4>
                         <div id="skuItem"  *ngFor="let skuItem of productDetails.skus; let first = first" style="display: inline-flex;">
                             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="skuItem.name">
-                                <div class="mb-3" style="margin-right: 10px;">
+                                <div *ngIf="this.selectedSkuId==skuItem.name" class="mb-3" style="margin-right: 10px;">
+                                    <p-button [attr.data-id]="productDetails.id" [attr.data-skuId]="skuItem.name" label={{skuItem.size}}   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
+                                     [outlined]="false" severity="info" (onClick)="selectSkuEvent($event)"> </p-button>
+                                </div>
+                                <div *ngIf="this.selectedSkuId !=skuItem.name" class="mb-3" style="margin-right: 10px;">
                                     <p-button [attr.data-id]="productDetails.id" [attr.data-skuId]="skuItem.name" label={{skuItem.size}}   [style]="{'margin-right': '1%','margin-bottom': '5%'}" 
                                      [outlined]="true" severity="info" (onClick)="selectSkuEvent($event)"> </p-button>
                                 </div>

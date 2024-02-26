@@ -38,6 +38,7 @@ export class ProductDetailsComponent {
   breadCrumbItems: MenuItem[] | undefined;
   homePage: MenuItem | undefined;
   isPageLoading = false;
+  selectedSkuId = "";
 
   constructor(private searchService: SearchService,private loadingService: LoadingService,private productService: ProductService, private router : Router,
     private activatedRoute: ActivatedRoute,public commonService:CommonService) {
@@ -72,6 +73,7 @@ export class ProductDetailsComponent {
       this.productImageDetails.skus[0] = skus[0];
       for(var idx=0; idx<skus.length; idx++){
         if(skuId == skus[idx].name){
+          this.selectedSkuId = skuId;
           priceDetails = skus[idx].priceDetail;
           this.productDetails["inventoryStatus"] = skus[idx].inventoryStatus;
           this.productImageDetails.skus[0] = skus[idx];
