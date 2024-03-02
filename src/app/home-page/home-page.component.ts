@@ -4,16 +4,16 @@ import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CarouselModule } from 'primeng/carousel';
-import { SearchService } from '../service/search-service';
+import { SearchService } from '../Service/search-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductSearchResponse, ProductFilter } from '../model/common-models';
 import { DividerModule } from 'primeng/divider';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { NgZone } from '@angular/core';
-import { CommonService } from '../service/common.service';
+import { CommonService } from '../Service/common.service';
 import { TagModule } from 'primeng/tag';
-import { LoadingService } from '../service/loading.service';
+import { LoadingService } from '../Service/loading.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({

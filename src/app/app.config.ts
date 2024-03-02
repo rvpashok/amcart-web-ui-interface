@@ -8,10 +8,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { importProvidersFrom } from '@angular/core';
 import { AuthModule } from '@auth0/auth0-angular';
-import { CommonService } from './service/common.service';
-import { AuthInterceptor } from './service/auth-interceptor.service';
-import { LoadingService } from './service/loading.service';
-import { LoadingInterceptor } from './service/loading-interceptor.service';
+import { CommonService } from './Service/common.service';
+import { AuthInterceptor } from './Service/auth-interceptor.service';
+import { LoadingService } from './Service/loading.service';
+import { LoadingInterceptor } from './Service/loading-interceptor.service';
 import { MessageService } from 'primeng/api';
 
 

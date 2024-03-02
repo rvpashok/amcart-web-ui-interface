@@ -2,8 +2,8 @@ import { Component, Inject, ElementRef, ViewChild, AfterViewInit } from '@angula
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule} from '@angular/forms';
-import { SearchService } from '../service/search-service';
-import { ProductService} from '../service/product-service'
+import { SearchService } from '../Service/search-service';
+import { ProductService} from '../Service/product-service'
 import { AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
-import { CommonService} from '../service/common.service';
+import { CommonService} from '../Service/common.service';
 import { MenubarModule } from 'primeng/menubar';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';

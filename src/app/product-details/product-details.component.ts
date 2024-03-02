@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductSearchResponse, Sku } from '../model/common-models';
-import { ProductService } from '../service/product-service';
-import { SearchService } from '../service/search-service';
+import { ProductService } from '../Service/product-service';
+import { SearchService } from '../Service/search-service';
 import { Product, ProductDetailResponse } from '../model/common-models';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -14,10 +14,10 @@ import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
-import { CommonService } from '../service/common.service';
+import { CommonService } from '../Service/common.service';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
-import { LoadingService } from '../service/loading.service';
+import { LoadingService } from '../Service/loading.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
