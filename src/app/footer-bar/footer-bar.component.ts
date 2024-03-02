@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
-import { CommonService } from '../service/common.service';
+import { CommonService } from '../Service/common.service';
 
 
 @Component({
