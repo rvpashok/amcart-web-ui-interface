@@ -12,7 +12,7 @@ import { DataViewModule } from 'primeng/dataview';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderBarComponent, FooterBarComponent,
+  imports: [CommonModule, RouterOutlet, FooterBarComponent,
     ProductsListingComponent, DataViewModule
   ],
   providers:[],
