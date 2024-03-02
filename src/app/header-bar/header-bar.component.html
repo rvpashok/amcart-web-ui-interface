@@ -1,0 +1,47 @@
+<!-- Menu Bar Html Started-->
+  <div class="" >
+    <p-megaMenu [model]="this.categoryMenuBarItem" styleClass= "flex" [style]="{'display':'inline-flex','width':'100%','border-radius': '0.1rem', 'background-image': 'linear-gradient(to right, var(--bluegray-200), var(--bluegray-200))'}">
+        <ng-template pTemplate="start">
+            <div class="justify-content-start" (click)=onClickHomeIcon() style="margin-right: 10px;margin-left: 1px; cursor: pointer;">
+                <img src="./assets/amcart-high-resolution-logo-transparent.png" height="50" class="mr-4" />
+            </div>
+        </ng-template>
+        
+        <ng-template pTemplate="end">
+            <div style="width: 100% !important;">
+                <p-dropdown id="selectCategoryId" [options]="categories" [(ngModel)]="this.commonService.selectedCategory" optionLabel="displayName"
+                [showClear]="false" placeholder="Select a Category" [required]="true"></p-dropdown>
+                <p-autoComplete placeholder="Search Products in amcart.com" [(ngModel)]="this.commonService.selectedSearchTermItem" [suggestions]="suggestions" 
+                    (onSelect)="suggestionSelected($event)" (completeMethod)="search($event)" 
+                    dropdownIcon="pi pi-search" (keydown.enter)="onEnter($event)" [showClear]="true" [autoOptionFocus]="false" [autoHighlight]="false"
+                    [style]="{'margin-right': '0%','margin-left':'-3px','border-radius':0, 'border-top-right-radius': '6px', 'border-bottom-right-radius': '6px'}" ></p-autoComplete>
+                <span>
+                    <p-button label="" icon="pi pi-search"(onClick)="onEnter($event)"  severity="primary" [style]="{'margin-right': '2%', 'margin-left':'-4px'}"></p-button>
+                </span>    
+                <p-button label="Sign In" (onClick)="login($event)"  icon="fa fa-sign-in" [style]="{'margin-right': '3%'}" *ngIf="(auth.isAuthenticated$ | async) === false"> </p-button>
+                <p-splitButton label="Account" [model]="this.items" icon="fa fa-user-o" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2" 
+                        *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}"></p-splitButton>
+                <p-button label="Sign Out" (onClick)="logout($event)" icon="fa fa-sign-out" *ngIf="auth.isAuthenticated$ | async" [style]="{'margin-right': '3%'}" ></p-button>
+                <p-overlayPanel #op>
+                    <div *ngIf="this.commonService.totalCartItemCount == 0">
+                        <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                            <strong><span >Your Cart is empty</span></strong>
+                        </div>
+                    </div>
+                    <div *ngIf="this.commonService.totalCartItemCount && this.commonService.totalCartItemCount > 0">
+                        <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                            <strong><span >{{this.commonService.totalCartItemCount}} Cart Items Available</span></strong>
+                        </div>
+                        <p-button label="Remove Cart" [link]="true" (onClick)="this.commonService.emptyCart($event)"  [style]="{'margin-right': '3%'}"> </p-button>
+                    </div>
+                </p-overlayPanel>
+                <p-button label="Cart" (click)="op.toggle($event)" [outlined]="true"  badge="{{this.commonService.totalCartItemCount}}"
+                badgeClass="p-badge-success p-overlay-badge" (onClick)="onClickCart($event)"  icon="pi pi-shopping-cart" [style]="{'margin-right': '3%'}"> </p-button>
+            </div>       
+           
+        </ng-template> 
+
+    </p-megaMenu>
+</div>
+<!-- Menu Bar Html Ended-->
+

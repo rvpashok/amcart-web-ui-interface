@@ -1,0 +1,21 @@
+.header-bar-content{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.body-content{
+    text-align: center;
+    height: 100%;
+    /* margin-top: 10%; */
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.bottom-bar-content{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}

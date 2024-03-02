@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  pre_build:
+    commands:
+      - echo Logging in to Angular application poc...
+      - npm install --force
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+      #- npm run start 
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the files into s3 bucket
+      - aws s3 sync dist/app s3://$S3_BUCKET_NAME --delete
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+      - while [ $(aws cloudfront get-distribution --id $CLOUDFRONT_DISTRIBUTION_ID | grep -c Deployed) -eq 0 ]; do echo "sleep 60s"; sleep 60; done 
+      - echo CloudFront Cache Invalidated Successfully   
+      - echo Frontend Code Deployed Successfully      

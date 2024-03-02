@@ -1,0 +1,95 @@
+
+
+<div *ngIf="isPageLoading" style="margin-left: auto; margin-right: auto; margin-top: 10%;">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+</div>
+
+<div *ngIf="isPageLoading==false" class="card">
+    <h2 style="font-family: var(--font-family);">Today's Deal</h2>
+    <p-carousel [value]="this.productList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
+        <ng-template let-product pTemplate="item">
+            <div class="grid grid-nogutter" style="display: block;">
+                <div class="card">
+                    <div style="cursor: pointer;" class="border border-primary" [attr.data-id]="product.productId" [attr.data-sku-id]="product.skuId" (click)="caroselProductClick($event)">
+                        <div class="mb-3">
+                            <img src="{{product.skuMediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
+                        </div>
+                        <div>
+                            <p-tag severity="danger">
+                                <div class="flex align-items-center gap-2">
+                                    {{ product.tags }}
+                                </div>
+                            </p-tag>
+                            <h5 class="mb-1">{{ product.name }}</h5>
+                            <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                                <strong><span >{{ '₹' + product.price }}</span></strong>
+                                <s><span style="margin-left: 10px;">{{'₹' + product.originalPrice }}</span></s>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                        <p-toast position="bottom-center" key="bc"></p-toast>
+                        <p-button label="Add To Cart"   (onClick)="this.commonService.addToCart($event)" [style]="{'margin-right': '1%','margin-bottom': '3px'}"
+                        icon="pi pi-shopping-cart" [outlined]="true" severity="info"> </p-button>
+                    </div>
+                    <!-- <div>
+                        <p-toast key="toast1"></p-toast>
+                        <p-toast key="toast2"></p-toast>
+                        <button type="button" pButton pRipple (click)="showToast1()" label="Show Success"></button>
+                        <button type="button" pButton pRipple (click)="showToast2()" label="Show Warning" class="p-button-success"></button>
+                    </div> -->
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+<div *ngIf="isPageLoading==false" class="card">
+    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+    <h2 style="font-family: var(--font-family);">Top Picks of the Week</h2>
+    <p-carousel [value]="this.topPicksOfTheWeekproductList" [numVisible]="4" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="8000">
+        <ng-template let-product pTemplate="item">
+            <div style="cursor: pointer;" class="border-1 surface-border border-round m-2 text-center py-5 px-3" [attr.data-id]="product.productId" [attr.data-sku-id]="product.skuId" (click)="caroselProductClick($event)">
+                <div class="mb-3">
+                    <img src="{{product.skuMediaUrl}}" width="300px" height= "300px" [alt]="product.name" class="w-6 shadow-2" />
+                </div>
+                <div>
+                    <p-tag severity="danger">
+                        <div class="flex align-items-center gap-2">
+                            {{ product.tags }}
+                        </div>
+                    </p-tag>
+                    <h5 class="mb-1">{{ product.name }}</h5>
+                    <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                        <strong><span >{{ '₹' + product.price }}</span></strong>
+                        <s><span style="margin-left: 10px;">{{'₹' + product.originalPrice }}</span></s>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                <p-toast position="bottom-center" key="bc"></p-toast>
+                <p-button label="Add To Cart"   (onClick)="this.commonService.addToCart($event)" [style]="{'margin-right': '1%','margin-bottom': '3px'}"
+                icon="pi pi-shopping-cart" [outlined]="true" severity="info"> </p-button>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+<div *ngIf="isPageLoading==false" class=" px-4 py-8 md:px-6 lg:px-8">
+    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+    <h3> Random GUID: 07250329-b924-42ea-b86d-d10eb6e32899</h3>
+    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+    <h3 style="font-family: var(--font-family);">Get 25% Discount Today!</h3>
+    <div class="text-600 text-2xl block mt-4 lg:text-left">Sign up our email list and know all about new
+        collections</div>
+        <div><br/></div>
+    <div class="mt-4 mx-auto lg:mx-0" style="max-width: 38rem; margin-right: auto;margin-left: auto;display: block;">
+        <div class="p-inputgroup">
+            <input type="text" pInputText placeholder="Enter your email address"
+                class="p-inputtext p-component p-element" required>
+            <!-- <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast> -->
+            <p-button label="Subscribe" (onClick)="subscribeEvent($event)"  [style]="{'border-radius':0, 'border-top-right-radius': '6px', 'border-bottom-right-radius': '6px'}" 
+                     severity="secondary"> </p-button>
+        </div>
+    </div>
+    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+</div>

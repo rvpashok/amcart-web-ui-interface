@@ -1,0 +1,34 @@
+<div *ngIf="isPageLoading" style="margin-left: auto; margin-right: auto; margin-top: 10%;">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+</div>
+
+<div *ngIf="isPageLoading==false" fxLayout="row" fxLayoutGap="16px" style="margin-top: 70px;">
+    <div fxFlex="100%" *ngIf="this.userDetails != null">
+        <div class="column-content">
+            <div class="card">
+                    <div *ngIf="this.userDetails != null && this.userDetails.profilePicUrl != undefined" class="border-1 surface-border border-round m-2 text-center py-5 px-3 profilePic">
+                        <div class="mb-3">
+                            <img src="{{this.userDetails.profilePicUrl}}" alt="Profile Pic Image comes here !!!" class="w-6 shadow-2" />
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="column-content" style=" margin-top: 40px;">
+            <div class="card">
+                <div class="profileFields">
+                    <label for="username" style="margin-right: 10px;">Name: </label>
+                    <input pInputText id="username" [(ngModel)]="userDetails.name" readonly="true"/>
+                </div>
+                <div class="profileFields">
+                    <label for="email" style="margin-right: 10px;">Email: </label>
+                    <input pInputText id="email" [(ngModel)]="userDetails.email" readonly="true"/>
+                </div>
+                <div class="profileFields">
+                    <label for="phoneNumber" style="margin-right: 10px;">Identifier: </label>
+                    <input pInputText id="phoneNumber" [(ngModel)]="userDetails.phone_number" readonly="true"/>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+/* .card-top {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: .25rem;
+}
+
+.item img {
+    width: 64px;
+}
+
+.item {
+    margin: 0px 15px;
+    text-align: center;
+}
+
+.item a:hover {
+    color: blue;
+}
+
+.card {
+    padding: 20px;
+    margin: 50px;
+}
+
+.card img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 15px;
+    transition: 0.3s ease-in-out;
+}
+
+.card img:hover {
+    transition: 0.3s ease-in-out;
+    transform: scale(1.1);
+}
+
+
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  } */
+
+  .content {
+    padding: 16px;
+  }
+  
+  .content > mat-card {
+    width: 200px;
+  }
+  .custom-list-card{
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }
+  
+    .card {
+    width: 350px; 
+    /* height: 600px; */
+    height: auto;
+    margin: 12px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }  
+
+  .grid-container {
+    display: grid;
+    grid-auto-columns: 50px;
+    grid-gap: 10px;
+    background-color: #2196F3;
+    padding: 10px;
+  }
+
+/* 
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+  } */
+/* 
+  .col {
+    box-sizing: border-box;
+    width: calc(33.33% - 20px); 
+    padding: 10px; 
+  } */
+
+  /* Additional styling for illustration purposes */
+  /* .col {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    margin: 10px;
+    text-align: center;
+  } */

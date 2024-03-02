@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeng/resources/primeng.min.css";
+@import "primeicons/primeicons.css";
+@import 'font-awesome/css/font-awesome.min.css';
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+  @media screen and (min-width: 600px) {
+    html body .p-megamenu .p-megamenu-end{
+        /* margin-left: 3% !important; */
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 80%;
+      }
+  }
+
+  @media screen and (min-width: 1200px) {
+    html body .p-megamenu .p-megamenu-end{
+        /* margin-left: 3% !important; */
+        margin-left: auto;
+        margin-right: 20px;
+        display: block;
+        width: 60%;
+      }
+  }

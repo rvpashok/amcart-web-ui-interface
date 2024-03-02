@@ -1,0 +1,133 @@
+<div style="margin-top: 10px;">
+    <p-breadcrumb class="max-w-full" [model]="breadCrumbItems" [home]="homePage"></p-breadcrumb>
+</div>
+
+<div *ngIf="isPageLoading" style="margin-left: auto; margin-right: auto; margin-top: 10%;">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+</div>
+
+  <div *ngIf="isPageLoading==false" fxLayout="row" fxLayoutGap="16px" style="margin-top: 10px;">
+    <div fxFlex="20%">
+        <div class="card flex justify-content-center">
+            <b><p class="p-text-primary" style="text-size-adjust: 50px; font-family: var(--font-family);">
+                Sort Options
+            </p></b>
+
+            <div>
+                <p-accordion [multiple]="true" [activeIndex]="[0]">
+                    <p-accordionTab header="Sort By">
+                        <p-dropdown [options]="this.productSortingOptions" [(ngModel)]="this.selectedSortByOption" optionLabel="displayName"
+                        [showClear]="false" placeholder="Select a SortBy" (onChange)="productSortByChange($event)"></p-dropdown>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+            <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+            <b><p id="productSortingOptionsLabel" class="p-text-primary" style="text-size-adjust: 50px; font-family: var(--font-family);">Filter Options </p></b>
+            
+            <div>
+                <p-accordion [multiple]="true" [activeIndex]="[0,1]">
+                    <p-accordionTab header="Color">
+                        <!-- <span id="productFilterByColorLabel" style="text-size-adjust: 50px;">Color: </span>
+                        <p-dropdown [options]="this.productFilterByColorOptions" [(ngModel)]="this.selectedFilterByColorOption" optionLabel="displayName"
+                        [showClear]="false" placeholder="Select a Color"></p-dropdown> -->
+                        <div style="display: grid;">
+                            <div style="display: inline-grid; margin-bottom: 10px; float: left;" *ngFor="let colorOption of this.productFilterByColorOptions" class="field-checkbox">
+                                <p-checkbox [label]="colorOption.displayName" name="group" [value]="colorOption" trueValue="true" [(ngModel)]="this.selectedFilterByColorOption"></p-checkbox>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                    <p-accordionTab header="Brand">
+                        <!-- <span id="productFilterByBrandLabel" style="text-size-adjust: 50px;">Brand: </span>
+                        <p-dropdown [options]="this.productFilterByBrandOptions" [(ngModel)]="this.selectedFilterByBrandOption" optionLabel="displayName"
+                        [showClear]="false" placeholder="Select a Brand"></p-dropdown> -->
+                        <div style="display: grid;">
+                            <div style="display: inline-grid; margin-bottom: 10px; float: left;" *ngFor="let brandOption of this.productFilterByBrandOptions" class="field-checkbox">
+                                <p-checkbox [label]="brandOption.displayName" name="group" [value]="brandOption" [(ngModel)]="this.selectedFilterByBrandOption"></p-checkbox>
+                            </div>
+                        </div>
+                        
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+            <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+            <div style="margin-top: 20px;" class="mt-5 flex align-items-center justify-content-center gap-2">
+                <p-button label="Apply Filter"  (onClick)="applyFilter($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
+                    [outlined]="true"> </p-button>
+                <p-button label="Reset Filter"  (onClick)="resetFilter($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
+                    [outlined]="true" severity="danger"> </p-button>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="80%">
+        <div class="column-content">
+            <p-dataView #dv [value]="productList" >
+                <ng-template pTemplate="empty">
+                    <div class="empty-message">
+                        <h1 class="m-0" style="margin-top: 10%;text-align: left; margin-left: 30%;">
+                            No Products Found !!!
+                        </h1>
+                    </div>
+                  </ng-template>
+                <ng-template pTemplate="listItem" let-products>
+                    <div class="grid grid-nogutter" style="display: block;">
+                        <div class="card" *ngFor="let item of productList; let first = first" style="display: inline-flex; float: left;" >
+                            <div   [ngClass]="{ 'border-top-1 surface-border': !first }" >
+                                <div style="cursor:pointer">
+                                    <div id="productItem" [attr.data-id]="item.productId" [attr.data-sku-id]="item.skuId" (click)="productClick($event)">
+                                        <div class="text-2xl font-bold" style="margin-bottom: 5px" >{{item.name}}</div>
+                                        <img [src]="item.skuMediaUrl" width="300px" height= "300px" [alt]="item.name" class="w-6 shadow-2" style="margin-left: auto;margin-bottom: 5px;"/>
+                                        <p-tag severity="info">
+                                            <span class="flex align-items-center gap-2">
+                                                {{ item.brand }}
+                                            </span>
+                                        </p-tag>
+                                        <div style="height: 30px;margin-top: 10px;">
+                                            <span >{{item.shortDescription}}</span>
+                                        </div>
+                                        <div>
+                                            <div class="mt-0 mb-3" style="margin-top: 20px;margin-bottom: 10px;">
+                                                <strong><span >{{ '₹' + item.price }}</span></strong>
+                                                <s><span style="margin-left: 10px;">{{'₹' + item.originalPrice }}</span></s>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p-divider layout="horizontal" class="p-element surface-border"></p-divider>
+                                    <div *ngIf="item.inventoryStatus=='LOW_STOCK'">
+                                        <p-tag severity="warning" [style]="{'margin-bottom': '10px'}">
+                                            <span class="flex align-items-center gap-2">
+                                                Low Stock
+                                            </span>
+                                        </p-tag>
+                                    </div>
+                                    <div *ngIf="item.inventoryStatus=='OUT_OF_STOCK'">
+                                        <p-tag severity="danger" [style]="{'margin-bottom': '10px'}">
+                                            <span class="flex align-items-center gap-2">
+                                                Out Of Stock
+                                            </span>
+                                        </p-tag>
+                                    </div>
+                                    <div *ngIf="item.inventoryStatus=='IN_STOCK'">
+                                        <p-tag severity="success" [style]="{'margin-bottom': '10px'}">
+                                            <span class="flex align-items-center gap-2">
+                                               In Stock
+                                            </span>
+                                        </p-tag>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                                    <p-button label="Add To Cart"  (onClick)="this.commonService.addToCart($event)"  [style]="{'margin-right': '1%','margin-bottom': '3px'}" 
+                                    icon="pi pi-shopping-cart" [outlined]="true" 
+                                    [severity]="this.commonService.getSeverity(item.inventoryStatus?item.inventoryStatus:'')"
+                                    [disabled]="this.commonService.isDisabled(item.inventoryStatus?item.inventoryStatus:'')"> </p-button>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+    </div>
+</div>
