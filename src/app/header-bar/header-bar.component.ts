@@ -254,17 +254,20 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
     var resultsSuggestions = new Array<string>();
     let categoryId = this.commonService.selectedCategory?JSON.stringify(this.commonService.selectedCategory.categoryId):'all';
     categoryId = JSON.parse(categoryId);
-    this.searchService.fetchSuggestions(encodeURIComponent(event.query), encodeURIComponent(categoryId)).subscribe( (response)=>{
-      //console.log("API Response: " + response);
-      if(response != null){
-        response.forEach(function (arrayItem) {
-          var x = arrayItem.name;
-          //console.log(x);
-          resultsSuggestions.push(x);
+    let searchTermText = event.query;
+    if(searchTermText != null && searchTermText.length >= 3){
+      this.searchService.fetchSuggestions(encodeURIComponent(searchTermText), encodeURIComponent(categoryId)).subscribe( (response)=>{
+        //console.log("API Response: " + response);
+        if(response != null){
+          response.forEach(function (arrayItem) {
+            var x = arrayItem.name;
+            //console.log(x);
+            resultsSuggestions.push(x);
+        });
+      }
+      this.suggestions = this.removeDuplicates(resultsSuggestions);
       });
     }
-    this.suggestions = this.removeDuplicates(resultsSuggestions);
-  });
   }
 
   onEnter(event: Event){
