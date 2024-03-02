@@ -56,7 +56,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
     public auth: AuthService,
     @Inject(DOCUMENT) private doc: Document,
     public commonService:CommonService){
-      console.log("AuthModule config Clicked");
+      //console.log("AuthModule config Clicked");
   }
   
   //selectedItem: any;
@@ -153,6 +153,7 @@ export class HeaderBarComponent /*implements AfterViewInit*/{
            'list-style': 'none'
          };
          megaMenuItem.command = (event)=>{
+          this.commonService.resetSelectedSearchTermItem();
           this.commonService.productListingFilter = new Array<ProductFilter>();
           var navigationExtras = {
             queryParams: { 'searchTerm': "",
