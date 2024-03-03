@@ -135,3 +135,7 @@ export class Product {
     categoryId: string;
     parentCategoryId: string;
   }
+
+  export interface Environment{
+    'baseUrl' : string
+ }

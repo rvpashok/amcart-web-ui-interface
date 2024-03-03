@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SearchSuggestionsResults, SearchResults } from '../model/common-models';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environments';
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +13,9 @@ export class SearchService{
 
     fetchSuggestions(searchTerm:string, categoryId:string){
             //console.log("SearchTerm:" + searchTerm + " :: CategoryId:" + categoryId);
-            //return this.http.get<SearchSuggestionsResults>("http://localhost:9010/orchestrationservices/api/search/products/suggestions",
-            return this.http.get<SearchSuggestionsResults>("https://ojx3smmf5b.execute-api.ap-south-1.amazonaws.com/orchestrationservices/api/search/products/suggestions",
+            var searchSuggesstionUrl = environment.baseUrl + "orchestrationservices/api/search/products/suggestions";
+            return this.http.get<SearchSuggestionsResults>(searchSuggesstionUrl,
+            //return this.http.get<SearchSuggestionsResults>("https://ojx3smmf5b.execute-api.ap-south-1.amazonaws.com/orchestrationservices/api/search/products/suggestions",
             {params:{"searchTerm":searchTerm.trim(), "categoryId": categoryId.trim()},"responseType":"json"})
            /* response.subscribe( (res)=>{
                 console.log(res.content);
@@ -22,6 +24,7 @@ export class SearchService{
                 map(res => {
                     return res.content;
                 })
+                
             );
             
     }
@@ -36,9 +39,9 @@ export class SearchService{
         else{
             paramsObj =  {"searchTerm":searchTerm.trim(), "categoryId":categoryId.trim(), "amcartSort":sortBy};
         }
-        
-        //return this.http.get<SearchResults>("http://localhost:9010/orchestrationservices/api/search/products",
-        return this.http.get<SearchResults>("https://ojx3smmf5b.execute-api.ap-south-1.amazonaws.com/orchestrationservices/api/search/products",
+        var searchDataUrl = environment.baseUrl + "orchestrationservices/api/search/products";
+        return this.http.get<SearchResults>(searchDataUrl,
+        //return this.http.get<SearchResults>("https://ojx3smmf5b.execute-api.ap-south-1.amazonaws.com/orchestrationservices/api/search/products",
         {params:paramsObj,"responseType":"json"})
         .pipe(
             map(res => {
